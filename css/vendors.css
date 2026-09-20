@@ -551,9 +551,9 @@
 }
 
 .vendor-card {
-    background: rgba(235, 247, 255, .62);
-    backdrop-filter: blur(13px);
-    -webkit-backdrop-filter: blur(13px);
+    background: rgba(235, 247, 255, .50);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .vendor-card-top {
@@ -582,6 +582,27 @@
 
     box-shadow:
         0 7px 14px rgba(0,60,130,.13);
+}
+
+.vendor-avatar svg,
+.vendor-modal-icon svg {
+    width: 25px;
+    height: 25px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    filter:
+        drop-shadow(0 0 5px rgba(255,255,255,.42));
+}
+
+.vendor-icon-accent {
+    fill: currentColor;
+    stroke: none;
+    opacity: .85;
 }
 
 .vendor-avatar.color-0 {
@@ -625,7 +646,7 @@
 .vendor-card-heading p {
     margin-top: 4px;
 
-    color: #5b7f9d;
+    color: #285d89;
 
     font-size: 9px;
     line-height: 1.35;
@@ -635,6 +656,26 @@
     -webkit-line-clamp: 2;
 
     overflow: hidden;
+}
+
+.vendor-card-contact {
+    display: grid;
+    gap: 3px;
+
+    margin-top: 10px;
+    padding-top: 8px;
+
+    border-top: 1px solid rgba(58, 111, 153, .10);
+
+    color: #174f7d;
+    font-size: 9px;
+    line-height: 1.25;
+}
+
+.vendor-card-contact span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .vendor-company {
@@ -649,7 +690,7 @@
 .vendor-company span {
     display: block;
 
-    color: #7894aa;
+    color: #426f94;
 
     font-size: 7px;
     font-weight: 800;
@@ -689,7 +730,7 @@
 .vendor-team {
     min-width: 0;
 
-    color: #6b89a1;
+    color: #285d89;
 
     font-size: 8px;
     font-weight: 700;

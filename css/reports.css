@@ -40,6 +40,34 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+body.scroll-shell {
+    height: 100vh;
+    overflow: hidden;
+}
+
+body.scroll-shell .main-content {
+    height: 100vh;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+}
+
+body.scroll-shell .main-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+body.scroll-shell .main-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body.scroll-shell .main-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .25);
+    border-radius: 999px;
+}
+
 button,
 input,
 select {
@@ -161,14 +189,31 @@ body::after {
     height: 116px;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 
     padding-top: 5px;
 
     border-bottom:
         1px solid rgba(255, 255, 255, .14);
+}
+
+.sidebar-brand-icon {
+    width: 48px !important;
+    height: 48px !important;
+
+    flex: 0 0 48px;
+
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.sidebar-brand-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .alaska-logo {
@@ -216,6 +261,19 @@ body::after {
     gap: 7px;
 
     padding-top: 18px;
+}
+
+.nav-icon svg {
+    width: 22px;
+    height: 22px;
+
+    display: block;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
 }
 
 .nav-item {
@@ -497,6 +555,17 @@ body::after {
 
     font-size: 13px;
     font-weight: 800;
+}
+
+.profile-avatar svg {
+    width: 28px;
+    height: 28px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .profile-info {
@@ -827,7 +896,9 @@ body::after {
    ============================================================ */
 
 .report-panel {
+    position: relative;
     min-width: 0;
+    overflow: hidden;
 
     padding:
         18px;
@@ -855,6 +926,31 @@ body::after {
         blur(20px);
 }
 
+.report-panel::before,
+.report-panel::after {
+    content: "";
+
+    position: absolute;
+    bottom: -78px;
+
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+
+    background: rgba(16, 135, 238, .08);
+
+    pointer-events: none;
+}
+
+.report-panel::before {
+    left: -88px;
+}
+
+.report-panel::after {
+    right: -88px;
+}
+
 .application-health-panel {
     grid-row: span 2;
 }
@@ -869,6 +965,9 @@ body::after {
    ============================================================ */
 
 .panel-header {
+    position: relative;
+    z-index: 1;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -926,6 +1025,9 @@ body::after {
    ============================================================ */
 
 .application-list {
+    position: relative;
+    z-index: 1;
+
     display: grid;
 
     gap: 8px;
@@ -1507,25 +1609,87 @@ body::after {
 
         left: 5px;
         top: 5px;
-        bottom: 5px;
+        bottom: 15px;
 
-        height: calc(100vh - 10px);
+        height: calc(100dvh - 20px);
+        max-height: calc(100dvh - 20px);
+        height: calc(100dvh - 20px);
+        bottom: 15px;
 
         border-radius: 20px;
 
         padding:
             0 7px 10px;
+
+        border-right-color: rgba(255, 255, 255, .06);
+    }
+
+    body.scroll-shell {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    body.scroll-shell .main-content {
+        height: 100vh;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+    }
+
+    body.scroll-shell .main-content::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    body.scroll-shell .main-content::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    body.scroll-shell .main-content::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, .24);
+        border-radius: 999px;
+    }
+
+    @media (max-width: 850px) {
+        .sidebar {
+            top: 5px !important;
+            bottom: 15px !important;
+            height: auto !important;
+            max-height: none !important;
+            border-radius: 20px !important;
+        }
     }
 
     .main-content {
-        margin-left: 84px;
+        margin-left: 94px;
 
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-top: 27px;
+        padding-right: 0;
+        padding-bottom: 25px;
+        padding-left: 0;
     }
 
     .alaska-logo {
         font-size: 19px;
+    }
+
+    .sidebar-brand {
+        justify-content: center;
+        gap: 0;
+    }
+
+    .sidebar-brand-icon {
+        width: 42px !important;
+        height: 42px !important;
+        flex-basis: 42px;
+
+        border-radius: 10px;
+    }
+
+    .sidebar-brand-text {
+        display: none;
     }
 
     .airlines-text {
@@ -1550,7 +1714,27 @@ body::after {
     }
 
     .sidebar-bottom {
-        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 180px;
+        z-index: 2;
+
+        display: block;
+        padding: 0 1px 6px;
+        text-align: center;
+    }
+
+    .sidebar-quote {
+        padding: 0 0 5px;
+        font-size: 5px;
+        line-height: 1.15;
+    }
+
+    .sidebar-copyright {
+        padding-top: 5px;
+        font-size: 4px;
+        line-height: 1.2;
     }
 
     .hero-message {
@@ -1570,6 +1754,15 @@ body::after {
 
 
 @media (max-width: 600px) {
+
+    .top-header {
+        height: 0;
+        min-height: 0;
+    }
+
+    .profile-button {
+        display: none;
+    }
 
     .stats-grid {
         grid-template-columns: 1fr;

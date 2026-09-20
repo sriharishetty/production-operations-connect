@@ -23872,9 +23872,13 @@
     }
     return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", { className: "login", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", { className: grantingAccess ? "access-granted" : "", onSubmit: submit, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "login-brand", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Alaska." }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "AIRLINES" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: "\u{1F510}" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "login-brand-row", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { className: "login-brand-icon", src: "../public/sidebar-logo.png", alt: "Alaska Airlines logo" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "login-brand-copy", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Alaska." }),
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "AIRLINES" })
+          ] })
+        ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: "Admin Control Center" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "Authorized administrators only" })
       ] }),
@@ -24094,8 +24098,11 @@
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("main", { className: "app", children: [
       /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("aside", { className: "sidebar", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "sidebar-brand", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h1", { children: "Alaska." }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "AIRLINES" })
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("img", { className: "sidebar-brand-icon", src: "../public/sidebar-logo.png", alt: "Alaska Airlines logo" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h1", { children: "Alaska." }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "AIRLINES" })
+          ] })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("nav", { className: "sidebar-nav", children: [
           navigation2.map(([label, href, icon]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("a", { href, className: `nav-item${isActiveNavigation(href) ? " active" : ""}`, children: [
@@ -24127,7 +24134,8 @@
       /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "top", children: [
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "PRODUCTION OPERATIONS" }),
+            "  ",
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "ITS Production Operations" }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h1", { children: "Admin Control Center" }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "Manage applications, vendors and operational information." })
           ] }),

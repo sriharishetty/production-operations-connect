@@ -30,7 +30,7 @@ export default function Login({ onLogin }) {
   }
 
   return <main className="login"><form className={grantingAccess ? "access-granted" : ""} onSubmit={submit}>
-    <div className="login-brand"><strong>Alaska.</strong><span>AIRLINES</span><b>🔐</b><h1>Admin Control Center</h1><p>Authorized administrators only</p></div>
+    <div className="login-brand"><div className="login-brand-row"><img className="login-brand-icon" src="../public/sidebar-logo.png" alt="Alaska Airlines logo" /><div className="login-brand-copy"><strong>Alaska.</strong><span>AIRLINES</span></div></div><h1>Admin Control Center</h1><p>Authorized administrators only</p></div>
     <label>Administrator Email<div className="input-wrap"><i>✉</i><input type="email" placeholder="name@alaskaair.com" value={email} onChange={e => setEmail(e.target.value)} required disabled={grantingAccess} /></div></label>
     <label>Password<div className="input-wrap"><i>🔑</i><input type={showPassword ? "text" : "password"} placeholder="Enter password" value={password} onChange={e => setPassword(e.target.value)} required disabled={grantingAccess} /><button className="show-password" type="button" onClick={() => setShowPassword(value => !value)}>{showPassword ? "Hide" : "Show"}</button></div></label>
     {message && <p className="error">{message}</p>}

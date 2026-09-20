@@ -275,6 +275,24 @@ textarea {
   text-align: center;
   animation: brandReveal .55s ease-out .12s both;
 }
+.login-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.login-brand-icon {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 8px 18px rgba(0, 75, 150, .20);
+}
+.login-brand-copy {
+  display: grid;
+  justify-items: start;
+  text-align: left;
+}
 .login-brand strong {
   color: #075fa9;
   font: italic 45px Georgia, serif;
@@ -309,7 +327,7 @@ textarea {
   box-shadow: 0 12px 22px rgba(0, 106, 203, .32), 0 0 0 4px rgba(55, 166, 255, .10);
 }
 .login-brand h1 {
-  margin: 0;
+  margin: 16px 0 0;
   color: #063d7d;
   font-size: 28px;
   animation: titleReveal .5s ease-out .38s both;
@@ -965,9 +983,9 @@ body::after {
 .top,
 .panel,
 .stats article {
-  border: 1px solid rgba(255, 255, 255, .42);
-  background: rgba(255, 255, 255, .18);
-  box-shadow: 0 15px 38px rgba(3, 45, 80, .20), inset 0 1px 0 rgba(255, 255, 255, .22);
+  border: 1px solid rgba(255, 255, 255, .58);
+  background: rgba(220, 240, 252, .62);
+  box-shadow: 0 15px 38px rgba(3, 45, 80, .22), inset 0 1px 0 rgba(255, 255, 255, .62);
   backdrop-filter: blur(18px) saturate(125%);
   -webkit-backdrop-filter: blur(18px) saturate(125%);
 }
@@ -977,8 +995,8 @@ body::after {
   background:
     linear-gradient(
       118deg,
-      rgba(3, 54, 105, .48),
-      rgba(74, 153, 211, .20));
+      rgba(7, 79, 143, .78),
+      rgba(71, 151, 211, .58));
 }
 .top h1 {
   color: #fff;
@@ -997,8 +1015,8 @@ body::after {
   background:
     linear-gradient(
       135deg,
-      rgba(231, 247, 255, .40),
-      rgba(175, 218, 244, .20));
+      rgba(231, 247, 255, .78),
+      rgba(175, 218, 244, .60));
 }
 .stats article::before {
   opacity: 1;
@@ -1008,8 +1026,8 @@ body::after {
   background:
     linear-gradient(
       135deg,
-      rgba(239, 250, 255, .30),
-      rgba(182, 222, 247, .18));
+      rgba(239, 250, 255, .78),
+      rgba(182, 222, 247, .60));
 }
 .panel h2,
 .row strong {
@@ -1023,14 +1041,14 @@ body::after {
   padding: 15px 16px;
   border: 1px solid rgba(255, 255, 255, .48);
   border-radius: 14px;
-  background: rgba(245, 252, 255, .37);
+  background: rgba(245, 252, 255, .78);
   box-shadow: 0 7px 17px rgba(20, 79, 121, .10), inset 0 1px 0 rgba(255, 255, 255, .46);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 .row:hover {
   border-color: rgba(193, 237, 255, .78);
-  background: rgba(250, 254, 255, .49);
+  background: rgba(250, 254, 255, .90);
   box-shadow: 0 13px 26px rgba(8, 65, 110, .18), inset 0 1px 0 rgba(255, 255, 255, .68);
 }
 @media (max-width: 900px) {
@@ -1066,8 +1084,8 @@ body::after {
   background:
     linear-gradient(
       135deg,
-      rgba(6, 61, 111, .57),
-      rgba(30, 84, 135, .46));
+      rgba(6, 61, 111, .78),
+      rgba(30, 84, 135, .68));
   box-shadow: 0 8px 25px rgba(0, 30, 63, .15);
   backdrop-filter: blur(17px);
   -webkit-backdrop-filter: blur(17px);
@@ -1200,10 +1218,21 @@ body::after {
 .app aside.sidebar .sidebar-brand {
   height: 112px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 12px;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid rgba(255, 255, 255, .17);
+}
+.app aside.sidebar .sidebar-brand-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+.app aside.sidebar .sidebar-brand > div {
+  min-width: 0;
 }
 .app aside.sidebar h1 {
   width: auto;
@@ -1219,7 +1248,7 @@ body::after {
   font-weight: 700;
   letter-spacing: -2px;
   line-height: .9;
-  text-align: center;
+  text-align: left;
 }
 .app aside.sidebar .sidebar-brand p {
   width: auto;
@@ -1231,7 +1260,7 @@ body::after {
   font-weight: 800;
   letter-spacing: 5px;
   line-height: 1;
-  text-align: center;
+  text-align: left;
 }
 .app aside.sidebar .sidebar-nav {
   display: flex;
@@ -1322,6 +1351,16 @@ body::after {
   .app section {
     width: auto;
     margin-left: 0;
+  }
+}
+@media (max-width: 640px) {
+  .app aside.sidebar .sidebar-brand {
+    justify-content: flex-start;
+  }
+  .app aside.sidebar .sidebar-brand-icon {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
   }
 }
 .modal {

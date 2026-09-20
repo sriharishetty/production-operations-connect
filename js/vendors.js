@@ -162,6 +162,7 @@
             return "V";
         }
 
+
         if (words.length === 1) {
 
             return words[0]
@@ -174,6 +175,56 @@
             words[0][0] +
             words[1][0]
         ).toUpperCase();
+
+    }
+
+
+    function vendorIcon(vendor) {
+
+        const label = [
+            vendor.company,
+            vendor.vendor,
+            vendor.displayName,
+            vendor.category
+        ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+        const icons = [
+            '<path d="M4 20V5l8-2 8 2v15"></path><path d="M8 8h2m4 0h2M8 12h2m4 0h2M8 16h2m4 0h2"></path>',
+            '<path d="M7 18h10a3.5 3.5 0 0 0 .4-7A5.5 5.5 0 0 0 7 9.5 4.25 4.25 0 0 0 7 18Z"></path><path d="m8 21 1-1m4 1 1-1m4 1 1-1"></path>',
+            '<path d="M4 8h16v12H4z"></path><path d="M8 8V5h8v3M8 12v4m8-4v4"></path>',
+            '<path d="m2.5 12 7.1-1.1 3.1-6.7 1.8.5-1 6.6 4.1.2 4-2.2.8.6-2.8 2.8 2.8 2.8-.8.6-4-2.2-4.1.2 1 6.6-1.8.5-3.1-6.7L2.5 12Z"></path>',
+            '<path d="M4 10a8 8 0 0 1 16 0"></path><path d="M7 10v6m10-6v6M5 16h3m8 0h3M9 20h6"></path>',
+            '<rect x="4" y="5" width="16" height="14" rx="2"></rect><path d="M8 9h8M8 13h5m-5 3h3"></path>',
+            '<circle cx="9" cy="8" r="3"></circle><path d="M3.5 19c.5-3.1 2.3-4.7 5.5-4.7s5 1.6 5.5 4.7M15 6a3 3 0 0 1 0 5.8M16 14.5c2.4.4 3.8 1.8 4.2 4.5"></path>',
+            '<circle cx="12" cy="12" r="7"></circle><path d="M12 5v7l4 2"></path>',
+            '<path d="m12 3 7 4v10l-7 4-7-4V7l7-4Z"></path><path d="m8 10 4 2 4-2M8 14l4 2 4-2"></path>',
+            '<path d="M5 5h14v14H5z"></path><path d="M8 9h8M8 12h8M8 15h5"></path>',
+            '<path d="M4 18h16M6 18V8h12v10M9 8V5h6v3"></path>',
+            '<path d="M12 3v4m0 10v4M3 12h4m10 0h4M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8m-7.2 7.2-2.8 2.8"></path><circle cx="12" cy="12" r="3"></circle>'
+        ];
+
+        const ordinal =
+            Math.max(0, vendors.indexOf(vendor));
+
+        let hash = ordinal;
+
+        if (/(weather|wsi|rain|fusion)/.test(label)) {
+            hash += 1;
+        } else if (/(baggage|cargo|icargo|spot|nettracer)/.test(label)) {
+            hash += 2;
+        } else if (/(flight|aircraft|aerodata|boeing|avtec|jetplan|jeppesen)/.test(label)) {
+            hash += 3;
+        }
+
+        const path = icons[hash % icons.length];
+        const accentX = 4 + (ordinal % 7) * 2.6;
+        const accentY = 4 + (Math.floor(ordinal / 7) % 6) * 3;
+        const accentRadius = 0.8 + (ordinal % 3) * 0.25;
+
+        return `<svg viewBox="0 0 24 24" aria-hidden="true">${path}<circle class="vendor-icon-accent" cx="${accentX}" cy="${accentY}" r="${accentRadius}"></circle></svg>`;
 
     }
 
@@ -433,12 +484,7 @@
                     <div class="vendor-card-top">
 
                         <div class="vendor-avatar ${colorClass}">
-                            ${escapeHtml(
-                                initials(
-                                    vendor.company || vendor.vendor ||
-                                    vendor.displayName
-                                )
-                            )}
+                            ${vendorIcon(vendor)}
                         </div>
 
                         <div class="vendor-card-heading">
@@ -476,6 +522,26 @@
                                 ""
                             )}
                         </strong>
+
+                    </div>
+
+                    <div class="vendor-card-contact">
+
+                        <span title="${escapeHtml(
+                            vendor.phone || "Not provided"
+                        )}">
+                            ☎ ${escapeHtml(
+                                vendor.phone || "Not provided"
+                            )}
+                        </span>
+
+                        <span title="${escapeHtml(
+                            vendor.email || "Not provided"
+                        )}">
+                            ✉ ${escapeHtml(
+                                vendor.email || "Not provided"
+                            )}
+                        </span>
 
                     </div>
 
@@ -532,11 +598,8 @@
         currentVendor = vendor;
 
 
-        modalIcon.textContent =
-            initials(
-                vendor.company || vendor.vendor ||
-                vendor.displayName
-            );
+        modalIcon.innerHTML =
+            vendorIcon(vendor);
 
 
         modalTitle.textContent =

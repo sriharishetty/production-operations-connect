@@ -8,6 +8,7 @@
     >
 
     <title>Production Operations | Dashboard</title>
+    <link rel="icon" type="image/png" href="public/favicon.png">
 
     <link
         rel="stylesheet"
@@ -807,7 +808,7 @@
     </style>
 </head>
 
-<body>
+<body class="scroll-shell">
 
     <!-- =========================================================
          SIDEBAR
@@ -816,49 +817,51 @@
     <aside class="sidebar">
 
         <div class="sidebar-brand">
-            <div class="alaska-logo">
-                Alaska.
-            </div>
-
-            <div class="airlines-text">
-                AIRLINES
-            </div>
+                <img class="sidebar-brand-icon" src="public/sidebar-logo.png" alt="">
+                <div class="sidebar-brand-text">
+                    <div class="alaska-logo">
+                        Alaska.
+                    </div>
+                    <div class="airlines-text">
+                        AIRLINES
+                    </div>
+                </div>
         </div>
 
         <nav class="sidebar-nav">
 
     <a href="home.html" class="nav-item active">
-        <span class="nav-icon">⌂</span>
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>
         <span>Home</span>
     </a>
 
     <a href="vendors.html" class="nav-item">
-        <span class="nav-icon">♟</span>
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 21h16M6 21V5h12v16M9 8h2m2 0h2M9 12h2m2 0h2M9 16h2m2 0h2M4 5l8-3 8 3"/></svg></span>
         <span>Vendors</span>
     </a>
 
     <a href="categories.html" class="nav-item">
-        <span class="nav-icon">▦</span>
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16M15 4v16"/></svg></span>
         <span>Categories</span>
     </a>
 
     <a href="#ground-stop-apps" class="nav-item">
-        <span class="nav-icon">✈</span>
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 13 7-2 3-8 2 1-1 7 7 2v2l-7 1 1 6-2 1-3-7-7-1z"/></svg></span>
         <span>Ground Stop Apps</span>
     </a>
 
     <a href="favorites.html" class="nav-item">
-        <span class="nav-icon">☆</span>
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9z"/></svg></span>
         <span>Favorites</span>
     </a>
 
     <a href="reports.html" class="nav-item">
-    <span class="nav-icon">▤</span>
+    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 7h6M9 11h6M9 15h4"/></svg></span>
     <span>Reports</span>
 </a>
 
 <a href="admin-react-dist/index.html" class="nav-item">
-    <span class="nav-icon">🛡</span>
+    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6zM9 12l2 2 4-4"/></svg></span>
     <span>Admin</span>
 </a>
 
@@ -898,26 +901,21 @@
             <div class="header-right">
 
                 <button
-                    class="notification-button"
-                    type="button"
-                    aria-label="Notifications"
-                >
-                    ♧
-                    <span class="notification-badge">3+</span>
-                </button>
-
-                <button
                     class="profile-button"
                     type="button"
                 >
 
                     <div class="profile-avatar">
-                        SS
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9"/>
+                            <circle cx="12" cy="8" r="3.5"/>
+                            <path d="M5 20c.8-3.4 3.1-5 7-5s6.2 1.6 7 5"/>
+                        </svg>
                     </div>
 
                     <div class="profile-info">
                         <strong>Welcome,</strong>
-                        <span>Production Operations</span>
+                        <span>ITS Production Operations</span>
                     </div>
 
                     <span class="profile-arrow"></span>
@@ -978,7 +976,9 @@
             <div class="stat-card">
 
                 <div class="stat-icon blue">
-                    ✈
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m3 13 7-2 3-8 2 1-1 7 7 2v2l-7 1 1 6-2 1-3-7-7-1z"/>
+                    </svg>
                 </div>
 
                 <div>
@@ -993,7 +993,9 @@
             <div class="stat-card">
 
                 <div class="stat-icon green">
-                    ✓
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m5 12 4 4L19 6"/>
+                    </svg>
                 </div>
 
                 <div>
@@ -1008,7 +1010,9 @@
             <div class="stat-card">
 
                 <div class="stat-icon red">
-                    !
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 4v9M12 17v1"/>
+                    </svg>
                 </div>
 
                 <div>
@@ -1023,7 +1027,10 @@
             <div class="stat-card">
 
                 <div class="stat-icon blue">
-                    ◷
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="8"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
                 </div>
 
                 <div>
@@ -1196,7 +1203,7 @@
                     <div class="application-card-bottom">
 
                         <span>
-                            ◷ SLA: 30 minutes
+                            ◷ SLA: 20 minutes
                         </span>
 
                         <button
@@ -1302,7 +1309,7 @@
                     <div class="application-card-bottom">
 
                         <span>
-                            ◷ SLA: 30 minutes
+                            ◷ SLA: 20 minutes
                         </span>
 
                         <button
@@ -1356,7 +1363,7 @@
                     <div class="application-card-bottom">
 
                         <span>
-                            ◷ SLA: 1 hour
+                            ◷ SLA: 20 minutes
                         </span>
 
                         <button
@@ -1400,8 +1407,8 @@
 
                         </div>
 
-                        <span class="severity-badge low">
-                            Low
+                        <span class="severity-badge high">
+                            High
                         </span>
 
                     </div>
@@ -1409,7 +1416,7 @@
                     <div class="application-card-bottom">
 
                         <span>
-                            ◷ SLA: 4 hours
+                            ◷ SLA: 20 minutes
                         </span>
 
                         <button
@@ -1463,7 +1470,7 @@
                     <div class="application-card-bottom">
 
                         <span>
-                            ◷ SLA: 30 minutes
+                            ◷ SLA: 20 minutes
                         </span>
 
                         <button
@@ -1517,7 +1524,7 @@
                     <div class="application-card-bottom">
 
                         <span>
-                            ◷ SLA: 1 hour
+                            ◷ SLA: 20 minutes
                         </span>
 
                         <button
@@ -2533,6 +2540,37 @@
          */
 
         const applications = window.masterData.applications;
+
+        document
+            .querySelectorAll(".application-card")
+            .forEach((card) => {
+                const application =
+                    applications[card.dataset.id];
+
+                if (!application) {
+                    return;
+                }
+
+                const contact =
+                    document.createElement("div");
+
+                contact.className = "application-contact";
+
+                const phone =
+                    document.createElement("span");
+                phone.textContent =
+                    `☎ ${application.phone || "Not provided"}`;
+
+                const email =
+                    document.createElement("span");
+                email.textContent =
+                    `✉ ${application.email || "Not provided"}`;
+
+                contact.append(phone, email);
+                card
+                    .querySelector(".application-card-bottom")
+                    .before(contact);
+            });
 
 
         /* =========================================================
