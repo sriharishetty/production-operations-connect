@@ -13,144 +13,8 @@ document.addEventListener(
            APPLICATION DATA
            ==================================================== */
 
-        const applications = [
-
-            {
-                id: "acars",
-                name: "ACARS",
-                description:
-                    "Aircraft Communications Addressing and Reporting System",
-                icon:
-                    "public/applications/acars.png",
-                severity:
-                    "Critical",
-                status:
-                    "Operational",
-                vendor:
-                    "SITA"
-            },
-
-            {
-                id: "wam",
-                name: "WAM",
-                description:
-                    "Weight and Balance Management",
-                icon:
-                    "public/applications/wam.png",
-                severity:
-                    "High",
-                status:
-                    "Operational",
-                vendor:
-                    "Smart4Aviation"
-            },
-
-            {
-                id: "jetplan",
-                name: "JetPlan",
-                description:
-                    "Flight Planning System",
-                icon:
-                    "public/applications/jetplan.png",
-                severity:
-                    "Critical",
-                status:
-                    "Operational",
-                vendor:
-                    "Jeppesen"
-            },
-
-            {
-                id: "s4a",
-                name: "S4A",
-                description:
-                    "Smart4Aviation Weight and Balance",
-                icon:
-                    "public/applications/s4a.png",
-                severity:
-                    "High",
-                status:
-                    "Operational",
-                vendor:
-                    "Smart4Aviation"
-            },
-
-            {
-                id: "jcte",
-                name: "JCTE",
-                description:
-                    "Crew Tracking / JCTE",
-                icon:
-                    "public/applications/jcte.png",
-                severity:
-                    "Medium",
-                status:
-                    "Operational",
-                vendor:
-                    "Jeppesen"
-            },
-
-            {
-                id: "airtrack",
-                name: "AirTrack",
-                description:
-                    "Aircraft Tracking",
-                icon:
-                    "public/applications/airtrack.png",
-                severity:
-                    "Low",
-                status:
-                    "Operational",
-                vendor:
-                    "AirTrack"
-            },
-
-            {
-                id: "pilot-briefing",
-                name: "Pilot Briefing",
-                description:
-                    "Pilot briefing application",
-                icon:
-                    "public/applications/pilot-briefing.png",
-                severity:
-                    "High",
-                status:
-                    "Operational",
-                vendor:
-                    "Production Operations"
-            },
-
-            {
-                id: "aircraft-maintenance",
-                name: "Aircraft Maintenance",
-                description:
-                    "Aircraft maintenance systems",
-                icon:
-                    "public/applications/aircraft-maintenance.png",
-                severity:
-                    "Medium",
-                status:
-                    "Operational",
-                vendor:
-                    "Production Operations"
-            },
-
-            {
-                id: "aims",
-                name: "AIMS",
-                description:
-                    "Airline Information Management System",
-                icon:
-                    "public/applications/aims.png",
-                severity:
-                    "Critical",
-                status:
-                    "Operational",
-                vendor:
-                    "AIMS"
-            }
-
-        ];
+        const applications = Object.values(window.masterData.applications);
+        const vendorRecords = window.masterData.vendors;
 
 
         /* ====================================================
@@ -466,13 +330,13 @@ document.addEventListener(
         document.getElementById(
             "vendorCount"
         ).textContent =
-            vendors.length;
+            vendorRecords.length;
 
 
         document.getElementById(
             "dataVendorCount"
         ).textContent =
-            vendors.length;
+            vendorRecords.length;
 
 
         if (vendorList) {

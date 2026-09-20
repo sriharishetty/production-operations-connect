@@ -9,108 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
        APPLICATION DATA
        ======================================================== */
 
-    const applications = [
-
-        {
-            id: "acars",
-            name: "ACARS",
-            description:
-                "Aircraft Communications Addressing and Reporting System",
-            icon: "public/applications/acars.png",
-            category: "ITS Flight Operations",
-            severity: "Critical",
-            sla: "15 minutes"
-        },
-
-        {
-            id: "wam",
-            name: "WAM",
-            description:
-                "Weight and Balance Management",
-            icon: "public/applications/wam.png",
-            category: "ITS Flight Operations",
-            severity: "High",
-            sla: "30 minutes"
-        },
-
-        {
-            id: "jetplan",
-            name: "JetPlan",
-            description:
-                "Flight Planning System",
-            icon: "public/applications/jetplan.png",
-            category: "ITS Flight Operations",
-            severity: "Critical",
-            sla: "15 minutes"
-        },
-
-        {
-            id: "s4a",
-            name: "S4A",
-            description:
-                "Schedule for America",
-            icon: "public/applications/s4a.png",
-            category: "ITS Flight Operations",
-            severity: "High",
-            sla: "30 minutes"
-        },
-
-        {
-            id: "jcte",
-            name: "JCTE",
-            description:
-                "Joint Carrier Technical Engineering",
-            icon: "public/applications/jcte.png",
-            category: "Production Operations",
-            severity: "Medium",
-            sla: "1 hour"
-        },
-
-        {
-            id: "airtrack",
-            name: "AirTrack",
-            description:
-                "Aircraft Tracking",
-            icon: "public/applications/airtrack.png",
-            category: "ITS Flight Operations",
-            severity: "Low",
-            sla: "4 hours"
-        },
-
-        {
-            id: "pilot-briefing",
-            name: "Pilot Briefing",
-            description:
-                "Electronic Flight Bag Briefing System",
-            icon: "public/applications/pilot-briefing.png",
-            category: "Production Operations",
-            severity: "High",
-            sla: "30 minutes"
-        },
-
-        {
-            id: "aircraft-maintenance",
-            name: "Aircraft Maintenance",
-            description:
-                "Maintenance Tracking and Management",
-            icon: "public/applications/aircraft-maintenance.png",
-            category: "Production Operations",
-            severity: "Medium",
-            sla: "1 hour"
-        },
-
-        {
-            id: "aims",
-            name: "AIMS",
-            description:
-                "Airline Information Management System",
-            icon: "public/applications/aims.png",
-            category: "Production Operations",
-            severity: "Critical",
-            sla: "15 minutes"
-        }
-
-    ];
+    const applications = Object.values(window.masterData.applications);
 
 
     /* ========================================================
@@ -609,7 +508,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             </span>
 
                             <span>
-                                SLA: ${app.sla}
+                                SLA: ${app.response || app.sla || ""}
                             </span>
 
                         </div>
@@ -933,19 +832,21 @@ function saveFavorites(favorites) {
 }
 
 /* Check if application is favorite */
-function isFavorite(applicationName) {
+function isFavorite(applicationId) {
     return getFavorites().some(
-        item => item.name === applicationName
+        item => (typeof item === "string" ? item : item.id) === applicationId
     );
 }
 
 /* Toggle favorite */
 function toggleFavorite(application) {
 
-    let favorites = getFavorites();
+    let favorites = getFavorites()
+        .map(item => typeof item === "string" ? item : item.id)
+        .filter(Boolean);
 
     const existingIndex = favorites.findIndex(
-        item => item.name === application.name
+        item => item === application.id
     );
 
     if (existingIndex >= 0) {
@@ -954,7 +855,7 @@ function toggleFavorite(application) {
 
     } else {
 
-        favorites.push(application);
+        favorites.push(application.id);
 
     }
 
@@ -1053,15 +954,17 @@ function setupApplicationFavorites() {
             "favorite-application";
 
         button.dataset.application =
-            applicationName;
+            (Object.values(window.masterData.applications).find(
+                app => app.name === applicationName
+            ) || {}).id || applicationName;
 
         button.innerHTML =
-            isFavorite(applicationName)
+            isFavorite(button.dataset.application)
                 ? "★"
                 : "☆";
 
         button.title =
-            isFavorite(applicationName)
+            isFavorite(button.dataset.application)
                 ? "Remove from Favorites"
                 : "Add to Favorites";
 
@@ -1072,16 +975,57 @@ function setupApplicationFavorites() {
                 event.preventDefault();
                 event.stopPropagation();
 
-                toggleFavorite({
-                    name: applicationName,
-                    description: description,
-                    icon: icon
-                });
+                const application = Object.values(
+                    window.masterData.applications
+                ).find(app => app.id === button.dataset.application);
+
+                if (application) {
+                    toggleFavorite(application);
+                }
 
             }
         );
 
-        card.appendChild(button);
+        const cardTop =
+            card.querySelector(
+                ".application-card-top"
+            );
+
+        const severity =
+            card.querySelector(
+                ".severity-badge"
+            );
+
+        let actions =
+            card.querySelector(
+                ".application-actions"
+            );
+
+        if (!actions && cardTop) {
+
+            actions =
+                document.createElement("div");
+
+            actions.className =
+                "application-actions";
+
+            cardTop.appendChild(actions);
+
+        }
+
+        if (actions) {
+
+            if (severity) {
+                actions.appendChild(severity);
+            }
+
+            actions.appendChild(button);
+
+        } else {
+
+            card.appendChild(button);
+
+        }
     });
 
     updateFavoriteButtons();

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { DEFAULT_APPLICATIONS } from "./generated-default-data.js";
 import LoginScreen from "./Login.jsx";
 import VendorEditor from "./VendorEditor.jsx";
 
@@ -8,10 +7,10 @@ const ADMINS = ["Srihari.Gangisetti@alaskaair.com", "Mohan.P@alaskaair.com", "Ma
 const fields = ["systemName", "category", "vendorCompanyName", "prodOpsEscalationProcess", "contactNumbers", "emailAddress", "vendorPOC", "aagItsPOC", "aagItsTeam", "infoUpdatedDate", "infoUpdatedBy", "infoApprovedDate", "infoApprovedBy"];
 const read = (key, fallback) => { try { const value = JSON.parse(localStorage.getItem(key)); return Array.isArray(value) ? value : fallback; } catch { return fallback; } };
 const workbookVendors = () => {
-  if (!Array.isArray(window.vendorData)) return [];
+  if (!Array.isArray(window.masterData?.vendors)) return [];
   const fieldsToMerge = ["category", "vendorCompanyName", "prodOpsEscalationProcess", "contactNumbers", "emailAddress", "vendorPOC", "aagItsPOC", "aagItsTeam", "infoUpdatedDate", "infoUpdatedBy", "infoApprovedDate", "infoApprovedBy"];
   const records = [];
-  window.vendorData.forEach(vendor => {
+  window.masterData.vendors.forEach(vendor => {
     const mapped = { id: `its-application-vendors-${vendor.sourceRow}`, sourceRow: vendor.sourceRow, vendorDataVersion: 2, systemName: vendor.systemName || "", category: vendor.category || "", vendorCompanyName: vendor.vendor || "", prodOpsEscalationProcess: vendor.escalation || "", contactNumbers: vendor.phone || "", emailAddress: vendor.email || "", vendorPOC: vendor.vendorPoc || "", aagItsPOC: vendor.aagItsPoc || "", aagItsTeam: vendor.aagItsTeam || "", infoUpdatedDate: vendor.updatedDate || "", infoUpdatedBy: vendor.updatedBy || "", infoApprovedDate: vendor.approvedDate || "", infoApprovedBy: vendor.approvedBy || "" };
     if (mapped.systemName) { records.push(mapped); return; }
     const parent = records.at(-1);
@@ -47,7 +46,7 @@ function PasswordEditor({ onClose }) {
 export default function App() {
   const [email, setEmail] = useState(() => localStorage.getItem(STORAGE.email));
   const [vendors, setVendors] = useState(() => { const saved = read(STORAGE.vendors, []); const source = workbookVendors(); if (saved.length && saved.every(vendor => vendor.vendorDataVersion === 2)) return saved; return source.map(record => { const prior = saved.find(vendor => vendor.sourceRow === record.sourceRow); if (!prior || !Array.isArray(prior.editedFields)) return record; return prior.editedFields.reduce((merged, field) => fields.includes(field) ? { ...merged, [field]: prior[field] || "" } : merged, record); }); });
-  const [applications, setApplications] = useState(() => read(STORAGE.applications, DEFAULT_APPLICATIONS));
+  const [applications, setApplications] = useState(() => read(STORAGE.applications, Object.values(window.masterData?.applications || {})));
   const [history, setHistory] = useState(() => read(STORAGE.history, [])); const [query, setQuery] = useState(""); const [editing, setEditing] = useState(null); const [editingApplication, setEditingApplication] = useState(null); const [changingPassword, setChangingPassword] = useState(false);
   useEffect(() => { const logout = () => { localStorage.removeItem(STORAGE.authenticated); localStorage.removeItem(STORAGE.email); }; addEventListener("pagehide", logout); return () => removeEventListener("pagehide", logout); }, []);
   useEffect(() => localStorage.setItem(STORAGE.vendors, JSON.stringify(vendors.map(v => { const base = workbookVendors().find(x => x.sourceRow === v.sourceRow) || {}; return { ...v, editedFields: fields.filter(key => (v[key] || "") !== (base[key] || "")) }; }))), [vendors]);

@@ -23841,91 +23841,6 @@
   // src/App.jsx
   var import_react3 = __toESM(require_react(), 1);
 
-  // src/generated-default-data.js
-  var DEFAULT_APPLICATIONS = [
-    {
-      "id": "acars",
-      "name": "ACARS",
-      "description": "Aircraft Communications Addressing and Reporting System",
-      "vendor": "SITA",
-      "severity": "Critical",
-      "status": "Operational",
-      "icon": "public/applications/acars.png"
-    },
-    {
-      "id": "wam",
-      "name": "WAM",
-      "description": "Weight and Balance Management",
-      "vendor": "Smart4Aviation",
-      "severity": "High",
-      "status": "Operational",
-      "icon": "public/applications/wam.png"
-    },
-    {
-      "id": "jetplan",
-      "name": "JetPlan",
-      "description": "Flight Planning System",
-      "vendor": "Jeppesen",
-      "severity": "Critical",
-      "status": "Operational",
-      "icon": "public/applications/jetplan.png"
-    },
-    {
-      "id": "s4a",
-      "name": "S4A",
-      "description": "Schedule for America / Smart4Aviation",
-      "vendor": "Smart4Aviation",
-      "severity": "High",
-      "status": "Operational",
-      "icon": "public/applications/s4a.png"
-    },
-    {
-      "id": "jcte",
-      "name": "JCTE",
-      "description": "Joint Carrier Technical Engineering",
-      "vendor": "Jeppesen",
-      "severity": "Medium",
-      "status": "Operational",
-      "icon": "public/applications/jcte.png"
-    },
-    {
-      "id": "airtrack",
-      "name": "AirTrack",
-      "description": "Aircraft Tracking",
-      "vendor": "AirTrack",
-      "severity": "Low",
-      "status": "Operational",
-      "icon": "public/applications/airtrack.png"
-    },
-    {
-      "id": "pilot-briefing",
-      "name": "Pilot Briefing",
-      "description": "Pilot briefing application",
-      "vendor": "Production Operations",
-      "severity": "High",
-      "status": "Operational",
-      "icon": "public/applications/pilot-briefing.png"
-    },
-    {
-      "id": "aircraft-maintenance",
-      "name": "Aircraft Maintenance",
-      "description": "Aircraft maintenance systems",
-      "vendor": "Production Operations",
-      "severity": "Medium",
-      "status": "Operational",
-      "icon": "public/applications/aircraft-maintenance.png"
-    },
-    {
-      "id": "aims",
-      "name": "AIMS",
-      "description": "Airline Information Management System",
-      "vendor": "AIMS",
-      "severity": "Critical",
-      "status": "Operational",
-      "icon": "public/applications/aims.png"
-    }
-  ];
-
   // src/Login.jsx
   var import_react = __toESM(require_react(), 1);
   var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -24041,10 +23956,10 @@
     }
   };
   var workbookVendors = () => {
-    if (!Array.isArray(window.vendorData)) return [];
+    if (!Array.isArray(window.masterData?.vendors)) return [];
     const fieldsToMerge = ["category", "vendorCompanyName", "prodOpsEscalationProcess", "contactNumbers", "emailAddress", "vendorPOC", "aagItsPOC", "aagItsTeam", "infoUpdatedDate", "infoUpdatedBy", "infoApprovedDate", "infoApprovedBy"];
     const records = [];
-    window.vendorData.forEach((vendor) => {
+    window.masterData.vendors.forEach((vendor) => {
       const mapped = { id: `its-application-vendors-${vendor.sourceRow}`, sourceRow: vendor.sourceRow, vendorDataVersion: 2, systemName: vendor.systemName || "", category: vendor.category || "", vendorCompanyName: vendor.vendor || "", prodOpsEscalationProcess: vendor.escalation || "", contactNumbers: vendor.phone || "", emailAddress: vendor.email || "", vendorPOC: vendor.vendorPoc || "", aagItsPOC: vendor.aagItsPoc || "", aagItsTeam: vendor.aagItsTeam || "", infoUpdatedDate: vendor.updatedDate || "", infoUpdatedBy: vendor.updatedBy || "", infoApprovedDate: vendor.approvedDate || "", infoApprovedBy: vendor.approvedBy || "" };
       if (mapped.systemName) {
         records.push(mapped);
@@ -24134,7 +24049,7 @@
         return prior.editedFields.reduce((merged, field) => fields.includes(field) ? { ...merged, [field]: prior[field] || "" } : merged, record);
       });
     });
-    const [applications, setApplications] = (0, import_react3.useState)(() => read(STORAGE.applications, DEFAULT_APPLICATIONS));
+    const [applications, setApplications] = (0, import_react3.useState)(() => read(STORAGE.applications, Object.values(window.masterData?.applications || {})));
     const [history, setHistory] = (0, import_react3.useState)(() => read(STORAGE.history, []));
     const [query, setQuery] = (0, import_react3.useState)("");
     const [editing, setEditing] = (0, import_react3.useState)(null);

@@ -335,6 +335,23 @@
     ];
 
 
+    /* Resolve category system labels from the effective master records. */
+    const masterApplications = Object.values(window.masterData.applications);
+    const masterVendors = window.masterData.vendors;
+    const masterSystems = masterApplications.map(app => ({ name: app.name, description: app.description || app.function || "" }))
+        .concat(masterVendors.map(vendor => ({ name: vendor.displayName || vendor.systemName || vendor.vendor, description: vendor.displaySubtitle || vendor.category || "" })));
+
+    categories.forEach(function (category) {
+        category.systems = category.systems.map(function (system) {
+            const systemName = String(system.name).toLowerCase();
+            const record = masterSystems.find(function (item) {
+                const name = String(item.name || "").toLowerCase();
+                return name === systemName || name.includes(systemName) || systemName.includes(name);
+            });
+            return record || system;
+        });
+    });
+
     /* =====================================================
        GROUND STOP APPLICATIONS
        ===================================================== */
@@ -522,11 +539,11 @@
 
 
         vendorCount.textContent =
-            vendorConnections;
+            masterVendors.length;
 
 
         applicationCount.textContent =
-            groundStopApplications.length;
+            masterApplications.length;
 
     }
 

@@ -139,7 +139,8 @@ function updateHomeApplicationCard(
     if (title) {
 
         title.textContent =
-            application.name || "";
+            application.name ||
+            title.textContent;
 
     }
 
@@ -157,7 +158,7 @@ function updateHomeApplicationCard(
         description.textContent =
             application.description ||
             application.function ||
-            "";
+            description.textContent;
 
     }
 
@@ -167,14 +168,14 @@ function updateHomeApplicationCard(
     card.dataset.function =
         application.function ||
         application.description ||
-        "";
+        card.dataset.function;
 
 
     /* Application name */
 
     card.dataset.application =
         application.name ||
-        "";
+        card.dataset.application;
 
 
     /* Severity */
@@ -243,7 +244,9 @@ function updateHomeApplicationCard(
     if (detailsButton) {
 
         detailsButton.dataset.app =
-            application.name || "";
+            application.id ||
+            application.name ||
+            detailsButton.dataset.app;
 
     }
 
@@ -280,239 +283,27 @@ function updateHomeApplicationCard(
 
 
 /* ============================================================
-   UPDATE GLOBAL HOME APPLICATION OBJECT
-   ============================================================
-
-   Home currently contains:
-
-       const applications = {
-           "ACARS": {...},
-           "WAM": {...}
-       };
-
-   We update that object so:
-
-       ACARS → ACAR
-
-   also changes the modal data.
+   UPDATE EFFECTIVE MASTER APPLICATION DATA
    ============================================================ */
 
-function updateHomeApplicationObject(
-    application
-) {
+function updateHomeApplicationObject(application) {
+    if (!window.masterData || !application) return;
+    const app = Object.values(window.masterData.applications).find(function (item) {
+        return item.id === application.id || item.name === application.name;
+    });
+    if (!app) return;
+    Object.keys(application).forEach(function (field) {
+        const value = application[field];
 
-    if (
-        typeof applications ===
-        "undefined"
-    ) {
-
-        console.warn(
-            "Home applications object is not available yet."
-        );
-
-        return;
-    }
-
-
-    const newName =
-        String(
-            application.name || ""
-        ).trim();
-
-
-    if (!newName) {
-        return;
-    }
-
-
-    /* Find existing object by stable ID */
-
-    let oldKey = null;
-
-
-    const existingKeys =
-        Object.keys(
-            applications
-        );
-
-
-    for (
-        let i = 0;
-        i < existingKeys.length;
-        i++
-    ) {
-
-        const key =
-            existingKeys[i];
-
-
-        const existing =
-            applications[key];
-
-
-        if (
-            existing &&
-            application.id &&
-            existing.id &&
-            existing.id ===
-            application.id
-        ) {
-
-            oldKey = key;
-            break;
-
+        if (value !== "" && value !== null && value !== undefined) {
+            app[field] = value;
         }
-
-    }
-
-
-    /* Fallback to previous card name */
-
-    if (!oldKey) {
-
-        for (
-            let i = 0;
-            i < existingKeys.length;
-            i++
-        ) {
-
-            const key =
-                existingKeys[i];
-
-
-            const existing =
-                applications[key];
-
-
-            if (
-                existing &&
-                String(
-                    existing.name || ""
-                ).toLowerCase() ===
-                newName.toLowerCase()
-            ) {
-
-                oldKey = key;
-                break;
-
-            }
-
-        }
-
-    }
-
-
-    /* Create application object */
-
-    const currentData =
-        oldKey &&
-        applications[oldKey]
-            ? applications[oldKey]
-            : {};
-
-
-    const updatedData = {
-
-        ...currentData,
-
-        id:
-            application.id ||
-            currentData.id,
-
-        name:
-            application.name ||
-            currentData.name,
-
-        icon:
-            application.icon ||
-            currentData.icon,
-
-        function:
-            application.function ||
-            application.description ||
-            currentData.function,
-
-        category:
-            application.category ||
-            currentData.category,
-
-        vendor:
-            application.vendor ||
-            currentData.vendor,
-
-        vendorPOC:
-            application.vendorPOC ||
-            currentData.vendorPOC,
-
-        vendorEmail:
-            application.vendorEmail ||
-            currentData.vendorEmail,
-
-        vendorPhone:
-            application.vendorPhone ||
-            currentData.vendorPhone,
-
-        aagPOC:
-            application.aagPOC ||
-            currentData.aagPOC,
-
-        aagTeam:
-            application.team ||
-            currentData.aagTeam,
-
-        severity:
-            application.severity ||
-            currentData.severity,
-
-        status:
-            application.status ||
-            currentData.status,
-
-        description:
-            application.description ||
-            currentData.description,
-
-        escalation:
-            application.escalation ||
-            currentData.escalation,
-
-        response:
-            application.sla ||
-            application.response,
-
-        supportModel:
-            application.supportModel ||
-            currentData.supportModel
-
-    };
-
-
-    /*
-       IMPORTANT:
-
-       Remove the old key.
-
-       ACARS:
-           applications["ACARS"]
-
-       becomes:
-
-           applications["ACAR"]
-    */
-
-    if (
-        oldKey &&
-        oldKey !== newName
-    ) {
-
-        delete applications[oldKey];
-
-    }
-
-
-    applications[newName] =
-        updatedData;
+    });
+    app.function = application.function || application.description || app.function;
+    app.aagTeam = application.team || app.aagTeam;
+    app.response = application.sla || application.response || app.response;
 }
+
 
 
 /* ============================================================

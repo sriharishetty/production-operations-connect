@@ -2516,6 +2516,7 @@
          JAVASCRIPT
     ========================================================= -->
 
+    <script src="js/data/master-data.js"></script>
     <script>
 
         /*
@@ -2531,638 +2532,7 @@
          * directly from your approved vendor data.
          */
 
-        const applications = {
-
-            "ACARS": {
-                name: "ACARS",
-                icon: "public/applications/acars.png",
-
-                function:
-                    "Aircraft Communications Addressing and Reporting System",
-
-                category:
-                    "Aircom application",
-
-                vendor:
-                    "SITA",
-
-                vendorPOC:
-                    "Not provided",
-
-                aagPOC:
-                    "Ryan Wilkins",
-
-                aagTeam:
-                    "ITS Flight Operations",
-
-                environment:
-                    "Production",
-
-                criticality:
-                    "Critical",
-
-                severity:
-                    "Critical",
-
-                status:
-                    "Operational",
-
-                response:
-                    "15 minutes",
-
-                resolution:
-                    "TBD",
-
-                escalation:
-                    "TBD",
-
-                supportModel:
-                    "Vendor + AAG ITS",
-
-                phone:
-                    "1-888-247-2661",
-
-                phoneNote:
-                    "Option 4 for Aircom Services",
-
-                email:
-                    "Aircom.support@sitaonair.aero",
-
-                description:
-                    "ACARS provides aircraft communication, operational reporting and data exchange between aircraft and ground systems.",
-
-                supportDescription:
-                    "Vendor support is coordinated with the responsible AAG ITS Flight Operations team.",
-
-                escalationSteps: [
-                    "Production Operations identifies and validates the operational issue.",
-                    "Contact SITA Aircom Services using the approved support channel.",
-                    "AAG ITS coordinates technical investigation and operational recovery.",
-                    "Escalate through the documented SITA escalation path when required."
-                ]
-            },
-
-
-            "WAM": {
-                name: "WAM",
-                icon: "public/applications/wam.png",
-
-                function:
-                    "Weight and Balance Management",
-
-                category:
-                    "Weight and Balance",
-
-                vendor:
-                    "Smart4Aviation",
-
-                vendorPOC:
-                    "See vendor source",
-
-                aagPOC:
-                    "See vendor source",
-
-                aagTeam:
-                    "See vendor source",
-
-                environment:
-                    "Production",
-
-                criticality:
-                    "High",
-
-                severity:
-                    "High",
-
-                status:
-                    "Operational",
-
-                response:
-                    "30 minutes",
-
-                resolution:
-                    "TBD",
-
-                escalation:
-                    "TBD",
-
-                supportModel:
-                    "Vendor + AAG ITS",
-
-                phone:
-                    "See vendor source",
-
-                phoneNote:
-                    "Approved vendor contact",
-
-                email:
-                    "See vendor source",
-
-                description:
-                    "Weight and balance functionality supporting operational flight planning and aircraft loading activities.",
-
-                supportDescription:
-                    "Support is coordinated through the responsible vendor and AAG ITS team.",
-
-                escalationSteps: [
-                    "Validate the operational impact.",
-                    "Contact the responsible vendor support channel.",
-                    "Notify the responsible AAG ITS team.",
-                    "Escalate according to the approved support process."
-                ]
-            },
-
-
-            "JetPlan": {
-                name: "JetPlan",
-                icon: "public/applications/jetplan.png",
-
-                function:
-                    "Flight Planning System",
-
-                category:
-                    "Flight Planning",
-
-                vendor:
-                    "Jeppesen",
-
-                vendorPOC:
-                    "See vendor source",
-
-                aagPOC:
-                    "See vendor source",
-
-                aagTeam:
-                    "Flight Operations",
-
-                environment:
-                    "Production",
-
-                criticality:
-                    "Critical",
-
-                severity:
-                    "Critical",
-
-                status:
-                    "Operational",
-
-                response:
-                    "15 minutes",
-
-                resolution:
-                    "TBD",
-
-                escalation:
-                    "TBD",
-
-                supportModel:
-                    "Vendor + AAG ITS",
-
-                phone:
-                    "See vendor source",
-
-                phoneNote:
-                    "Approved vendor support",
-
-                email:
-                    "See vendor source",
-
-                description:
-                    "Flight planning functionality supporting operational planning and flight dispatch activities.",
-
-                supportDescription:
-                    "Flight planning support is coordinated between Production Operations, AAG ITS and the vendor.",
-
-                escalationSteps: [
-                    "Identify flight planning impact.",
-                    "Contact Jeppesen support using the approved channel.",
-                    "Notify the responsible AAG ITS team.",
-                    "Escalate through the approved vendor escalation process."
-                ]
-            },
-
-
-            "S4A": {
-                name: "S4A",
-                icon: "public/applications/s4a.png",
-
-                function:
-                    "Schedule for America",
-
-                category:
-                    "Schedule for America",
-
-                vendor:
-                    "Smart4Aviation",
-
-                vendorPOC:
-                    "See vendor source",
-
-                aagPOC:
-                    "See vendor source",
-
-                aagTeam:
-                    "See vendor source",
-
-                environment:
-                    "Production",
-
-                criticality:
-                    "High",
-
-                severity:
-                    "High",
-
-                status:
-                    "Operational",
-
-                response:
-                    "30 minutes",
-
-                resolution:
-                    "TBD",
-
-                escalation:
-                    "TBD",
-
-                supportModel:
-                    "Vendor + AAG ITS",
-
-                phone:
-                    "See vendor source",
-
-                phoneNote:
-                    "Approved vendor support",
-
-                email:
-                    "See vendor source",
-
-                description:
-                    "Schedule management functionality used within airline operational processes.",
-
-                supportDescription:
-                    "Support follows the approved vendor and AAG ITS operational escalation model.",
-
-                escalationSteps: [
-                    "Validate scheduling impact.",
-                    "Contact the responsible vendor.",
-                    "Notify AAG ITS.",
-                    "Escalate according to the documented support process."
-                ]
-            },
-
-
-            "JCTE": {
-                name: "JCTE",
-                icon: "public/applications/jcte.png",
-
-                function:
-                    "Joint Carrier Technical Engineering",
-
-                category:
-                    "Crew / Technical Engineering",
-
-                vendor:
-                    "Jeppesen",
-
-                vendorPOC:
-                    "See vendor source",
-
-                aagPOC:
-                    "See vendor source",
-
-                aagTeam:
-                    "See vendor source",
-
-                environment:
-                    "Production",
-
-                criticality:
-                    "Medium",
-
-                severity:
-                    "Medium",
-
-                status:
-                    "Operational",
-
-                response:
-                    "1 hour",
-
-                resolution:
-                    "TBD",
-
-                escalation:
-                    "TBD",
-
-                supportModel:
-                    "Vendor + AAG ITS",
-
-                phone:
-                    "See vendor source",
-
-                phoneNote:
-                    "Approved vendor support",
-
-                email:
-                    "See vendor source",
-
-                description:
-                    "Technical engineering application supporting operational carrier engineering activities.",
-
-                supportDescription:
-                    "Application support is coordinated through the appropriate vendor and AAG ITS teams.",
-
-                escalationSteps: [
-                    "Validate the application issue.",
-                    "Contact the responsible vendor.",
-                    "Notify the appropriate AAG ITS team.",
-                    "Escalate when operational impact requires additional support."
-                ]
-            },
-
-
-            "AirTrack": {
-                name: "AirTrack",
-                icon: "public/applications/airtrack.png",
-
-                function:
-                    "Aircraft Tracking",
-
-                category:
-                    "Aircraft Tracking",
-
-                vendor:
-                    "See vendor source",
-
-                vendorPOC:
-                    "See vendor source",
-
-                aagPOC:
-                    "See vendor source",
-
-                aagTeam:
-                    "See vendor source",
-
-                environment:
-                    "Production",
-
-                criticality:
-                    "Low",
-
-                severity:
-                    "Low",
-
-                status:
-                    "Operational",
-
-                response:
-                    "4 hours",
-
-                resolution:
-                    "TBD",
-
-                escalation:
-                    "TBD",
-
-                supportModel:
-                    "Vendor + AAG ITS",
-
-                phone:
-                    "See vendor source",
-
-                phoneNote:
-                    "Approved vendor support",
-
-                email:
-                    "See vendor source",
-
-                description:
-                    "Aircraft tracking functionality providing operational visibility into aircraft movement.",
-
-                supportDescription:
-                    "Support follows the approved operational support model.",
-
-                escalationSteps: [
-                    "Validate tracking impact.",
-                    "Contact the responsible support team.",
-                    "Notify AAG ITS if operational impact increases.",
-                    "Escalate through the documented process when required."
-                ]
-            },
-
-
-            "Pilot Briefing": {
-                name: "Pilot Briefing",
-                icon: "public/applications/pilot-briefing.png",
-
-                function:
-                    "Electronic Flight Bag Briefing System",
-
-                category:
-                    "Pilot Briefing",
-
-                vendor:
-                    "See vendor source",
-
-                vendorPOC:
-                    "See vendor source",
-
-                aagPOC:
-                    "See vendor source",
-
-                aagTeam:
-                    "See vendor source",
-
-                environment:
-                    "Production",
-
-                criticality:
-                    "High",
-
-                severity:
-                    "High",
-
-                status:
-                    "Operational",
-
-                response:
-                    "30 minutes",
-
-                resolution:
-                    "TBD",
-
-                escalation:
-                    "TBD",
-
-                supportModel:
-                    "Vendor + AAG ITS",
-
-                phone:
-                    "See vendor source",
-
-                phoneNote:
-                    "Approved vendor support",
-
-                email:
-                    "See vendor source",
-
-                description:
-                    "Electronic flight bag briefing functionality supporting pilot operational information and briefing activities.",
-
-                supportDescription:
-                    "Support is coordinated through the responsible operational and technical teams.",
-
-                escalationSteps: [
-                    "Validate pilot briefing impact.",
-                    "Contact the responsible support team.",
-                    "Notify AAG ITS.",
-                    "Escalate according to the approved operational process."
-                ]
-            },
-
-
-            "Aircraft Maintenance": {
-                name: "Aircraft Maintenance",
-                icon: "public/applications/aircraft-maintenance.png",
-
-                function:
-                    "Maintenance Tracking and Management",
-
-                category:
-                    "Aircraft Maintenance",
-
-                vendor:
-                    "See vendor source",
-
-                vendorPOC:
-                    "See vendor source",
-
-                aagPOC:
-                    "See vendor source",
-
-                aagTeam:
-                    "See vendor source",
-
-                environment:
-                    "Production",
-
-                criticality:
-                    "Medium",
-
-                severity:
-                    "Medium",
-
-                status:
-                    "Operational",
-
-                response:
-                    "1 hour",
-
-                resolution:
-                    "TBD",
-
-                escalation:
-                    "TBD",
-
-                supportModel:
-                    "Vendor + AAG ITS",
-
-                phone:
-                    "See vendor source",
-
-                phoneNote:
-                    "Approved vendor support",
-
-                email:
-                    "See vendor source",
-
-                description:
-                    "Maintenance tracking and management functionality supporting aircraft maintenance operations.",
-
-                supportDescription:
-                    "Support follows the approved maintenance application support process.",
-
-                escalationSteps: [
-                    "Validate maintenance system impact.",
-                    "Contact the responsible support team.",
-                    "Notify AAG ITS and operational stakeholders.",
-                    "Escalate through the approved vendor process."
-                ]
-            },
-
-
-            "AIMS": {
-                name: "AIMS",
-                icon: "public/applications/aims.png",
-
-                function:
-                    "Airline Information Management System",
-
-                category:
-                    "AIMS / Crew Tracking",
-
-                vendor:
-                    "AIMS",
-
-                vendorPOC:
-                    "See vendor source",
-
-                aagPOC:
-                    "See vendor source",
-
-                aagTeam:
-                    "See vendor source",
-
-                environment:
-                    "Production",
-
-                criticality:
-                    "Critical",
-
-                severity:
-                    "Critical",
-
-                status:
-                    "Operational",
-
-                response:
-                    "15 minutes",
-
-                resolution:
-                    "TBD",
-
-                escalation:
-                    "TBD",
-
-                supportModel:
-                    "Vendor + AAG ITS",
-
-                phone:
-                    "See vendor source",
-
-                phoneNote:
-                    "Approved vendor support",
-
-                email:
-                    "See vendor source",
-
-                description:
-                    "Airline information management functionality supporting crew tracking and operational information processes.",
-
-                supportDescription:
-                    "Support is coordinated between Production Operations, AAG ITS and the responsible vendor.",
-
-                escalationSteps: [
-                    "Validate the operational impact.",
-                    "Contact the responsible AIMS support team.",
-                    "Notify AAG ITS.",
-                    "Escalate through the approved vendor process when required."
-                ]
-            }
-
-        };
+        const applications = window.masterData.applications;
 
 
         /* =========================================================
@@ -3217,6 +2587,22 @@
         }
 
 
+        function getApplication(appIdOrName) {
+
+            return Object.values(applications).find(
+                function (application) {
+
+                    return (
+                        application.id === appIdOrName ||
+                        application.name === appIdOrName
+                    );
+
+                }
+            );
+
+        }
+
+
         /* =========================================================
            OPEN MODAL
         ========================================================= */
@@ -3224,7 +2610,7 @@
         function openApplication(appName) {
 
             const app =
-                applications[appName];
+                getApplication(appName);
 
             if (!app) {
                 return;
@@ -3240,8 +2626,7 @@
             modalIcon.alt =
                 app.name;
 
-            modalDescription.textContent =
-                app.function;
+            modalDescription.textContent = app.description;
 
 
             /* Severity */
@@ -3452,7 +2837,7 @@
             /* Store active application */
 
             modal.dataset.currentApp =
-                app.name;
+                app.id;
 
 
             /* Open */
@@ -3802,7 +3187,7 @@
                         modal.dataset.currentApp;
 
                     const app =
-                        applications[currentApp];
+                        getApplication(currentApp);
 
                     if (
                         !app ||
@@ -3848,7 +3233,7 @@
                         modal.dataset.currentApp;
 
                     const app =
-                        applications[currentApp];
+                        getApplication(currentApp);
 
                     if (
                         !app ||

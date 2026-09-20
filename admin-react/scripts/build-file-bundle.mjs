@@ -1,5 +1,5 @@
 import { build } from "esbuild";
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -8,12 +8,6 @@ const output = resolve(here, "../../admin-react-dist");
 
 await rm(output, { recursive: true, force: true });
 await mkdir(resolve(output, "assets"), { recursive: true });
-
-/* Reuse the Vendor Directory's workbook-derived source list in Admin. */
-const vendorDirectorySource = await readFile(resolve(here, "../../js/vendors.js"), "utf8");
-const vendorDataEnd = vendorDirectorySource.search(/\/\* ={20,}\r?\n   ADMIN VENDOR OVERRIDES/);
-if (vendorDataEnd < 0) throw new Error("Unable to locate the shared vendor source data.");
-await writeFile(resolve(output, "assets/vendor-data.js"), vendorDirectorySource.slice(0, vendorDataEnd));
 
 await build({
   entryPoints: [resolve(here, "../src/main.jsx")],
@@ -37,7 +31,7 @@ await writeFile(resolve(output, "index.html"), `<!doctype html>
   </head>
   <body>
     <div id="root"></div>
-    <script src="./assets/vendor-data.js"></script>
+    <script src="../js/data/master-data.js"></script>
     <script src="./assets/admin.js"></script>
   </body>
 </html>
