@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Production Operations | Categories</title>
+
+    <!-- Dashboard base styling -->
+    <link
+        rel="stylesheet"
+        href="css/dashboard.css"
+    >
+
+    <!-- Categories styling -->
+    <link
+        rel="stylesheet"
+        href="css/categories.css"
+    >
+    <link rel="stylesheet" href="css/motion.css">
+    <script defer src="js/motion.js"></script>
+    <script defer src="js/sidebar-active.js"></script>
+</head>
+
+<body class="scroll-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="alaska-logo">
+                Alaska.
+            </div>
+
+            <div class="airlines-text">
+                AIRLINES
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="home.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+
+            <a
+                href="vendors.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">♟</span>
+                <span>Vendors</span>
+            </a>
+
+
+            <a
+                href="categories.html"
+                class="nav-item active"
+            >
+                <span class="nav-icon">▦</span>
+                <span>Categories</span>
+            </a>
+
+
+            <a
+                href="home.html#ground-stop-apps"
+                class="nav-item"
+            >
+                <span class="nav-icon">✈</span>
+                <span>Ground Stop Apps</span>
+            </a>
+
+
+            <a
+                href="favorites.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">☆</span>
+                <span>Favorites</span>
+            </a>
+
+
+            <a href="reports.html" class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Reports</span>
+</a>
+
+<a href="admin-react-dist/index.html" class="nav-item">
+    <span class="nav-icon">🛡</span>
+    <span>Admin</span>
+</a>
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-slogan">
+                People.<br>
+                Planes.<br>
+                A Brighter<br>
+                Tomorrow.
+            </div>
+
+            <div class="sidebar-line"></div>
+
+            <div class="sidebar-copyright">
+                © 2026 Alaska Airlines<br>
+                All rights reserved.
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="categories-main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="categories-topbar">
+
+            <div class="topbar-left">
+
+                <div class="topbar-eyebrow">
+                    PRODUCTION OPERATIONS
+                </div>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <button
+                    class="notification-button"
+                    type="button"
+                    aria-label="Notifications"
+                >
+                    ♧
+                    <span class="notification-count">
+                        3
+                    </span>
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        SS
+                    </div>
+
+                    <div class="user-information">
+
+                        <strong>
+                            Welcome,
+                        </strong>
+
+                        <span>
+                            Production Operations
+                        </span>
+
+                    </div>
+
+                    <span class="profile-arrow">
+                        
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             HERO
+             ================================================= -->
+
+        <section class="categories-hero">
+
+            <div class="hero-content">
+
+                <div class="hero-eyebrow">
+                    PRODUCTION OPERATIONS
+                </div>
+
+                <h1>
+                    Categories
+                </h1>
+
+                <h2>
+                    Explore the systems behind our operations.
+                </h2>
+
+                <p>
+                    Browse Production Operations systems by
+                    functional area, application family and
+                    operational responsibility.
+                </p>
+
+            </div>
+
+
+            <div class="hero-side-text">
+
+                <span>PEOPLE.</span>
+                <span>PLANES.</span>
+                <span>A BRIGHTER</span>
+                <span>TOMORROW.</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STATISTICS
+             ================================================= -->
+
+        <section class="category-stats">
+
+            <div class="category-stat-card">
+
+                <div class="stat-icon blue">
+                    ▦
+                </div>
+
+                <div>
+                    <strong id="categoryCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Categories
+                    </span>
+
+                    <small>
+                        Operational areas
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="category-stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+                    <strong id="systemCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Systems
+                    </span>
+
+                    <small>
+                        Applications & platforms
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="category-stat-card">
+
+                <div class="stat-icon purple">
+                    ♟
+                </div>
+
+                <div>
+                    <strong id="vendorCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Vendor Connections
+                    </span>
+
+                    <small>
+                        Across operational areas
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="category-stat-card">
+
+                <div class="stat-icon orange">
+                    ↗
+                </div>
+
+                <div>
+                    <strong id="applicationCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Ground Stop Apps
+                    </span>
+
+                    <small>
+                        Critical operational systems
+                    </small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CATEGORY DIRECTORY
+             ================================================= -->
+
+        <section class="category-directory">
+
+            <div class="directory-header">
+
+                <div>
+
+                    <div class="section-eyebrow">
+                        OPERATIONAL DIRECTORY
+                    </div>
+
+                    <h2>
+                        Browse Categories
+                    </h2>
+
+                    <p>
+                        Select an operational area to explore
+                        its systems and supporting vendors.
+                    </p>
+
+                </div>
+
+
+                <div class="directory-controls">
+
+                    <div class="category-search">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            id="categorySearch"
+                            type="search"
+                            placeholder="Search categories or systems..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <button
+                        id="clearCategorySearch"
+                        class="clear-search"
+                        type="button"
+                    >
+                        Clear
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CATEGORY GRID -->
+
+            <div
+                id="categoryGrid"
+                class="category-grid"
+            ></div>
+
+
+            <!-- NO RESULTS -->
+
+            <div
+                id="noCategoryResults"
+                class="no-category-results"
+                hidden
+            >
+
+                <div class="no-results-icon">
+                    ⌕
+                </div>
+
+                <h3>
+                    No categories found
+                </h3>
+
+                <p>
+                    Try a different category or system name.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CATEGORY DETAIL PANEL
+             ================================================= -->
+
+        <div
+            id="categoryModal"
+            class="category-modal"
+            aria-hidden="true"
+        >
+
+            <div class="category-modal-overlay"></div>
+
+
+            <div
+                class="category-modal-card"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="categoryModalTitle"
+            >
+
+                <button
+                    id="categoryModalClose"
+                    class="modal-close"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+
+                <div class="modal-header">
+
+                    <div
+                        id="categoryModalIcon"
+                        class="modal-category-icon"
+                    >
+                        ✈
+                    </div>
+
+                    <div>
+
+                        <div class="modal-eyebrow">
+                            OPERATIONAL CATEGORY
+                        </div>
+
+                        <h2 id="categoryModalTitle">
+                            Category
+                        </h2>
+
+                        <p id="categoryModalDescription">
+                            Category description
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-summary">
+
+                    <div>
+                        <span>Systems</span>
+                        <strong id="modalSystemCount">
+                            0
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Vendors</span>
+                        <strong id="modalVendorCount">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-section">
+
+                    <div class="modal-section-title">
+                        Systems & Applications
+                    </div>
+
+                    <div
+                        id="modalSystems"
+                        class="modal-systems"
+                    ></div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <a
+                        href="vendors.html"
+                        class="modal-action primary"
+                    >
+                        View Vendors
+                        <span>→</span>
+                    </a>
+
+
+                    <a
+                        href="home.html"
+                        class="modal-action secondary"
+                    >
+                        View Applications
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <script src="js/categories.js"></script>
+
+</body>
+</html>

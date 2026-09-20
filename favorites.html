@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Production Operations | Favorites</title>
+
+    <link
+        rel="stylesheet"
+        href="css/favorites.css"
+    >
+    <link rel="stylesheet" href="css/motion.css">
+    <script defer src="js/motion.js"></script>
+    <script defer src="js/sidebar-active.js"></script>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         SIDEBAR
+         ========================================================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="alaska-logo">
+                Alaska.
+            </div>
+
+            <div class="airlines-text">
+                AIRLINES
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="home.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+
+            <a
+                href="vendors.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">♟</span>
+                <span>Vendors</span>
+            </a>
+
+
+            <a
+                href="categories.html"
+                class="nav-item"
+            >
+                <span class="nav-icon">▦</span>
+                <span>Categories</span>
+            </a>
+
+
+            <a
+                href="home.html#applications"
+                class="nav-item"
+            >
+                <span class="nav-icon">✈</span>
+                <span>Ground Stop Apps</span>
+            </a>
+
+
+            <a href="favorites.html" class="nav-item active">
+    <span class="nav-icon">☆</span>
+    <span>Favorites</span>
+</a>
+
+            <a href="reports.html" class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Reports</span>
+</a>
+
+<a href="admin-react-dist/index.html" class="nav-item">
+    <span class="nav-icon">🛡</span>
+    <span>Admin</span>
+</a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-quote">
+                People.<br>
+                Planes.<br>
+                A Brighter<br>
+                Tomorrow.
+            </div>
+
+            <div class="sidebar-copyright">
+                © 2026 Alaska Airlines<br>
+                All rights reserved.
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+
+    <main class="main-content">
+
+
+        <!-- =====================================================
+             TOP HEADER
+             ===================================================== -->
+
+        <header class="top-header">
+
+            <div class="header-spacer"></div>
+
+            <div class="header-right">
+
+
+                <!-- Notification -->
+
+                <button
+                    class="notification-button"
+                    type="button"
+                    aria-label="Notifications"
+                >
+
+                    ♧
+
+                    <span class="notification-badge">
+                        3
+                    </span>
+
+                </button>
+
+
+                <!-- Profile -->
+
+                <button
+                    class="profile-button"
+                    type="button"
+                >
+
+                    <div class="profile-avatar">
+                        SS
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong>
+                            Welcome
+                        </strong>
+
+                        <span>
+                            Production Operations
+                        </span>
+
+                    </div>
+
+                    <span class="profile-arrow">
+                        ˅
+                    </span>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
+
+        <section class="favorites-hero">
+
+            <div class="hero-content">
+
+                <div class="hero-eyebrow">
+                    PRODUCTION OPERATIONS
+                </div>
+
+                <h1>
+                    Favorites
+                </h1>
+
+                <h2>
+                    Your frequently accessed operational systems.
+                </h2>
+
+                <p>
+                    Keep the applications and systems you use most
+                    within quick reach.
+                </p>
+
+            </div>
+
+
+            <div class="hero-message">
+
+                <span>
+                    PEOPLE.
+                </span>
+
+                <span>
+                    PLANES.
+                </span>
+
+                <span>
+                    A BRIGHTER
+                </span>
+
+                <span>
+                    TOMORROW.
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FAVORITE STATS
+             ===================================================== -->
+
+        <section class="favorites-stats">
+
+            <div class="favorite-stat-card">
+
+                <div class="favorite-stat-icon blue">
+                    ★
+                </div>
+
+                <div>
+
+                    <strong id="favoriteCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Favorite Systems
+                    </span>
+
+                    <small>
+                        Your saved operational applications
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="favorite-stat-card">
+
+                <div class="favorite-stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+
+                    <strong id="activeFavoriteCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Active Favorites
+                    </span>
+
+                    <small>
+                        Available operational systems
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="favorite-stat-card">
+
+                <div class="favorite-stat-icon purple">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <strong id="criticalFavoriteCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Critical Systems
+                    </span>
+
+                    <small>
+                        Critical severity favorites
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="favorite-stat-card">
+
+                <div class="favorite-stat-icon orange">
+                    ↗
+                </div>
+
+                <div>
+
+                    <strong>
+                        Quick Access
+                    </strong>
+
+                    <span>
+                        One Click
+                    </span>
+
+                    <small>
+                        Open system details quickly
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FAVORITES PANEL
+             ===================================================== -->
+
+        <section class="favorites-panel">
+
+
+            <div class="favorites-header">
+
+                <div>
+
+                    <h2>
+    My Favorites
+    (<span id="favoritesCount">0</span>)
+</h2>
+
+                    <p>
+                        Your saved Production Operations systems.
+                    </p>
+
+                </div>
+
+
+                <div class="favorites-tools">
+
+                    <div class="search-box">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            type="text"
+                            id="favoriteSearch"
+                            placeholder="Search favorites..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="clear-button"
+                        id="clearFavorites"
+                        type="button"
+                    >
+                        Clear All
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FAVORITES GRID
+                 ================================================= -->
+
+            <div
+                class="favorites-grid"
+                id="favoritesGrid"
+            >
+
+                <!-- Javascript will populate this area -->
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EMPTY STATE
+                 ================================================= -->
+
+            <div
+                class="empty-state"
+                id="emptyState"
+            >
+
+                <div class="empty-icon">
+                    ☆
+                </div>
+
+                <h3>
+                    No Favorites Yet
+                </h3>
+
+                <p>
+                    Applications you add to Favorites will appear
+                    here for quick access.
+                </p>
+
+                <a
+                    href="home.html#applications"
+                    class="browse-button"
+                >
+                    Browse Applications →
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NO SEARCH RESULTS
+                 ================================================= -->
+
+            <div
+                class="no-results"
+                id="noResults"
+            >
+
+                <div class="no-results-icon">
+                    ⌕
+                </div>
+
+                <h3>
+                    No Matching Favorites
+                </h3>
+
+                <p>
+                    Try a different application name or search term.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+
+    <script src="js/favorites.js"></script>
+    
+
+</body>
+
+</html>

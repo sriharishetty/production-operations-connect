@@ -1,0 +1,3948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Production Operations | Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="css/dashboard.css"
+    >
+    <link rel="stylesheet" href="css/motion.css">
+    <script defer src="js/motion.js"></script>
+    <script defer src="js/sidebar-active.js"></script>
+
+    <style>
+
+        /* =========================================================
+           APPLICATION DETAIL MODAL
+        ========================================================= */
+
+        .app-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            background:
+                rgba(2, 18, 42, 0.68);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+
+        .app-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .app-modal-window {
+            width: min(1180px, 96vw);
+            max-height: 92vh;
+
+            overflow: hidden;
+
+            border: 1px solid rgba(255,255,255,.75);
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(245,251,255,.97),
+                    rgba(218,238,251,.94)
+                );
+
+            box-shadow:
+                0 30px 100px rgba(0, 20, 50, .48),
+                inset 0 1px 0 rgba(255,255,255,.9);
+
+            transform:
+                translateY(25px)
+                scale(.97);
+
+            transition:
+                transform .3s ease;
+
+            color: #07366d;
+        }
+
+        .app-modal.active .app-modal-window {
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        /* Header */
+
+        .app-modal-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            padding: 24px 28px 20px;
+
+            border-bottom:
+                1px solid rgba(35,104,170,.14);
+        }
+
+        .app-modal-icon {
+            width: 62px;
+            height: 62px;
+
+            flex: 0 0 62px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #168cf4,
+                    #075dbb
+                );
+
+            box-shadow:
+                0 10px 25px rgba(0,108,220,.28);
+
+            overflow: hidden;
+        }
+
+        .app-modal-icon img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .app-modal-heading {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .app-modal-eyebrow {
+            margin-bottom: 3px;
+
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+
+            color: #3972a8;
+        }
+
+        .app-modal-title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .app-modal-title {
+            margin: 0;
+
+            font-size: 30px;
+            line-height: 1.1;
+
+            font-weight: 800;
+            color: #07366d;
+        }
+
+        .app-modal-description {
+            margin: 6px 0 0;
+
+            font-size: 13px;
+            color: #47749d;
+        }
+
+        .modal-close {
+            width: 42px;
+            height: 42px;
+
+            border: 0;
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,.78);
+
+            color: #185a91;
+
+            font-size: 25px;
+            line-height: 1;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 15px rgba(20,70,110,.12);
+
+            transition:
+                .2s ease;
+        }
+
+        .modal-close:hover {
+            background: #ffffff;
+            transform: rotate(90deg);
+        }
+
+        /* Status */
+
+        .modal-badges {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        .modal-status,
+        .modal-severity {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 8px 13px;
+
+            border-radius: 999px;
+
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .modal-status {
+            background: rgba(31,203,124,.15);
+            color: #07865a;
+        }
+
+        .modal-status::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #16c784;
+            box-shadow: 0 0 10px rgba(22,199,132,.65);
+        }
+
+        .severity-critical {
+            background: #ffe0e5;
+            color: #c92442;
+        }
+
+        .severity-high {
+            background: #ffead5;
+            color: #b85a12;
+        }
+
+        .severity-medium {
+            background: #fff3c7;
+            color: #947100;
+        }
+
+        .severity-low {
+            background: #d9f8ea;
+            color: #087956;
+        }
+
+        /* Tabs */
+
+        .modal-tabs {
+            display: flex;
+            gap: 2px;
+
+            margin: 0 18px;
+            padding: 12px 0 0;
+
+            overflow-x: auto;
+        }
+
+        .modal-tab {
+            flex: 0 0 auto;
+
+            border: 0;
+            border-bottom: 3px solid transparent;
+
+            padding: 12px 20px;
+
+            background: transparent;
+
+            color: #4c7397;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+        }
+
+        .modal-tab:hover {
+            color: #086ee5;
+        }
+
+        .modal-tab.active {
+            color: #064fc2;
+            border-bottom-color: #0878e8;
+        }
+
+        /* Content */
+
+        .modal-body {
+            max-height: 62vh;
+            overflow-y: auto;
+
+            padding: 18px 24px 24px;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: rgba(50,110,165,.25);
+            border-radius: 20px;
+        }
+
+        .modal-panel {
+            display: none;
+        }
+
+        .modal-panel.active {
+            display: block;
+            animation: panelIn .25s ease;
+        }
+
+        @keyframes panelIn {
+            from {
+                opacity: 0;
+                transform: translateY(7px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns:
+                minmax(0, 1.2fr)
+                minmax(280px, .8fr);
+
+            gap: 16px;
+        }
+
+        .detail-card {
+            padding: 19px;
+
+            border: 1px solid rgba(55,124,181,.16);
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,.67);
+
+            box-shadow:
+                0 8px 22px rgba(28,87,130,.07);
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .detail-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .detail-card-title {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            margin: 0 0 15px;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            color: #073d78;
+        }
+
+        .detail-card-title-icon {
+            width: 28px;
+            height: 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: #e2f1ff;
+            color: #0878e8;
+
+            font-size: 15px;
+        }
+
+        /* Information rows */
+
+        .info-list {
+            display: grid;
+            gap: 0;
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 14px;
+
+            padding: 10px 0;
+
+            border-bottom:
+                1px solid rgba(60,116,158,.10);
+        }
+
+        .info-row:last-child {
+            border-bottom: 0;
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #6485a3;
+        }
+
+        .info-value {
+            min-width: 0;
+
+            font-size: 12px;
+            font-weight: 700;
+            color: #164f83;
+
+            overflow-wrap: anywhere;
+        }
+
+        /* Contact cards */
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 13px;
+        }
+
+        .contact-box {
+            padding: 16px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,.9),
+                    rgba(235,246,255,.78)
+                );
+
+            border:
+                1px solid rgba(59,128,183,.13);
+        }
+
+        .contact-role {
+            margin-bottom: 5px;
+
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+
+            text-transform: uppercase;
+
+            color: #6c8ba5;
+        }
+
+        .contact-name {
+            margin-bottom: 8px;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            color: #073d78;
+        }
+
+        .contact-value {
+            font-size: 11px;
+            color: #416e96;
+
+            overflow-wrap: anywhere;
+        }
+
+        /* SLA */
+
+        .sla-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, minmax(0,1fr));
+
+            gap: 12px;
+        }
+
+        .sla-box {
+            padding: 17px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,.72);
+
+            border:
+                1px solid rgba(45,119,182,.12);
+        }
+
+        .sla-label {
+            margin-bottom: 8px;
+
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+
+            color: #7191aa;
+            text-transform: uppercase;
+        }
+
+        .sla-value {
+            font-size: 18px;
+            font-weight: 800;
+
+            color: #075db5;
+        }
+
+        .sla-note {
+            margin-top: 4px;
+
+            font-size: 10px;
+            color: #6685a1;
+        }
+
+        /* Description */
+
+        .description-text {
+            margin: 0;
+
+            font-size: 12px;
+            line-height: 1.75;
+
+            color: #426b8e;
+        }
+
+        /* Escalation */
+
+        .escalation-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .escalation-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+
+            padding: 12px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.55);
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+
+            flex: 0 0 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #168cf4,
+                    #075dbb
+                );
+
+            color: white;
+
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .step-text {
+            padding-top: 5px;
+
+            font-size: 12px;
+            line-height: 1.5;
+
+            color: #315f86;
+        }
+
+        /* Documents */
+
+        .document-list {
+            display: grid;
+            gap: 9px;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,.68);
+
+            border:
+                1px solid rgba(52,117,177,.12);
+        }
+
+        .document-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            color: #164f83;
+        }
+
+        .document-icon {
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: #e3f2ff;
+            color: #0878e8;
+        }
+
+        .document-link {
+            border: 0;
+            background: transparent;
+
+            color: #0878e8;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        /* Bottom actions */
+
+        .modal-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            padding: 16px 24px;
+
+            border-top:
+                1px solid rgba(40,105,160,.13);
+
+            background:
+                rgba(239,248,255,.64);
+        }
+
+        .modal-footer-left,
+        .modal-footer-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            min-height: 38px;
+
+            padding: 0 17px;
+
+            border-radius: 11px;
+
+            border: 1px solid rgba(20,119,226,.16);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #168cf4,
+                    #0766cc
+                );
+
+            color: white;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 18px rgba(7,104,213,.22);
+
+            transition: .2s ease;
+        }
+
+        .modal-action:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 10px 24px rgba(7,104,213,.30);
+        }
+
+        .modal-action.secondary {
+            color: #0767c9;
+
+            background:
+                rgba(255,255,255,.75);
+
+            box-shadow: none;
+        }
+
+        .modal-action.favorite {
+            color: #0767c9;
+
+            background: white;
+        }
+
+        .modal-action.favorite.active {
+            background: #e6f2ff;
+        }
+
+        .last-updated {
+            margin-left: auto;
+
+            font-size: 10px;
+            color: #6b8aa2;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 850px) {
+
+            .app-modal {
+                padding: 12px;
+            }
+
+            .app-modal-window {
+                width: 100%;
+                max-height: 96vh;
+                border-radius: 20px;
+            }
+
+            .app-modal-header {
+                padding: 18px;
+            }
+
+            .app-modal-title {
+                font-size: 23px;
+            }
+
+            .modal-badges {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-card.full {
+                grid-column: auto;
+            }
+
+            .contact-grid,
+            .sla-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+                gap: 3px;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .modal-footer-left,
+            .modal-footer-right {
+                width: 100%;
+            }
+
+            .modal-action {
+                flex: 1;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="alaska-logo">
+                Alaska.
+            </div>
+
+            <div class="airlines-text">
+                AIRLINES
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+    <a href="home.html" class="nav-item active">
+        <span class="nav-icon">⌂</span>
+        <span>Home</span>
+    </a>
+
+    <a href="vendors.html" class="nav-item">
+        <span class="nav-icon">♟</span>
+        <span>Vendors</span>
+    </a>
+
+    <a href="categories.html" class="nav-item">
+        <span class="nav-icon">▦</span>
+        <span>Categories</span>
+    </a>
+
+    <a href="#ground-stop-apps" class="nav-item">
+        <span class="nav-icon">✈</span>
+        <span>Ground Stop Apps</span>
+    </a>
+
+    <a href="favorites.html" class="nav-item">
+        <span class="nav-icon">☆</span>
+        <span>Favorites</span>
+    </a>
+
+    <a href="reports.html" class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Reports</span>
+</a>
+
+<a href="admin-react-dist/index.html" class="nav-item">
+    <span class="nav-icon">🛡</span>
+    <span>Admin</span>
+</a>
+
+</nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-quote">
+                People.<br>
+                Planes.<br>
+                A Brighter<br>
+                Tomorrow.
+            </div>
+
+            <div class="sidebar-copyright">
+                © 2026 Alaska Airlines<br>
+                All rights reserved.
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================= -->
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+
+        <header class="top-header">
+
+            <div class="header-spacer"></div>
+
+            <div class="header-right">
+
+                <button
+                    class="notification-button"
+                    type="button"
+                    aria-label="Notifications"
+                >
+                    ♧
+                    <span class="notification-badge">3+</span>
+                </button>
+
+                <button
+                    class="profile-button"
+                    type="button"
+                >
+
+                    <div class="profile-avatar">
+                        SS
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>Welcome,</strong>
+                        <span>Production Operations</span>
+                    </div>
+
+                    <span class="profile-arrow"></span>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <div class="hero-eyebrow">
+                    PRODUCTION OPERATIONS
+                </div>
+
+                <h1>
+                    Stronger Together
+                </h1>
+
+                <h2>
+                    Our Systems Keep Alaska Airlines Moving.
+                </h2>
+
+                <p>
+                    9 Ground Stop Applications
+                    <span>•</span>
+                    Quick access to critical operational systems.
+                </p>
+
+            </div>
+
+            <div class="hero-message">
+
+                <span>PEOPLE.</span>
+                <span>PLANES.</span>
+                <span>A BRIGHTER</span>
+                <span>TOMORROW.</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             STATISTICS
+        ====================================================== -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    ✈
+                </div>
+
+                <div>
+                    <strong>9</strong>
+                    <span>Ground Stop Applications</span>
+                    <small>Critical operational systems</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+                    <strong>9</strong>
+                    <span>Active Applications</span>
+                    <small>All systems operational</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+                    !
+                </div>
+
+                <div>
+                    <strong>2</strong>
+                    <span>High Severity</span>
+                    <small>Requires attention</small>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    ◷
+                </div>
+
+                <div>
+                    <strong>&lt; 15 min</strong>
+                    <span>Average Response SLA</span>
+                    <small>For critical systems</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             APPLICATION WORKSPACE
+        ====================================================== -->
+
+        <section
+            class="applications-panel"
+            id="applications"
+        >
+
+            <div class="applications-header">
+
+                <div>
+
+                    <h2>
+                        Ground Stop Applications
+                        <span>(9)</span>
+                    </h2>
+
+                    <p>
+                        Critical systems for flight operations
+                    </p>
+
+                </div>
+
+                <div class="application-tools">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            id="applicationSearch"
+                            type="search"
+                            placeholder="Search application by name or function..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                    <button
+                        class="view-button active"
+                        type="button"
+                        title="Grid view"
+                    >
+                        ▦
+                    </button>
+
+                    <button
+                        class="view-button"
+                        type="button"
+                        title="List view"
+                    >
+                        ☷
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- APPLICATION GRID -->
+
+            <div
+                class="application-grid"
+                id="applicationGrid"
+            >
+
+                <!-- ACARS -->
+
+                <article
+                    class="application-card"
+                    data-id="acars"
+                    data-application="ACARS"
+                    data-function="Aircraft Communications Addressing and Reporting System"
+                >
+
+                    <div class="application-card-top">
+
+                        <div class="application-icon">
+                            <img
+                                src="public/applications/acars.png"
+                                alt="ACARS"
+                            >
+                        </div>
+
+                        <div class="application-name">
+
+                            <h3>ACARS</h3>
+
+                            <p>
+                                Aircraft Communications
+                                Addressing and Reporting System
+                            </p>
+
+                        </div>
+
+                        <span class="severity-badge critical">
+                            Critical
+                        </span>
+
+                    </div>
+
+                    <div class="application-card-bottom">
+
+                        <span>
+                            ◷ SLA: 15 minutes
+                        </span>
+
+                        <button
+                            class="view-details"
+                            data-app="ACARS"
+                            type="button"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- WAM -->
+
+                <article
+                    class="application-card"
+                    data-id="wam"
+                    data-application="WAM"
+                    data-function="Weight and Balance Management"
+                >
+
+                    <div class="application-card-top">
+
+                        <div class="application-icon">
+                            <img
+                                src="public/applications/wam.png"
+                                alt="WAM"
+                            >
+                        </div>
+
+                        <div class="application-name">
+
+                            <h3>WAM</h3>
+
+                            <p>
+                                Weight and Balance
+                                Management
+                            </p>
+
+                        </div>
+
+                        <span class="severity-badge high">
+                            High
+                        </span>
+
+                    </div>
+
+                    <div class="application-card-bottom">
+
+                        <span>
+                            ◷ SLA: 30 minutes
+                        </span>
+
+                        <button
+                            class="view-details"
+                            data-app="WAM"
+                            type="button"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- JETPLAN -->
+
+                <article
+                    class="application-card"
+                    data-id="jetplan"
+                    data-application="JetPlan"
+                    data-function="Flight Planning System"
+                >
+
+                    <div class="application-card-top">
+
+                        <div class="application-icon">
+                            <img
+                                src="public/applications/jetplan.png"
+                                alt="JetPlan"
+                            >
+                        </div>
+
+                        <div class="application-name">
+
+                            <h3>JetPlan</h3>
+
+                            <p>
+                                Flight Planning System
+                            </p>
+
+                        </div>
+
+                        <span class="severity-badge critical">
+                            Critical
+                        </span>
+
+                    </div>
+
+                    <div class="application-card-bottom">
+
+                        <span>
+                            ◷ SLA: 15 minutes
+                        </span>
+
+                        <button
+                            class="view-details"
+                            data-app="JetPlan"
+                            type="button"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- S4A -->
+
+                <article
+                    class="application-card"
+                    data-id="s4a"
+                    data-application="S4A"
+                    data-function="Schedule for America"
+                >
+
+                    <div class="application-card-top">
+
+                        <div class="application-icon">
+                            <img
+                                src="public/applications/s4a.png"
+                                alt="S4A"
+                            >
+                        </div>
+
+                        <div class="application-name">
+
+                            <h3>S4A</h3>
+
+                            <p>
+                                Schedule for America
+                            </p>
+
+                        </div>
+
+                        <span class="severity-badge high">
+                            High
+                        </span>
+
+                    </div>
+
+                    <div class="application-card-bottom">
+
+                        <span>
+                            ◷ SLA: 30 minutes
+                        </span>
+
+                        <button
+                            class="view-details"
+                            data-app="S4A"
+                            type="button"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- JCTE -->
+
+                <article
+                    class="application-card"
+                    data-id="jcte"
+                    data-application="JCTE"
+                    data-function="Joint Carrier Technical Engineering"
+                >
+
+                    <div class="application-card-top">
+
+                        <div class="application-icon">
+                            <img
+                                src="public/applications/jcte.png"
+                                alt="JCTE"
+                            >
+                        </div>
+
+                        <div class="application-name">
+
+                            <h3>JCTE</h3>
+
+                            <p>
+                                Joint Carrier Technical
+                                Engineering
+                            </p>
+
+                        </div>
+
+                        <span class="severity-badge medium">
+                            Medium
+                        </span>
+
+                    </div>
+
+                    <div class="application-card-bottom">
+
+                        <span>
+                            ◷ SLA: 1 hour
+                        </span>
+
+                        <button
+                            class="view-details"
+                            data-app="JCTE"
+                            type="button"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- AIRTRACK -->
+
+                <article
+                    class="application-card"
+                    data-id="airtrack"
+                    data-application="AirTrack"
+                    data-function="Aircraft Tracking"
+                >
+
+                    <div class="application-card-top">
+
+                        <div class="application-icon">
+                            <img
+                                src="public/applications/airtrack.png"
+                                alt="AirTrack"
+                            >
+                        </div>
+
+                        <div class="application-name">
+
+                            <h3>AirTrack</h3>
+
+                            <p>
+                                Aircraft Tracking
+                            </p>
+
+                        </div>
+
+                        <span class="severity-badge low">
+                            Low
+                        </span>
+
+                    </div>
+
+                    <div class="application-card-bottom">
+
+                        <span>
+                            ◷ SLA: 4 hours
+                        </span>
+
+                        <button
+                            class="view-details"
+                            data-app="AirTrack"
+                            type="button"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PILOT BRIEFING -->
+
+                <article
+                    class="application-card"
+                    data-id="pilot-briefing"
+                    data-application="Pilot Briefing"
+                    data-function="Electronic Flight Bag EFB Briefing System"
+                >
+
+                    <div class="application-card-top">
+
+                        <div class="application-icon">
+                            <img
+                                src="public/applications/pilot-briefing.png"
+                                alt="Pilot Briefing"
+                            >
+                        </div>
+
+                        <div class="application-name">
+
+                            <h3>Pilot Briefing</h3>
+
+                            <p>
+                                Electronic Flight Bag
+                                Briefing System
+                            </p>
+
+                        </div>
+
+                        <span class="severity-badge high">
+                            High
+                        </span>
+
+                    </div>
+
+                    <div class="application-card-bottom">
+
+                        <span>
+                            ◷ SLA: 30 minutes
+                        </span>
+
+                        <button
+                            class="view-details"
+                            data-app="Pilot Briefing"
+                            type="button"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- AIRCRAFT MAINTENANCE -->
+
+                <article
+                    class="application-card"
+                    data-id="aircraft-maintenance"
+                    data-application="Aircraft Maintenance"
+                    data-function="Maintenance Tracking and Management"
+                >
+
+                    <div class="application-card-top">
+
+                        <div class="application-icon">
+                            <img
+                                src="public/applications/aircraft-maintenance.png"
+                                alt="Aircraft Maintenance"
+                            >
+                        </div>
+
+                        <div class="application-name">
+
+                            <h3>Aircraft Maintenance</h3>
+
+                            <p>
+                                Maintenance Tracking
+                                and Management
+                            </p>
+
+                        </div>
+
+                        <span class="severity-badge medium">
+                            Medium
+                        </span>
+
+                    </div>
+
+                    <div class="application-card-bottom">
+
+                        <span>
+                            ◷ SLA: 1 hour
+                        </span>
+
+                        <button
+                            class="view-details"
+                            data-app="Aircraft Maintenance"
+                            type="button"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- AIMS -->
+
+                <article
+                    class="application-card"
+                    data-id="aims"
+                    data-application="AIMS"
+                    data-function="Airline Information Management System"
+                >
+
+                    <div class="application-card-top">
+
+                        <div class="application-icon">
+                            <img
+                                src="public/applications/aims.png"
+                                alt="AIMS"
+                            >
+                        </div>
+
+                        <div class="application-name">
+
+                            <h3>AIMS</h3>
+
+                            <p>
+                                Airline Information
+                                Management System
+                            </p>
+
+                        </div>
+
+                        <span class="severity-badge critical">
+                            Critical
+                        </span>
+
+                    </div>
+
+                    <div class="application-card-bottom">
+
+                        <span>
+                            ◷ SLA: 15 minutes
+                        </span>
+
+                        <button
+                            class="view-details"
+                            data-app="AIMS"
+                            type="button"
+                        >
+                            View Details →
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         APPLICATION DETAIL MODAL
+    ========================================================= -->
+
+    <div
+        class="app-modal"
+        id="appModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="app-modal-window"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modalAppName"
+        >
+
+            <!-- HEADER -->
+
+            <header class="app-modal-header">
+
+                <div class="app-modal-icon">
+
+                    <img
+                        id="modalAppIcon"
+                        src="public/applications/acars.png"
+                        alt=""
+                    >
+
+                </div>
+
+                <div class="app-modal-heading">
+
+                    <div class="app-modal-eyebrow">
+                        APPLICATION DETAILS
+                    </div>
+
+                    <div class="app-modal-title-row">
+
+                        <h2
+                            class="app-modal-title"
+                            id="modalAppName"
+                        >
+                            ACARS
+                        </h2>
+
+                        <div class="modal-badges">
+
+                            <span
+                                class="modal-severity severity-critical"
+                                id="modalSeverity"
+                            >
+                                Critical
+                            </span>
+
+                            <span
+                                class="modal-status"
+                                id="modalStatus"
+                            >
+                                Operational
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <p
+                        class="app-modal-description"
+                        id="modalDescription"
+                    >
+                        Aircraft Communications Addressing and Reporting System
+                    </p>
+
+                </div>
+
+                <button
+                    class="modal-close"
+                    id="modalClose"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </header>
+
+
+            <!-- TABS -->
+
+            <div class="modal-tabs">
+
+                <button
+                    class="modal-tab active"
+                    data-tab="overview"
+                    type="button"
+                >
+                    Overview
+                </button>
+
+                <button
+                    class="modal-tab"
+                    data-tab="contacts"
+                    type="button"
+                >
+                    Contacts
+                </button>
+
+                <button
+                    class="modal-tab"
+                    data-tab="sla"
+                    type="button"
+                >
+                    SLA & Support
+                </button>
+
+                <button
+                    class="modal-tab"
+                    data-tab="escalation"
+                    type="button"
+                >
+                    Escalation
+                </button>
+
+                <button
+                    class="modal-tab"
+                    data-tab="documents"
+                    type="button"
+                >
+                    Documents
+                </button>
+
+            </div>
+
+
+            <!-- BODY -->
+
+            <div class="modal-body">
+
+
+                <!-- =================================================
+                     OVERVIEW TAB
+                ================================================== -->
+
+                <section
+                    class="modal-panel active"
+                    id="tab-overview"
+                >
+
+                    <div class="detail-grid">
+
+                        <div class="detail-card">
+
+                            <h3 class="detail-card-title">
+
+                                <span class="detail-card-title-icon">
+                                    ▣
+                                </span>
+
+                                Application Details
+
+                            </h3>
+
+                            <div class="info-list">
+
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        Application Name
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailName"
+                                    >
+                                        ACARS
+                                    </span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        Function
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailFunction"
+                                    >
+                                        Aircraft Communications
+                                    </span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        Category
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailCategory"
+                                    >
+                                        Aircom application
+                                    </span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        Vendor
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailVendor"
+                                    >
+                                        SITA
+                                    </span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        Environment
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailEnvironment"
+                                    >
+                                        Production
+                                    </span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        Business Criticality
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailCriticality"
+                                    >
+                                        Critical
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail-card">
+
+                            <h3 class="detail-card-title">
+
+                                <span class="detail-card-title-icon">
+                                    !
+                                </span>
+
+                                Severity & Status
+
+                            </h3>
+
+                            <div class="info-list">
+
+                                <div class="info-row">
+
+                                    <span class="info-label">
+                                        Severity
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailSeverity"
+                                    >
+                                        Critical
+                                    </span>
+
+                                </div>
+
+                                <div class="info-row">
+
+                                    <span class="info-label">
+                                        Current Status
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailStatus"
+                                    >
+                                        Operational
+                                    </span>
+
+                                </div>
+
+                                <div class="info-row">
+
+                                    <span class="info-label">
+                                        Response Target
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailResponse"
+                                    >
+                                        15 minutes
+                                    </span>
+
+                                </div>
+
+                                <div class="info-row">
+
+                                    <span class="info-label">
+                                        Support Model
+                                    </span>
+
+                                    <span
+                                        class="info-value"
+                                        id="detailSupportModel"
+                                    >
+                                        Vendor + AAG ITS
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail-card full">
+
+                            <h3 class="detail-card-title">
+
+                                <span class="detail-card-title-icon">
+                                    ≡
+                                </span>
+
+                                Description
+
+                            </h3>
+
+                            <p
+                                class="description-text"
+                                id="detailDescription"
+                            >
+                                ACARS provides aircraft communication,
+                                operational reporting and data exchange
+                                between aircraft and ground systems.
+                            </p>
+
+                        </div>
+
+
+                        <div class="detail-card full">
+
+                            <h3 class="detail-card-title">
+
+                                <span class="detail-card-title-icon">
+                                    ✓
+                                </span>
+
+                                Key Information
+
+                            </h3>
+
+                            <div
+                                class="info-list"
+                                id="keyInformation"
+                            >
+
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        Primary Vendor
+                                    </span>
+
+                                    <span class="info-value">
+                                        SITA
+                                    </span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        ITS Team
+                                    </span>
+
+                                    <span class="info-value">
+                                        ITS Flight Operations
+                                    </span>
+                                </div>
+
+                                <div class="info-row">
+                                    <span class="info-label">
+                                        Last Updated
+                                    </span>
+
+                                    <span class="info-value">
+                                        2026
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     CONTACTS TAB
+                ================================================== -->
+
+                <section
+                    class="modal-panel"
+                    id="tab-contacts"
+                >
+
+                    <div class="detail-card">
+
+                        <h3 class="detail-card-title">
+
+                            <span class="detail-card-title-icon">
+                                ☎
+                            </span>
+
+                            Operational Contacts
+
+                        </h3>
+
+                        <div class="contact-grid">
+
+                            <div class="contact-box">
+
+                                <div class="contact-role">
+                                    Vendor
+                                </div>
+
+                                <div
+                                    class="contact-name"
+                                    id="contactVendor"
+                                >
+                                    SITA
+                                </div>
+
+                                <div
+                                    class="contact-value"
+                                    id="contactVendorPOC"
+                                >
+                                    Vendor POC: Not provided
+                                </div>
+
+                            </div>
+
+
+                            <div class="contact-box">
+
+                                <div class="contact-role">
+                                    AAG ITS POC
+                                </div>
+
+                                <div
+                                    class="contact-name"
+                                    id="contactAAGPOC"
+                                >
+                                    Ryan Wilkins
+                                </div>
+
+                                <div
+                                    class="contact-value"
+                                    id="contactAAGTeam"
+                                >
+                                    ITS Flight Operations
+                                </div>
+
+                            </div>
+
+
+                            <div class="contact-box">
+
+                                <div class="contact-role">
+                                    Phone
+                                </div>
+
+                                <div
+                                    class="contact-name"
+                                    id="contactPhone"
+                                >
+                                    1-888-247-2661
+                                </div>
+
+                                <div
+                                    class="contact-value"
+                                    id="contactPhoneNote"
+                                >
+                                    Option 4 for Aircom Services
+                                </div>
+
+                            </div>
+
+
+                            <div class="contact-box">
+
+                                <div class="contact-role">
+                                    Email
+                                </div>
+
+                                <div
+                                    class="contact-name"
+                                    id="contactEmail"
+                                >
+                                    Aircom Support
+                                </div>
+
+                                <div
+                                    class="contact-value"
+                                >
+                                    <span id="contactEmailValue">
+                                        Aircom.support@sitaonair.aero
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     SLA TAB
+                ================================================== -->
+
+                <section
+                    class="modal-panel"
+                    id="tab-sla"
+                >
+
+                    <div class="detail-card">
+
+                        <h3 class="detail-card-title">
+
+                            <span class="detail-card-title-icon">
+                                ◷
+                            </span>
+
+                            SLA & Support Targets
+
+                        </h3>
+
+                        <div class="sla-grid">
+
+                            <div class="sla-box">
+
+                                <div class="sla-label">
+                                    Severity
+                                </div>
+
+                                <div
+                                    class="sla-value"
+                                    id="slaSeverity"
+                                >
+                                    Critical
+                                </div>
+
+                                <div class="sla-note">
+                                    Operational priority
+                                </div>
+
+                            </div>
+
+
+                            <div class="sla-box">
+
+                                <div class="sla-label">
+                                    Response
+                                </div>
+
+                                <div
+                                    class="sla-value"
+                                    id="slaResponse"
+                                >
+                                    15 min
+                                </div>
+
+                                <div class="sla-note">
+                                    Initial response
+                                </div>
+
+                            </div>
+
+
+                            <div class="sla-box">
+
+                                <div class="sla-label">
+                                    Resolution
+                                </div>
+
+                                <div
+                                    class="sla-value"
+                                    id="slaResolution"
+                                >
+                                    TBD
+                                </div>
+
+                                <div class="sla-note">
+                                    Approved target
+                                </div>
+
+                            </div>
+
+
+                            <div class="sla-box">
+
+                                <div class="sla-label">
+                                    Escalation
+                                </div>
+
+                                <div
+                                    class="sla-value"
+                                    id="slaEscalation"
+                                >
+                                    TBD
+                                </div>
+
+                                <div class="sla-note">
+                                    Escalation target
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="detail-card"
+                        style="margin-top:16px;"
+                    >
+
+                        <h3 class="detail-card-title">
+
+                            <span class="detail-card-title-icon">
+                                ♧
+                            </span>
+
+                            Support Model
+
+                        </h3>
+
+                        <p
+                            class="description-text"
+                            id="slaSupportDescription"
+                        >
+                            Vendor support is coordinated with
+                            the responsible AAG ITS team.
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     ESCALATION TAB
+                ================================================== -->
+
+                <section
+                    class="modal-panel"
+                    id="tab-escalation"
+                >
+
+                    <div class="detail-card">
+
+                        <h3 class="detail-card-title">
+
+                            <span class="detail-card-title-icon">
+                                ↑
+                            </span>
+
+                            Escalation Process
+
+                        </h3>
+
+                        <div
+                            class="escalation-list"
+                            id="escalationList"
+                        >
+
+                            <div class="escalation-step">
+
+                                <div class="step-number">
+                                    1
+                                </div>
+
+                                <div class="step-text">
+                                    Production Operations identifies
+                                    and validates the operational issue.
+                                </div>
+
+                            </div>
+
+
+                            <div class="escalation-step">
+
+                                <div class="step-number">
+                                    2
+                                </div>
+
+                                <div class="step-text">
+                                    Contact the vendor support team
+                                    using the approved contact method.
+                                </div>
+
+                            </div>
+
+
+                            <div class="escalation-step">
+
+                                <div class="step-number">
+                                    3
+                                </div>
+
+                                <div class="step-text">
+                                    Assigned AAG ITS personnel coordinate
+                                    technical investigation and recovery.
+                                </div>
+
+                            </div>
+
+
+                            <div class="escalation-step">
+
+                                <div class="step-number">
+                                    4
+                                </div>
+
+                                <div class="step-text">
+                                    Escalate through the documented vendor
+                                    escalation path when required.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     DOCUMENTS TAB
+                ================================================== -->
+
+                <section
+                    class="modal-panel"
+                    id="tab-documents"
+                >
+
+                    <div class="detail-card">
+
+                        <h3 class="detail-card-title">
+
+                            <span class="detail-card-title-icon">
+                                ▤
+                            </span>
+
+                            Application Documents
+
+                        </h3>
+
+                        <div class="document-list">
+
+                            <div class="document-item">
+
+                                <div class="document-name">
+
+                                    <span class="document-icon">
+                                        ▤
+                                    </span>
+
+                                    Application Support Guide
+
+                                </div>
+
+                                <button
+                                    class="document-link"
+                                    type="button"
+                                >
+                                    Open →
+                                </button>
+
+                            </div>
+
+
+                            <div class="document-item">
+
+                                <div class="document-name">
+
+                                    <span class="document-icon">
+                                        ▤
+                                    </span>
+
+                                    Escalation Procedure
+
+                                </div>
+
+                                <button
+                                    class="document-link"
+                                    type="button"
+                                >
+                                    Open →
+                                </button>
+
+                            </div>
+
+
+                            <div class="document-item">
+
+                                <div class="document-name">
+
+                                    <span class="document-icon">
+                                        ▤
+                                    </span>
+
+                                    Operational Runbook
+
+                                </div>
+
+                                <button
+                                    class="document-link"
+                                    type="button"
+                                >
+                                    Open →
+                                </button>
+
+                            </div>
+
+
+                            <div class="document-item">
+
+                                <div class="document-name">
+
+                                    <span class="document-icon">
+                                        ▤
+                                    </span>
+
+                                    Vendor Support Information
+
+                                </div>
+
+                                <button
+                                    class="document-link"
+                                    type="button"
+                                >
+                                    Open →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- =====================================================
+                 FOOTER
+            ====================================================== -->
+
+            <footer class="modal-footer">
+
+                <div class="modal-footer-left">
+
+                    <button
+                        class="modal-action"
+                        id="sendEmailButton"
+                        type="button"
+                    >
+                        ✉ Send Email
+                    </button>
+
+                    <button
+                        class="modal-action secondary"
+                        id="callSupportButton"
+                        type="button"
+                    >
+                        ☎ Call Support
+                    </button>
+
+                </div>
+
+                <div class="modal-footer-right">
+
+                    <span class="last-updated">
+                        Data source: ITS Vendor Information
+                    </span>
+
+                    <button
+                        class="modal-action favorite"
+                        id="favoriteButton"
+                        type="button"
+                    >
+                        ☆ Add to Favorites
+                    </button>
+
+                </div>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+        /*
+         * ========================================================
+         * APPLICATION DATA
+         * ========================================================
+         *
+         * IMPORTANT:
+         * The SLA values below are UI placeholders until the
+         * approved operational SLA source is connected.
+         *
+         * Vendor/contact fields should ultimately be populated
+         * directly from your approved vendor data.
+         */
+
+        const applications = {
+
+            "ACARS": {
+                name: "ACARS",
+                icon: "public/applications/acars.png",
+
+                function:
+                    "Aircraft Communications Addressing and Reporting System",
+
+                category:
+                    "Aircom application",
+
+                vendor:
+                    "SITA",
+
+                vendorPOC:
+                    "Not provided",
+
+                aagPOC:
+                    "Ryan Wilkins",
+
+                aagTeam:
+                    "ITS Flight Operations",
+
+                environment:
+                    "Production",
+
+                criticality:
+                    "Critical",
+
+                severity:
+                    "Critical",
+
+                status:
+                    "Operational",
+
+                response:
+                    "15 minutes",
+
+                resolution:
+                    "TBD",
+
+                escalation:
+                    "TBD",
+
+                supportModel:
+                    "Vendor + AAG ITS",
+
+                phone:
+                    "1-888-247-2661",
+
+                phoneNote:
+                    "Option 4 for Aircom Services",
+
+                email:
+                    "Aircom.support@sitaonair.aero",
+
+                description:
+                    "ACARS provides aircraft communication, operational reporting and data exchange between aircraft and ground systems.",
+
+                supportDescription:
+                    "Vendor support is coordinated with the responsible AAG ITS Flight Operations team.",
+
+                escalationSteps: [
+                    "Production Operations identifies and validates the operational issue.",
+                    "Contact SITA Aircom Services using the approved support channel.",
+                    "AAG ITS coordinates technical investigation and operational recovery.",
+                    "Escalate through the documented SITA escalation path when required."
+                ]
+            },
+
+
+            "WAM": {
+                name: "WAM",
+                icon: "public/applications/wam.png",
+
+                function:
+                    "Weight and Balance Management",
+
+                category:
+                    "Weight and Balance",
+
+                vendor:
+                    "Smart4Aviation",
+
+                vendorPOC:
+                    "See vendor source",
+
+                aagPOC:
+                    "See vendor source",
+
+                aagTeam:
+                    "See vendor source",
+
+                environment:
+                    "Production",
+
+                criticality:
+                    "High",
+
+                severity:
+                    "High",
+
+                status:
+                    "Operational",
+
+                response:
+                    "30 minutes",
+
+                resolution:
+                    "TBD",
+
+                escalation:
+                    "TBD",
+
+                supportModel:
+                    "Vendor + AAG ITS",
+
+                phone:
+                    "See vendor source",
+
+                phoneNote:
+                    "Approved vendor contact",
+
+                email:
+                    "See vendor source",
+
+                description:
+                    "Weight and balance functionality supporting operational flight planning and aircraft loading activities.",
+
+                supportDescription:
+                    "Support is coordinated through the responsible vendor and AAG ITS team.",
+
+                escalationSteps: [
+                    "Validate the operational impact.",
+                    "Contact the responsible vendor support channel.",
+                    "Notify the responsible AAG ITS team.",
+                    "Escalate according to the approved support process."
+                ]
+            },
+
+
+            "JetPlan": {
+                name: "JetPlan",
+                icon: "public/applications/jetplan.png",
+
+                function:
+                    "Flight Planning System",
+
+                category:
+                    "Flight Planning",
+
+                vendor:
+                    "Jeppesen",
+
+                vendorPOC:
+                    "See vendor source",
+
+                aagPOC:
+                    "See vendor source",
+
+                aagTeam:
+                    "Flight Operations",
+
+                environment:
+                    "Production",
+
+                criticality:
+                    "Critical",
+
+                severity:
+                    "Critical",
+
+                status:
+                    "Operational",
+
+                response:
+                    "15 minutes",
+
+                resolution:
+                    "TBD",
+
+                escalation:
+                    "TBD",
+
+                supportModel:
+                    "Vendor + AAG ITS",
+
+                phone:
+                    "See vendor source",
+
+                phoneNote:
+                    "Approved vendor support",
+
+                email:
+                    "See vendor source",
+
+                description:
+                    "Flight planning functionality supporting operational planning and flight dispatch activities.",
+
+                supportDescription:
+                    "Flight planning support is coordinated between Production Operations, AAG ITS and the vendor.",
+
+                escalationSteps: [
+                    "Identify flight planning impact.",
+                    "Contact Jeppesen support using the approved channel.",
+                    "Notify the responsible AAG ITS team.",
+                    "Escalate through the approved vendor escalation process."
+                ]
+            },
+
+
+            "S4A": {
+                name: "S4A",
+                icon: "public/applications/s4a.png",
+
+                function:
+                    "Schedule for America",
+
+                category:
+                    "Schedule for America",
+
+                vendor:
+                    "Smart4Aviation",
+
+                vendorPOC:
+                    "See vendor source",
+
+                aagPOC:
+                    "See vendor source",
+
+                aagTeam:
+                    "See vendor source",
+
+                environment:
+                    "Production",
+
+                criticality:
+                    "High",
+
+                severity:
+                    "High",
+
+                status:
+                    "Operational",
+
+                response:
+                    "30 minutes",
+
+                resolution:
+                    "TBD",
+
+                escalation:
+                    "TBD",
+
+                supportModel:
+                    "Vendor + AAG ITS",
+
+                phone:
+                    "See vendor source",
+
+                phoneNote:
+                    "Approved vendor support",
+
+                email:
+                    "See vendor source",
+
+                description:
+                    "Schedule management functionality used within airline operational processes.",
+
+                supportDescription:
+                    "Support follows the approved vendor and AAG ITS operational escalation model.",
+
+                escalationSteps: [
+                    "Validate scheduling impact.",
+                    "Contact the responsible vendor.",
+                    "Notify AAG ITS.",
+                    "Escalate according to the documented support process."
+                ]
+            },
+
+
+            "JCTE": {
+                name: "JCTE",
+                icon: "public/applications/jcte.png",
+
+                function:
+                    "Joint Carrier Technical Engineering",
+
+                category:
+                    "Crew / Technical Engineering",
+
+                vendor:
+                    "Jeppesen",
+
+                vendorPOC:
+                    "See vendor source",
+
+                aagPOC:
+                    "See vendor source",
+
+                aagTeam:
+                    "See vendor source",
+
+                environment:
+                    "Production",
+
+                criticality:
+                    "Medium",
+
+                severity:
+                    "Medium",
+
+                status:
+                    "Operational",
+
+                response:
+                    "1 hour",
+
+                resolution:
+                    "TBD",
+
+                escalation:
+                    "TBD",
+
+                supportModel:
+                    "Vendor + AAG ITS",
+
+                phone:
+                    "See vendor source",
+
+                phoneNote:
+                    "Approved vendor support",
+
+                email:
+                    "See vendor source",
+
+                description:
+                    "Technical engineering application supporting operational carrier engineering activities.",
+
+                supportDescription:
+                    "Application support is coordinated through the appropriate vendor and AAG ITS teams.",
+
+                escalationSteps: [
+                    "Validate the application issue.",
+                    "Contact the responsible vendor.",
+                    "Notify the appropriate AAG ITS team.",
+                    "Escalate when operational impact requires additional support."
+                ]
+            },
+
+
+            "AirTrack": {
+                name: "AirTrack",
+                icon: "public/applications/airtrack.png",
+
+                function:
+                    "Aircraft Tracking",
+
+                category:
+                    "Aircraft Tracking",
+
+                vendor:
+                    "See vendor source",
+
+                vendorPOC:
+                    "See vendor source",
+
+                aagPOC:
+                    "See vendor source",
+
+                aagTeam:
+                    "See vendor source",
+
+                environment:
+                    "Production",
+
+                criticality:
+                    "Low",
+
+                severity:
+                    "Low",
+
+                status:
+                    "Operational",
+
+                response:
+                    "4 hours",
+
+                resolution:
+                    "TBD",
+
+                escalation:
+                    "TBD",
+
+                supportModel:
+                    "Vendor + AAG ITS",
+
+                phone:
+                    "See vendor source",
+
+                phoneNote:
+                    "Approved vendor support",
+
+                email:
+                    "See vendor source",
+
+                description:
+                    "Aircraft tracking functionality providing operational visibility into aircraft movement.",
+
+                supportDescription:
+                    "Support follows the approved operational support model.",
+
+                escalationSteps: [
+                    "Validate tracking impact.",
+                    "Contact the responsible support team.",
+                    "Notify AAG ITS if operational impact increases.",
+                    "Escalate through the documented process when required."
+                ]
+            },
+
+
+            "Pilot Briefing": {
+                name: "Pilot Briefing",
+                icon: "public/applications/pilot-briefing.png",
+
+                function:
+                    "Electronic Flight Bag Briefing System",
+
+                category:
+                    "Pilot Briefing",
+
+                vendor:
+                    "See vendor source",
+
+                vendorPOC:
+                    "See vendor source",
+
+                aagPOC:
+                    "See vendor source",
+
+                aagTeam:
+                    "See vendor source",
+
+                environment:
+                    "Production",
+
+                criticality:
+                    "High",
+
+                severity:
+                    "High",
+
+                status:
+                    "Operational",
+
+                response:
+                    "30 minutes",
+
+                resolution:
+                    "TBD",
+
+                escalation:
+                    "TBD",
+
+                supportModel:
+                    "Vendor + AAG ITS",
+
+                phone:
+                    "See vendor source",
+
+                phoneNote:
+                    "Approved vendor support",
+
+                email:
+                    "See vendor source",
+
+                description:
+                    "Electronic flight bag briefing functionality supporting pilot operational information and briefing activities.",
+
+                supportDescription:
+                    "Support is coordinated through the responsible operational and technical teams.",
+
+                escalationSteps: [
+                    "Validate pilot briefing impact.",
+                    "Contact the responsible support team.",
+                    "Notify AAG ITS.",
+                    "Escalate according to the approved operational process."
+                ]
+            },
+
+
+            "Aircraft Maintenance": {
+                name: "Aircraft Maintenance",
+                icon: "public/applications/aircraft-maintenance.png",
+
+                function:
+                    "Maintenance Tracking and Management",
+
+                category:
+                    "Aircraft Maintenance",
+
+                vendor:
+                    "See vendor source",
+
+                vendorPOC:
+                    "See vendor source",
+
+                aagPOC:
+                    "See vendor source",
+
+                aagTeam:
+                    "See vendor source",
+
+                environment:
+                    "Production",
+
+                criticality:
+                    "Medium",
+
+                severity:
+                    "Medium",
+
+                status:
+                    "Operational",
+
+                response:
+                    "1 hour",
+
+                resolution:
+                    "TBD",
+
+                escalation:
+                    "TBD",
+
+                supportModel:
+                    "Vendor + AAG ITS",
+
+                phone:
+                    "See vendor source",
+
+                phoneNote:
+                    "Approved vendor support",
+
+                email:
+                    "See vendor source",
+
+                description:
+                    "Maintenance tracking and management functionality supporting aircraft maintenance operations.",
+
+                supportDescription:
+                    "Support follows the approved maintenance application support process.",
+
+                escalationSteps: [
+                    "Validate maintenance system impact.",
+                    "Contact the responsible support team.",
+                    "Notify AAG ITS and operational stakeholders.",
+                    "Escalate through the approved vendor process."
+                ]
+            },
+
+
+            "AIMS": {
+                name: "AIMS",
+                icon: "public/applications/aims.png",
+
+                function:
+                    "Airline Information Management System",
+
+                category:
+                    "AIMS / Crew Tracking",
+
+                vendor:
+                    "AIMS",
+
+                vendorPOC:
+                    "See vendor source",
+
+                aagPOC:
+                    "See vendor source",
+
+                aagTeam:
+                    "See vendor source",
+
+                environment:
+                    "Production",
+
+                criticality:
+                    "Critical",
+
+                severity:
+                    "Critical",
+
+                status:
+                    "Operational",
+
+                response:
+                    "15 minutes",
+
+                resolution:
+                    "TBD",
+
+                escalation:
+                    "TBD",
+
+                supportModel:
+                    "Vendor + AAG ITS",
+
+                phone:
+                    "See vendor source",
+
+                phoneNote:
+                    "Approved vendor support",
+
+                email:
+                    "See vendor source",
+
+                description:
+                    "Airline information management functionality supporting crew tracking and operational information processes.",
+
+                supportDescription:
+                    "Support is coordinated between Production Operations, AAG ITS and the responsible vendor.",
+
+                escalationSteps: [
+                    "Validate the operational impact.",
+                    "Contact the responsible AIMS support team.",
+                    "Notify AAG ITS.",
+                    "Escalate through the approved vendor process when required."
+                ]
+            }
+
+        };
+
+
+        /* =========================================================
+           ELEMENT REFERENCES
+        ========================================================= */
+
+        const modal =
+            document.getElementById("appModal");
+
+        const modalName =
+            document.getElementById("modalAppName");
+
+        const modalIcon =
+            document.getElementById("modalAppIcon");
+
+        const modalDescription =
+            document.getElementById("modalDescription");
+
+        const modalSeverity =
+            document.getElementById("modalSeverity");
+
+        const modalStatus =
+            document.getElementById("modalStatus");
+
+        const modalClose =
+            document.getElementById("modalClose");
+
+
+        /* =========================================================
+           HELPER
+        ========================================================= */
+
+        function setText(id, value) {
+
+            const element =
+                document.getElementById(id);
+
+            if (element) {
+                element.textContent =
+                    value || "Not provided";
+            }
+
+        }
+
+
+        function severityClass(severity) {
+
+            return String(severity)
+                .toLowerCase()
+                .replace(/\s+/g, "-");
+
+        }
+
+
+        /* =========================================================
+           OPEN MODAL
+        ========================================================= */
+
+        function openApplication(appName) {
+
+            const app =
+                applications[appName];
+
+            if (!app) {
+                return;
+            }
+
+
+            modalName.textContent =
+                app.name;
+
+            modalIcon.src =
+                app.icon;
+
+            modalIcon.alt =
+                app.name;
+
+            modalDescription.textContent =
+                app.function;
+
+
+            /* Severity */
+
+            modalSeverity.textContent =
+                app.severity;
+
+            modalSeverity.className =
+                "modal-severity severity-" +
+                severityClass(app.severity);
+
+
+            /* Status */
+
+            modalStatus.textContent =
+                app.status;
+
+
+            /* Overview */
+
+            setText(
+                "detailName",
+                app.name
+            );
+
+            setText(
+                "detailFunction",
+                app.function
+            );
+
+            setText(
+                "detailCategory",
+                app.category
+            );
+
+            setText(
+                "detailVendor",
+                app.vendor
+            );
+
+            setText(
+                "detailEnvironment",
+                app.environment
+            );
+
+            setText(
+                "detailCriticality",
+                app.criticality
+            );
+
+            setText(
+                "detailSeverity",
+                app.severity
+            );
+
+            setText(
+                "detailStatus",
+                app.status
+            );
+
+            setText(
+                "detailResponse",
+                app.response
+            );
+
+            setText(
+                "detailSupportModel",
+                app.supportModel
+            );
+
+            setText(
+                "detailDescription",
+                app.description
+            );
+
+
+            /* Contacts */
+
+            setText(
+                "contactVendor",
+                app.vendor
+            );
+
+            setText(
+                "contactVendorPOC",
+                "Vendor POC: " +
+                app.vendorPOC
+            );
+
+            setText(
+                "contactAAGPOC",
+                app.aagPOC
+            );
+
+            setText(
+                "contactAAGTeam",
+                app.aagTeam
+            );
+
+            setText(
+                "contactPhone",
+                app.phone
+            );
+
+            setText(
+                "contactPhoneNote",
+                app.phoneNote
+            );
+
+            setText(
+                "contactEmailValue",
+                app.email
+            );
+
+
+            /* SLA */
+
+            setText(
+                "slaSeverity",
+                app.severity
+            );
+
+            setText(
+                "slaResponse",
+                app.response
+            );
+
+            setText(
+                "slaResolution",
+                app.resolution
+            );
+
+            setText(
+                "slaEscalation",
+                app.escalation
+            );
+
+            setText(
+                "slaSupportDescription",
+                app.supportDescription
+            );
+
+
+            /* Escalation */
+
+            const escalationList =
+                document.getElementById(
+                    "escalationList"
+                );
+
+            escalationList.innerHTML = "";
+
+            app.escalationSteps.forEach(
+                function(step, index) {
+
+                    const item =
+                        document.createElement("div");
+
+                    item.className =
+                        "escalation-step";
+
+                    item.innerHTML = `
+                        <div class="step-number">
+                            ${index + 1}
+                        </div>
+
+                        <div class="step-text">
+                            ${step}
+                        </div>
+                    `;
+
+                    escalationList.appendChild(item);
+
+                }
+            );
+
+
+            /* Reset tabs */
+
+            document
+                .querySelectorAll(".modal-tab")
+                .forEach(function(tab) {
+
+                    tab.classList.remove("active");
+
+                });
+
+            document
+                .querySelectorAll(".modal-panel")
+                .forEach(function(panel) {
+
+                    panel.classList.remove("active");
+
+                });
+
+
+            document
+                .querySelector(
+                    '.modal-tab[data-tab="overview"]'
+                )
+                .classList.add("active");
+
+            document
+                .getElementById("tab-overview")
+                .classList.add("active");
+
+
+            /* Store active application */
+
+            modal.dataset.currentApp =
+                app.name;
+
+
+            /* Open */
+
+            modal.classList.add("active");
+
+            modal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+        /* =========================================================
+           CLOSE MODAL
+        ========================================================= */
+
+        function closeApplication() {
+
+            modal.classList.remove("active");
+
+            modal.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            document.body.style.overflow =
+                "";
+
+        }
+
+
+        /* =========================================================
+           VIEW DETAILS BUTTONS
+        ========================================================= */
+
+        document
+            .querySelectorAll(".view-details")
+            .forEach(function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function(event) {
+
+                        event.stopPropagation();
+
+                        const appName =
+                            button.dataset.app;
+
+                        openApplication(appName);
+
+                    }
+                );
+
+            });
+
+
+        /* =========================================================
+           CARD CLICK
+        ========================================================= */
+
+        document
+            .querySelectorAll(".application-card")
+            .forEach(function(card) {
+
+                card.addEventListener(
+                    "click",
+                    function(event) {
+
+                        if (
+                            event.target.closest(
+                                ".view-details"
+                            )
+                        ) {
+                            return;
+                        }
+
+                        const appName =
+                            card.dataset.application;
+
+                        openApplication(appName);
+
+                    }
+                );
+
+            });
+
+
+        /* =========================================================
+           CLOSE BUTTON
+        ========================================================= */
+
+        modalClose.addEventListener(
+            "click",
+            closeApplication
+        );
+
+
+        /* =========================================================
+           CLICK OUTSIDE
+        ========================================================= */
+
+        modal.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target === modal
+                ) {
+                    closeApplication();
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           ESC KEY
+        ========================================================= */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Escape" &&
+                    modal.classList.contains("active")
+                ) {
+                    closeApplication();
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           MODAL TABS
+        ========================================================= */
+
+        document
+            .querySelectorAll(".modal-tab")
+            .forEach(function(tab) {
+
+                tab.addEventListener(
+                    "click",
+                    function() {
+
+                        const tabName =
+                            tab.dataset.tab;
+
+
+                        document
+                            .querySelectorAll(
+                                ".modal-tab"
+                            )
+                            .forEach(
+                                function(item) {
+
+                                    item.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+                            );
+
+
+                        document
+                            .querySelectorAll(
+                                ".modal-panel"
+                            )
+                            .forEach(
+                                function(panel) {
+
+                                    panel.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+                            );
+
+
+                        tab.classList.add(
+                            "active"
+                        );
+
+
+                        const selectedPanel =
+                            document.getElementById(
+                                "tab-" + tabName
+                            );
+
+
+                        if (
+                            selectedPanel
+                        ) {
+
+                            selectedPanel.classList.add(
+                                "active"
+                            );
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+        /* =========================================================
+           SEARCH
+        ========================================================= */
+
+        const searchInput =
+            document.getElementById(
+                "applicationSearch"
+            );
+
+
+        searchInput.addEventListener(
+            "input",
+            function() {
+
+                const searchValue =
+                    searchInput.value
+                        .trim()
+                        .toLowerCase();
+
+
+                document
+                    .querySelectorAll(
+                        ".application-card"
+                    )
+                    .forEach(
+                        function(card) {
+
+                            const name =
+                                card.dataset
+                                    .application
+                                    .toLowerCase();
+
+                            const functionName =
+                                card.dataset
+                                    .function
+                                    .toLowerCase();
+
+
+                            const match =
+                                name.includes(
+                                    searchValue
+                                ) ||
+                                functionName.includes(
+                                    searchValue
+                                );
+
+
+                            card.style.display =
+                                match
+                                    ? ""
+                                    : "none";
+
+                        }
+                    );
+
+            }
+        );
+
+
+        /* =========================================================
+           FAVORITES
+        ========================================================= */
+
+        const favoriteButton =
+            document.getElementById(
+                "favoriteButton"
+            );
+
+
+        const favorites =
+            new Set();
+
+
+        favoriteButton.addEventListener(
+            "click",
+            function() {
+
+                const currentApp =
+                    modal.dataset.currentApp;
+
+                if (!currentApp) {
+                    return;
+                }
+
+
+                if (
+                    favorites.has(
+                        currentApp
+                    )
+                ) {
+
+                    favorites.delete(
+                        currentApp
+                    );
+
+                    favoriteButton
+                        .classList
+                        .remove("active");
+
+                    favoriteButton.textContent =
+                        "☆ Add to Favorites";
+
+                } else {
+
+                    favorites.add(
+                        currentApp
+                    );
+
+                    favoriteButton
+                        .classList
+                        .add("active");
+
+                    favoriteButton.textContent =
+                        "★ Added to Favorites";
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           SEND EMAIL
+        ========================================================= */
+
+        document
+            .getElementById(
+                "sendEmailButton"
+            )
+            .addEventListener(
+                "click",
+                function() {
+
+                    const currentApp =
+                        modal.dataset.currentApp;
+
+                    const app =
+                        applications[currentApp];
+
+                    if (
+                        !app ||
+                        !app.email ||
+                        app.email === "See vendor source"
+                    ) {
+
+                        alert(
+                            "Approved vendor email is not configured for this application yet."
+                        );
+
+                        return;
+
+                    }
+
+
+                    window.location.href =
+                        "mailto:" +
+                        app.email +
+                        "?subject=" +
+                        encodeURIComponent(
+                            "Production Operations Support - " +
+                            app.name
+                        );
+
+                }
+            );
+
+
+        /* =========================================================
+           CALL SUPPORT
+        ========================================================= */
+
+        document
+            .getElementById(
+                "callSupportButton"
+            )
+            .addEventListener(
+                "click",
+                function() {
+
+                    const currentApp =
+                        modal.dataset.currentApp;
+
+                    const app =
+                        applications[currentApp];
+
+                    if (
+                        !app ||
+                        !app.phone ||
+                        app.phone === "See vendor source"
+                    ) {
+
+                        alert(
+                            "Approved vendor phone number is not configured for this application yet."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const phone =
+                        app.phone
+                            .replace(
+                                /[^0-9+]/g,
+                                ""
+                            );
+
+
+                    window.location.href =
+                        "tel:" + phone;
+
+                }
+            );
+
+
+        /* =========================================================
+           VIEW TOGGLE
+        ========================================================= */
+
+        document
+            .querySelectorAll(".view-button")
+            .forEach(
+                function(button, index) {
+
+                    button.addEventListener(
+                        "click",
+                        function() {
+
+                            document
+                                .querySelectorAll(
+                                    ".view-button"
+                                )
+                                .forEach(
+                                    function(item) {
+
+                                        item.classList.remove(
+                                            "active"
+                                        );
+
+                                    }
+                                );
+
+
+                            button.classList.add(
+                                "active"
+                            );
+
+
+                            const grid =
+                                document.getElementById(
+                                    "applicationGrid"
+                                );
+
+
+                            if (index === 1) {
+
+                                grid.classList.add(
+                                    "list-view"
+                                );
+
+                            } else {
+
+                                grid.classList.remove(
+                                    "list-view"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+    </script>
+
+    <script src="js/dashboard.js"></script>
+<script src="js/favorites.js"></script>
+
+</body>
+</html>

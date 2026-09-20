@@ -1,0 +1,41 @@
+.login { min-height: 100vh; display: grid; place-items: center; padding: 28px; }
+.login form { position: relative; isolation: isolate; overflow: hidden; width: min(456px, 100%); display: grid; gap: 16px; padding: 29px 32px 25px; border: 1px solid rgba(255,255,255,.65); border-radius: 24px; background: rgba(220,238,250,.62); box-shadow: 0 14px 35px rgba(0,30,70,.18), inset 0 1px 0 rgba(255,255,255,.50); backdrop-filter: blur(1.5px) saturate(102%); -webkit-backdrop-filter: blur(1.5px) saturate(102%); animation: loginEnter .72s cubic-bezier(.22, .78, .25, 1) both; }
+.login form::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: rgba(255,255,255,.03); animation: none; }
+.login form > * { position: relative; z-index: 1; }
+.login-brand { display: grid; justify-items: center; text-align: center; animation: brandReveal .55s ease-out .12s both; }
+.login-brand strong { color: #075fa9; font: italic 45px Georgia, serif; letter-spacing: -3px; }
+.login-brand span { margin-top: -4px; color: #075fa9; font-size: 13px; font-weight: 800; letter-spacing: 7px; }
+.login-brand b { display: grid; place-items: center; width: 58px; height: 58px; margin: 18px 0 14px; border-radius: 15px; background: linear-gradient(145deg, #1595ff, #0768d6); box-shadow: 0 10px 20px rgba(0,106,203,.28), 0 0 0 0 rgba(55,166,255,0); font-size: 24px; animation: lockReveal .55s cubic-bezier(.2, .8, .25, 1) .25s both; transition: transform .2s ease, box-shadow .2s ease; }
+.login-brand b:hover { transform: translateY(-1px); box-shadow: 0 12px 22px rgba(0,106,203,.32), 0 0 0 4px rgba(55,166,255,.10); }
+.login-brand h1 { margin: 0; color: #063d7d; font-size: 28px; animation: titleReveal .5s ease-out .38s both; }
+.login-brand p { margin: 9px 0 6px; color: #527da3; font-size: 13px; animation: titleReveal .5s ease-out .46s both; }
+.login label { display: grid; gap: 9px; color: #235b85; font-size: 12px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; }
+.input-wrap { display: flex; align-items: center; gap: 12px; height: 54px; padding: 0 15px; border: 1px solid rgba(255,255,255,.72); border-radius: 13px; background: rgba(255,255,255,.78); box-shadow: inset 0 1px 0 rgba(255,255,255,.45); backdrop-filter: none; -webkit-backdrop-filter: none; transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+.input-wrap:focus-within { border-color: rgba(30,144,255,.72); background: rgba(255,255,255,.68); box-shadow: 0 0 0 2px rgba(30,144,255,.14), 0 6px 18px rgba(0,80,160,.10), inset 0 1px 0 rgba(255,255,255,.46); }
+.input-wrap i { color: #4c8bc0; font-style: normal; font-size: 17px; transition: color .2s ease, transform .2s ease; }
+.input-wrap:focus-within i { color: #087ee8; transform: translateY(-1px); }
+.input-wrap input { min-width: 0; border: 0; padding: 0; background: transparent; outline: 0; color: #194e7b; }
+.input-wrap input::placeholder { color: #7da4c5; }
+.show-password { padding: 0; color: #286a9b; background: transparent; font-weight: 500; transition: color .2s ease, transform .2s ease; }
+.show-password:hover { color: #087ee8; transform: translateY(-1px); }
+.login .sign-in { width: 100%; min-height: 54px; border: 1px solid rgba(255,255,255,.22); border-radius: 13px; background: linear-gradient(145deg, #2aa1ff 0%, #1289ed 48%, #0871d5 100%); box-shadow: 0 10px 21px rgba(0,103,207,.25), inset 0 1px 0 rgba(255,255,255,.30); transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+.login .sign-in:hover { transform: translateY(-1px); filter: brightness(1.03); box-shadow: 0 14px 26px rgba(0,88,184,.31), inset 0 1px 0 rgba(255,255,255,.38); }
+.login .sign-in:active { transform: translateY(1px); }
+.login .error { margin: -8px 0 0; color: #c32745; font-size: 13px; font-weight: 700; }
+.login .sign-in:disabled { cursor: wait; background: linear-gradient(135deg, #14b87c, #07875a); animation: accessPulse .85s ease-in-out; }
+.access-message { margin-top: -4px; padding: 10px 12px; border-radius: 10px; color: #087554; background: rgba(211, 250, 232, .72); font-size: 12px; font-weight: 800; text-align: center; animation: accessReveal .25s ease-out; }
+.access-granted { animation: accessGlow .85s ease-in-out; }
+@keyframes accessPulse { 50% { transform: scale(1.025); box-shadow: 0 0 0 8px rgba(27, 202, 137, .16); } }
+@keyframes accessReveal { from { opacity: 0; transform: translateY(-7px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes accessGlow { 50% { box-shadow: 0 0 0 5px rgba(59, 218, 154, .22), 0 26px 62px rgba(0,24,54,.42); } }
+.security-note { display: flex; align-items: flex-start; gap: 12px; margin-top: 17px; padding-top: 22px; border-top: 1px solid rgba(49,112,156,.2); color: #315f84; font-size: 12px; line-height: 1.4; }
+@keyframes loginEnter { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes glassReflection { 0%, 18% { transform: translateX(-42%); opacity: 0; } 35% { opacity: 1; } 72%, 100% { transform: translateX(42%); opacity: 0; } }
+@keyframes brandReveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes lockReveal { from { opacity: 0; transform: scale(.82); box-shadow: 0 10px 20px rgba(0,106,203,.28), 0 0 0 8px rgba(55,166,255,.15); } to { opacity: 1; transform: scale(1); box-shadow: 0 10px 20px rgba(0,106,203,.28), 0 0 0 0 rgba(55,166,255,0); } }
+@keyframes titleReveal { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .login form, .login form::before, .login-brand, .login-brand b, .login-brand h1, .login-brand p, .login .sign-in:disabled, .access-message, .access-granted { animation: none; } .login form { opacity: 1; transform: none; } }
+@media (max-width: 540px) { .login { padding: 14px; } .login form { padding: 30px 23px 24px; } .login-brand strong { font-size: 45px; } }
+
+.top-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.password-editor { width: min(460px, 100%); display: grid; gap: 15px; }

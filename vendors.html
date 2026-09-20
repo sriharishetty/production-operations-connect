@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Operations | Vendors</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/vendors.css">
+    <link rel="stylesheet" href="css/motion.css">
+    <script defer src="js/motion.js"></script>
+    <script defer src="js/sidebar-active.js"></script>
+</head>
+
+<body class="scroll-shell">
+
+    <!-- ======================================================
+         SIDEBAR
+         ====================================================== -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="alaska-logo">Alaska.</div>
+            <div class="airlines-text">AIRLINES</div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="home.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+            <a href="vendors.html" class="nav-item active">
+                <span class="nav-icon">♟</span>
+                <span>Vendors</span>
+            </a>
+
+            <a href="categories.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>Categories</span>
+            </a>
+
+            <a href="home.html#applications" class="nav-item">
+                <span class="nav-icon">✈</span>
+                <span>Ground Stop Apps</span>
+            </a>
+
+            <a href="favorites.html" class="nav-item">
+                <span class="nav-icon">☆</span>
+                <span>Favorites</span>
+            </a>
+
+            <a href="reports.html" class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Reports</span>
+</a>
+
+<a href="admin-react-dist/index.html" class="nav-item">
+    <span class="nav-icon">🛡</span>
+    <span>Admin</span>
+</a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-quote">
+                People.<br>
+                Planes.<br>
+                A Brighter<br>
+                Tomorrow.
+            </div>
+
+            <div class="sidebar-copyright">
+                © 2026 Alaska Airlines<br>
+                All rights reserved.
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- ======================================================
+         MAIN CONTENT
+         ====================================================== -->
+    <main class="main-content vendors-main">
+
+        <!-- HEADER -->
+        <header class="top-header">
+
+            <div class="header-spacer"></div>
+
+            <div class="header-right">
+
+                <button class="notification-button" type="button" aria-label="Notifications">
+                    ♧
+                    <span class="notification-badge">3</span>
+                </button>
+
+                <button class="profile-button" type="button">
+
+                    <div class="profile-avatar">SS</div>
+
+                    <div class="profile-info">
+                        <strong>Welcome,</strong>
+                        <span>Production Operations</span>
+                    </div>
+
+                    <span class="profile-arrow"></span>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- HERO -->
+        <section class="vendors-hero">
+
+            <div class="vendors-hero-content">
+
+                <div class="hero-eyebrow">
+                    PRODUCTION OPERATIONS
+                </div>
+
+                <h1>Vendor Network</h1>
+
+                <h2>
+                    The people and partners behind our operational systems.
+                </h2>
+
+                <p>
+                    Search vendor contacts, escalation paths, support ownership,
+                    and application relationships from the Production Operations
+                    source list.
+                </p>
+
+            </div>
+
+            <div class="vendors-hero-badge">
+                <span>ITS</span>
+                <strong>VENDOR DIRECTORY</strong>
+                <small>Source of truth: 2026 vendor workbook</small>
+            </div>
+
+        </section>
+
+
+        <!-- STATS -->
+        <section class="vendor-stats">
+
+            <div class="vendor-stat">
+                <div class="vendor-stat-icon blue">37</div>
+                <div>
+                    <strong>37</strong>
+                    <span>Vendor Records</span>
+                    <small>Current source list</small>
+                </div>
+            </div>
+
+            <div class="vendor-stat">
+                <div class="vendor-stat-icon purple">◈</div>
+                <div>
+                    <strong id="vendorCompanyCount">0</strong>
+                    <span>Vendor Companies</span>
+                    <small>Unique company names</small>
+                </div>
+            </div>
+
+            <div class="vendor-stat">
+                <div class="vendor-stat-icon green">☎</div>
+                <div>
+                    <strong id="vendorContactCount">0</strong>
+                    <span>Contact Records</span>
+                    <small>Phone / email available</small>
+                </div>
+            </div>
+
+            <div class="vendor-stat">
+                <div class="vendor-stat-icon orange">↗</div>
+                <div>
+                    <strong id="vendorEscalationCount">0</strong>
+                    <span>Escalation Paths</span>
+                    <small>Support procedures available</small>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- VENDOR DIRECTORY -->
+        <section class="vendors-panel">
+
+            <div class="vendors-panel-header">
+
+                <div>
+                    <h2>Vendor Directory <span>(37)</span></h2>
+                    <p>
+                        Search by system, vendor, category, team, contact, or application.
+                    </p>
+                </div>
+
+                <div class="vendor-tools">
+
+                    <label class="vendor-search">
+                        <span>⌕</span>
+                        <input
+                            id="vendorSearch"
+                            type="search"
+                            placeholder="Search vendors, systems, categories..."
+                            autocomplete="off"
+                        >
+                    </label>
+
+                    <select id="categoryFilter" class="vendor-filter">
+                        <option value="">All Categories</option>
+                    </select>
+
+                    <select id="teamFilter" class="vendor-filter">
+                        <option value="">All ITS Teams</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="vendor-results-bar">
+
+                <span id="vendorResultCount">
+                    Showing 37 of 37 vendor records
+                </span>
+
+                <button
+                    id="clearVendorFilters"
+                    class="clear-filters"
+                    type="button"
+                >
+                    Clear Filters
+                </button>
+
+            </div>
+
+
+            <div
+                id="vendorGrid"
+                class="vendor-grid"
+            ></div>
+
+
+            <div
+                id="noVendorResults"
+                class="no-vendor-results"
+                hidden
+            >
+                <div>⌕</div>
+                <strong>No vendors found</strong>
+                <span>Try a different search or clear the filters.</span>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ======================================================
+         VENDOR DETAIL MODAL
+         ====================================================== -->
+    <div
+        id="vendorModal"
+        class="vendor-modal"
+        aria-hidden="true"
+    >
+
+        <div class="vendor-modal-window">
+
+            <header class="vendor-modal-header">
+
+                <div
+                    id="vendorModalIcon"
+                    class="vendor-modal-icon"
+                >
+                    V
+                </div>
+
+                <div class="vendor-modal-heading">
+
+                    <div class="vendor-modal-eyebrow">
+                        VENDOR DETAILS
+                    </div>
+
+                    <div class="vendor-modal-title-row">
+
+                        <h2 id="vendorModalTitle">
+                            Vendor
+                        </h2>
+
+                        <span
+                            id="vendorModalCompany"
+                            class="vendor-company-pill"
+                        >
+                            Company
+                        </span>
+
+                    </div>
+
+                    <p id="vendorModalSubtitle">
+                        Production Operations vendor information
+                    </p>
+
+                </div>
+
+                <button
+                    id="vendorModalClose"
+                    class="vendor-modal-close"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </header>
+
+
+            <div class="vendor-modal-tabs">
+
+                <button class="vendor-modal-tab active" data-tab="overview">
+                    Overview
+                </button>
+
+                <button class="vendor-modal-tab" data-tab="contacts">
+                    Contacts
+                </button>
+
+                <button class="vendor-modal-tab" data-tab="escalation">
+                    Escalation
+                </button>
+
+                <button class="vendor-modal-tab" data-tab="records">
+                    Source Record
+                </button>
+
+            </div>
+
+
+            <div class="vendor-modal-body">
+
+                <section
+                    class="vendor-tab-panel active"
+                    data-panel="overview"
+                >
+
+                    <div class="vendor-detail-grid">
+
+                        <div class="vendor-detail-card">
+                            <h3>System / Application</h3>
+                            <div id="detailSystem"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Category</h3>
+                            <div id="detailCategory"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Vendor Company</h3>
+                            <div id="detailCompany"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>AAG ITS Team</h3>
+                            <div id="detailTeam"></div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <section
+                    class="vendor-tab-panel"
+                    data-panel="contacts"
+                >
+
+                    <div class="vendor-contact-grid">
+
+                        <div class="vendor-contact-card">
+                            <span>VENDOR POC</span>
+                            <strong id="detailVendorPoc">—</strong>
+                        </div>
+
+                        <div class="vendor-contact-card">
+                            <span>AAG ITS POC</span>
+                            <strong id="detailAagPoc">—</strong>
+                        </div>
+
+                        <div class="vendor-contact-card">
+                            <span>PHONE</span>
+                            <strong id="detailPhone">—</strong>
+                        </div>
+
+                        <div class="vendor-contact-card">
+                            <span>EMAIL</span>
+                            <strong id="detailEmail">—</strong>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <section
+                    class="vendor-tab-panel"
+                    data-panel="escalation"
+                >
+
+                    <div class="vendor-detail-card vendor-escalation-card">
+
+                        <h3>
+                            ProdOps Escalation Process
+                        </h3>
+
+                        <pre id="detailEscalation">—</pre>
+
+                    </div>
+
+                </section>
+
+
+                <section
+                    class="vendor-tab-panel"
+                    data-panel="records"
+                >
+
+                    <div class="vendor-detail-grid">
+
+                        <div class="vendor-detail-card">
+                            <h3>Source Excel Row</h3>
+                            <div id="detailSourceRow">—</div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Info Updated Date</h3>
+                            <div id="detailUpdatedDate">—</div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Info Updated By</h3>
+                            <div id="detailUpdatedBy">—</div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Info Approved Date</h3>
+                            <div id="detailApprovedDate">—</div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Info Approved By</h3>
+                            <div id="detailApprovedBy">—</div>
+                        </div>
+
+                    </div>
+
+                    <div class="source-note">
+                        This vendor directory is generated from the
+                        <strong>ITS Application Vendors</strong> worksheet
+                        supplied for Production Operations.
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <footer class="vendor-modal-footer">
+
+                <button
+                    id="vendorEmailButton"
+                    class="vendor-action primary"
+                    type="button"
+                >
+                    ✉ Send Email
+                </button>
+
+                <button
+                    id="vendorCallButton"
+                    class="vendor-action secondary"
+                    type="button"
+                >
+                    ☎ Call Vendor
+                </button>
+
+                <button
+                    id="vendorFavoriteButton"
+                    class="vendor-action favorite"
+                    type="button"
+                >
+                    ☆ Add to Favorites
+                </button>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/vendors.js"></script>
+
+</body>
+</html>
