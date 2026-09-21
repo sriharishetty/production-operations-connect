@@ -1645,6 +1645,44 @@ body {
    RESPONSIVE
    ========================================================= */
 
+@media (max-width: 850px) {
+    .categories-main {
+        width: calc(100vw - 94px);
+        max-width: calc(100vw - 94px);
+        padding-right: 12px !important;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    .sidebar-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 56px;
+        z-index: 2;
+
+        display: block;
+        padding: 0 1px 6px;
+        text-align: center;
+    }
+
+    .sidebar-slogan {
+        padding: 0 0 5px;
+        font-size: 7px;
+        line-height: 1.15;
+    }
+
+    .sidebar-line {
+        border-top: 1px solid rgba(255, 255, 255, .16);
+    }
+
+    .sidebar-copyright {
+        padding-top: 5px;
+        font-size: 6px;
+        line-height: 1.2;
+    }
+}
+
 @media (max-width: 1200px) {
 
     .category-grid {

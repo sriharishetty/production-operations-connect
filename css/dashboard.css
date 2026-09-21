@@ -2575,7 +2575,7 @@ body::after {
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 180px;
+        bottom: 56px;
         z-index: 2;
 
         margin-top: 0;
@@ -2614,7 +2614,7 @@ body::after {
         margin-left: 94px;
 
         padding:
-            27px 0 25px 0;
+            27px 12px 25px 0;
     }
 
     .top-header {
@@ -2971,6 +2971,10 @@ body.scroll-shell .categories-main::-webkit-scrollbar-thumb {
         height: auto !important;
         max-height: none !important;
         border-radius: 20px !important;
+    }
+
+    .main-content {
+        padding-right: 12px;
     }
 }
 

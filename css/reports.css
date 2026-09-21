@@ -1653,6 +1653,14 @@ body::after {
     }
 
     @media (max-width: 850px) {
+        body.scroll-shell .main-content {
+            width: calc(100vw - 94px);
+            max-width: calc(100vw - 94px);
+            padding-right: 12px !important;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
         .sidebar {
             top: 5px !important;
             bottom: 15px !important;
@@ -1717,7 +1725,7 @@ body::after {
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 180px;
+        bottom: 56px;
         z-index: 2;
 
         display: block;

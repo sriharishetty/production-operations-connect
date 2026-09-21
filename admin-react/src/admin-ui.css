@@ -453,8 +453,90 @@ body::after {
 .app section { width: calc(100% - 247px); margin-left: 247px; }
 
 @media (max-width: 900px) {
-    .app aside.sidebar { position: static; width: auto; min-height: auto; margin: 10px; }
-    .app section { width: auto; margin-left: 0; }
+    .app {
+        display: block;
+        min-height: 100vh;
+    }
+
+    .app aside.sidebar {
+        position: fixed;
+        inset: 5px auto 15px 5px;
+        z-index: 20;
+        width: 68px;
+        min-height: 0;
+        height: auto;
+        margin: 0;
+        padding: 0 8px 6px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .app aside.sidebar .sidebar-brand {
+        height: 80px;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .app aside.sidebar .sidebar-brand-icon {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+
+    .app aside.sidebar .sidebar-brand > div,
+    .app aside.sidebar .nav-item > span:last-child {
+        display: none;
+    }
+
+    .app aside.sidebar .sidebar-nav {
+        gap: 7px;
+        padding-top: 12px;
+    }
+
+    .app aside.sidebar .nav-item {
+        min-height: 45px;
+        justify-content: center;
+        gap: 0;
+        padding: 0;
+        border-radius: 12px;
+    }
+
+    .app aside.sidebar .nav-icon {
+        width: 27px;
+        flex-basis: 27px;
+        font-size: 20px;
+    }
+
+    .app aside.sidebar .sidebar-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 56px;
+        margin: 0;
+        padding: 0 1px 6px;
+        text-align: center;
+    }
+
+    .app aside.sidebar .sidebar-quote {
+        padding: 0 0 5px;
+        font-size: 7px;
+        line-height: 1.15;
+    }
+
+    .app aside.sidebar .sidebar-copyright {
+        padding-top: 5px;
+        font-size: 6px;
+        line-height: 1.2;
+    }
+
+    .app section {
+        width: calc(100% - 94px);
+        max-width: calc(100% - 94px);
+        min-height: 100vh;
+        margin-left: 94px;
+        padding: 27px 12px 25px 0;
+        overflow-x: hidden;
+    }
 }
 
 @media (max-width: 640px) {

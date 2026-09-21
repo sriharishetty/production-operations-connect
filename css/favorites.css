@@ -2038,7 +2038,7 @@ body::after {
         position: absolute !important;
         left: 0 !important;
         right: 0 !important;
-        bottom: 180px !important;
+        bottom: 56px !important;
         z-index: 2;
 
         display: block !important;
@@ -2093,6 +2093,14 @@ body.scroll-shell .main-content::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 850px) {
+    body.scroll-shell .main-content {
+        width: calc(100vw - 94px);
+        max-width: calc(100vw - 94px);
+        padding-right: 12px !important;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
     .sidebar {
         top: 5px !important;
         bottom: 15px !important;
