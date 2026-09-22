@@ -1693,18 +1693,18 @@
 
                 <button
                     class="modal-tab active"
-                    data-tab="overview"
-                    type="button"
-                >
-                    Overview
-                </button>
-
-                <button
-                    class="modal-tab"
                     data-tab="contacts"
                     type="button"
                 >
                     Contacts
+                </button>
+
+                <button
+                    class="modal-tab"
+                    data-tab="overview"
+                    type="button"
+                >
+                    Overview
                 </button>
 
                 <button
@@ -1744,7 +1744,7 @@
                 ================================================== -->
 
                 <section
-                    class="modal-panel active"
+                    class="modal-panel"
                     id="tab-overview"
                 >
 
@@ -2011,7 +2011,7 @@
                 ================================================== -->
 
                 <section
-                    class="modal-panel"
+                    class="modal-panel active"
                     id="tab-contacts"
                 >
 
@@ -2863,12 +2863,12 @@
 
             document
                 .querySelector(
-                    '.modal-tab[data-tab="overview"]'
+                    '.modal-tab[data-tab="contacts"]'
                 )
                 .classList.add("active");
 
             document
-                .getElementById("tab-overview")
+                .getElementById("tab-contacts")
                 .classList.add("active");
 
 
