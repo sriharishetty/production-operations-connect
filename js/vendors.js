@@ -334,6 +334,185 @@
     }
 
 
+    function setupCustomFilter(select) {
+
+        const wrapper =
+            document.createElement("div");
+
+        wrapper.className =
+            "vendor-filter-custom";
+
+        select.parentNode.insertBefore(
+            wrapper,
+            select
+        );
+
+        wrapper.appendChild(select);
+
+        const button =
+            document.createElement("button");
+
+        button.type =
+            "button";
+
+        button.className =
+            "vendor-filter-trigger";
+
+        button.setAttribute(
+            "aria-haspopup",
+            "listbox"
+        );
+
+        const menu =
+            document.createElement("div");
+
+        menu.className =
+            "vendor-filter-menu";
+
+        menu.setAttribute(
+            "role",
+            "listbox"
+        );
+
+        function syncSelection() {
+
+            const selected =
+                select.options[select.selectedIndex];
+
+            button.textContent =
+                selected
+                    ? selected.textContent
+                    : "";
+
+            menu
+                .querySelectorAll("[role='option']")
+                .forEach(function (option) {
+
+                    const active =
+                        option.dataset.value ===
+                        select.value;
+
+                    option.classList.toggle(
+                        "selected",
+                        active
+                    );
+
+                    option.setAttribute(
+                        "aria-selected",
+                        String(active)
+                    );
+
+                });
+
+        }
+
+        Array.from(select.options).forEach(
+            function (option) {
+
+                const item =
+                    document.createElement("button");
+
+                item.type =
+                    "button";
+
+                item.className =
+                    "vendor-filter-option";
+
+                item.dataset.value =
+                    option.value;
+
+                item.textContent =
+                    option.textContent;
+
+                item.setAttribute(
+                    "role",
+                    "option"
+                );
+
+                item.addEventListener(
+                    "click",
+                    function () {
+
+                        select.value =
+                            item.dataset.value;
+
+                        select.dispatchEvent(
+                            new Event("change", {
+                                bubbles: true
+                            })
+                        );
+
+                        wrapper.classList.remove(
+                            "open"
+                        );
+
+                    }
+                );
+
+                menu.appendChild(item);
+
+            }
+        );
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const isOpen =
+                    wrapper.classList.contains(
+                        "open"
+                    );
+
+                document
+                    .querySelectorAll(
+                        ".vendor-filter-custom.open"
+                    )
+                    .forEach(function (item) {
+
+                        item.classList.remove(
+                            "open"
+                        );
+
+                    });
+
+                if (!isOpen) {
+
+                    wrapper.classList.add(
+                        "open"
+                    );
+
+                }
+
+            }
+        );
+
+        select.addEventListener(
+            "change",
+            syncSelection
+        );
+
+        wrapper.appendChild(button);
+        wrapper.appendChild(menu);
+        syncSelection();
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (!wrapper.contains(event.target)) {
+
+                    wrapper.classList.remove(
+                        "open"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
     /* ========================================================
        STATISTICS
        ======================================================== */
@@ -565,7 +744,7 @@
                             type="button"
                             data-index="${originalIndex}"
                         >
-                            View Details →
+                            Edit →
                         </button>
 
                     </div>
@@ -912,6 +1091,14 @@
 
             teamFilter.value = "";
 
+            categoryFilter.dispatchEvent(
+                new Event("change")
+            );
+
+            teamFilter.dispatchEvent(
+                new Event("change")
+            );
+
             renderVendors();
 
         }
@@ -1180,6 +1367,8 @@
        ======================================================== */
 
     populateFilters();
+    setupCustomFilter(categoryFilter);
+    setupCustomFilter(teamFilter);
 
     calculateStats();
 

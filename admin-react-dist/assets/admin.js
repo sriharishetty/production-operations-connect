@@ -23910,46 +23910,17 @@
   // src/VendorEditor.jsx
   var import_react2 = __toESM(require_react(), 1);
   var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
-  var tabs = {
-    overview: ["systemName", "category", "vendorCompanyName"],
-    contacts: ["vendorPOC", "contactNumbers", "emailAddress", "aagItsPOC", "aagItsTeam"],
-    escalation: ["prodOpsEscalationProcess"],
-    documents: ["infoUpdatedDate", "infoUpdatedBy", "infoApprovedDate", "infoApprovedBy"]
-  };
-  var tabLabels = { overview: "Overview", contacts: "Contacts", escalation: "Escalation", documents: "Documents" };
-  var textAreas = /* @__PURE__ */ new Set(["prodOpsEscalationProcess", "contactNumbers", "emailAddress", "vendorPOC"]);
-  function labelFor(field) {
-    return field.replace(/([A-Z])/g, " $1").replace(/^./, (char) => char.toUpperCase());
-  }
-  function VendorEditor({ vendor, onClose, onSave }) {
-    const [draft, setDraft] = (0, import_react2.useState)(vendor);
-    const [activeTab, setActiveTab] = (0, import_react2.useState)("overview");
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "modal", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("form", { className: "editor vendor-editor", onSubmit: (event) => {
-      event.preventDefault();
-      onSave(draft);
-    }, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("header", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("small", { children: "EDIT" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h2", { children: "Edit Vendor Information" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { type: "button", onClick: onClose, children: "\xD7" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("nav", { className: "editor-tabs", children: Object.keys(tabs).map((tab) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { className: activeTab === tab ? "active" : "", type: "button", onClick: () => setActiveTab(tab), children: tabLabels[tab] }, tab)) }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "form-grid", children: tabs[activeTab].map((field) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("label", { children: [
-        labelFor(field),
-        textAreas.has(field) ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("textarea", { value: draft[field] || "", onChange: (event) => setDraft({ ...draft, [field]: event.target.value }) }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("input", { type: "text", value: draft[field] || "", onChange: (event) => setDraft({ ...draft, [field]: event.target.value }) })
-      ] }, field)) }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("footer", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { type: "button", className: "secondary", onClick: onClose, children: "Cancel" }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { children: "Save Changes" })
-      ] })
-    ] }) });
-  }
 
   // src/App.jsx
   var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
-  var STORAGE = { authenticated: "productionOperationsAdminAuthenticated", email: "productionOperationsAdminEmail", password: "productionOperationsAdminPassword", vendors: "productionOperationsVendors", applications: "productionOperationsApplications", history: "productionOperationsAdminHistory" };
+  var STORAGE = {
+    authenticated: "productionOperationsAdminAuthenticated",
+    email: "productionOperationsAdminEmail",
+    password: "productionOperationsAdminPassword",
+    vendors: "productionOperationsVendors",
+    applications: "productionOperationsApplications",
+    history: "productionOperationsAdminHistory"
+  };
   var fields = ["systemName", "category", "vendorCompanyName", "prodOpsEscalationProcess", "contactNumbers", "emailAddress", "vendorPOC", "aagItsPOC", "aagItsTeam", "infoUpdatedDate", "infoUpdatedBy", "infoApprovedDate", "infoApprovedBy"];
   var read = (key, fallback) => {
     try {
@@ -23964,7 +23935,24 @@
     const fieldsToMerge = ["category", "vendorCompanyName", "prodOpsEscalationProcess", "contactNumbers", "emailAddress", "vendorPOC", "aagItsPOC", "aagItsTeam", "infoUpdatedDate", "infoUpdatedBy", "infoApprovedDate", "infoApprovedBy"];
     const records = [];
     window.masterData.vendors.forEach((vendor) => {
-      const mapped = { id: `its-application-vendors-${vendor.sourceRow}`, sourceRow: vendor.sourceRow, vendorDataVersion: 2, systemName: vendor.systemName || "", category: vendor.category || "", vendorCompanyName: vendor.vendor || "", prodOpsEscalationProcess: vendor.escalation || "", contactNumbers: vendor.phone || "", emailAddress: vendor.email || "", vendorPOC: vendor.vendorPoc || "", aagItsPOC: vendor.aagItsPoc || "", aagItsTeam: vendor.aagItsTeam || "", infoUpdatedDate: vendor.updatedDate || "", infoUpdatedBy: vendor.updatedBy || "", infoApprovedDate: vendor.approvedDate || "", infoApprovedBy: vendor.approvedBy || "" };
+      const mapped = {
+        id: `its-application-vendors-${vendor.sourceRow}`,
+        sourceRow: vendor.sourceRow,
+        vendorDataVersion: 2,
+        systemName: vendor.systemName || "",
+        category: vendor.category || "",
+        vendorCompanyName: vendor.vendor || "",
+        prodOpsEscalationProcess: vendor.escalation || "",
+        contactNumbers: vendor.phone || "",
+        emailAddress: vendor.email || "",
+        vendorPOC: vendor.vendorPoc || "",
+        aagItsPOC: vendor.aagItsPoc || "",
+        aagItsTeam: vendor.aagItsTeam || "",
+        infoUpdatedDate: vendor.updatedDate || "",
+        infoUpdatedBy: vendor.updatedBy || "",
+        infoApprovedDate: vendor.approvedDate || "",
+        infoApprovedBy: vendor.approvedBy || ""
+      };
       if (mapped.systemName) {
         records.push(mapped);
         return;
@@ -23977,6 +23965,30 @@
     });
     return records;
   };
+  function Editor({ vendor, onClose, onSave }) {
+    const [draft, setDraft] = (0, import_react3.useState)(vendor);
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "modal", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("form", { className: "editor vendor-editor", onSubmit: (e) => {
+      e.preventDefault();
+      onSave(draft);
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "EDIT" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Edit Vendor Information" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", onClick: onClose, children: "\xD7" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "form-grid", children: fields.map((field) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("label", { children: [
+        field.replace(/([A-Z])/g, " $1"),
+        " ",
+        field === "prodOpsEscalationProcess" ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("textarea", { value: draft[field] || "", onChange: (e) => setDraft({ ...draft, [field]: e.target.value }) }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("input", { type: field.includes("Date") ? "date" : "text", value: draft[field] || "", onChange: (e) => setDraft({ ...draft, [field]: e.target.value }) })
+      ] }, field)) }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("footer", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: "secondary", onClick: onClose, children: "Cancel" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { children: "Save Changes" })
+      ] })
+    ] }) });
+  }
   function ApplicationEditor({ application, onClose, onSave }) {
     const [draft, setDraft] = (0, import_react3.useState)(application);
     const appFields = ["name", "description", "vendor", "severity", "status", "icon"];
@@ -24041,6 +24053,36 @@
       ] })
     ] }) });
   }
+  var navItems = [
+    ["Home", "../home.html", "\u2302"],
+    ["Vendors", "../vendors.html", "\u25A6"],
+    ["Categories", "../categories.html", "\u25A6"],
+    ["Ground Stop Apps", "../home.html#ground-stop-apps", "\u2708"],
+    ["Favorites", "../favorites.html", "\u2606"],
+    ["Reports", "../reports.html", "\u25A4"],
+    ["Admin", "./index.html", "\u25C8"]
+  ];
+  function Metric({ value, label, detail, icon, tone }) {
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("article", { className: `metric metric-${tone}`, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "metric-icon", children: icon }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: label }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: String(value).padStart(2, "0") }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: detail })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("i", { className: "metric-state", children: "\u25CF" })
+    ] });
+  }
+  function OperationModule({ icon, title, description, href }) {
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("a", { className: "operation-module", href, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "module-icon", children: icon }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: title }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: description })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("b", { children: "\u2197" })
+    ] });
+  }
   function App() {
     const [email, setEmail] = (0, import_react3.useState)(() => localStorage.getItem(STORAGE.email));
     const [vendors, setVendors] = (0, import_react3.useState)(() => {
@@ -24094,134 +24136,193 @@
       setEditingApplication(null);
     }
     if (!email || localStorage.getItem(STORAGE.authenticated) !== "true") return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Login, { onLogin: setEmail });
-    const navigation2 = [["Home", "../home.html", "\u2302"], ["Vendors", "../vendors.html", "\u265F"], ["Categories", "../categories.html", "\u25A6"], ["Ground Stop Apps", "../home.html#ground-stop-apps", "\u2708"], ["Favorites", "../favorites.html", "\u2606"], ["Reports", "../reports.html", "\u25A4"]];
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("main", { className: "app", children: [
       /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("aside", { className: "sidebar", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "sidebar-brand", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("img", { className: "sidebar-brand-icon", src: "../public/sidebar-logo.png", alt: "Alaska Airlines logo" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("img", { src: "../public/sidebar-logo.png", alt: "Alaska Airlines logo" }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h1", { children: "Alaska." }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "AIRLINES" })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: "Alaska." }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "AIRLINES" })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("nav", { className: "sidebar-nav", children: [
-          navigation2.map(([label, href, icon]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("a", { href, className: `nav-item${isActiveNavigation(href) ? " active" : ""}`, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "nav-icon", "aria-hidden": "true", children: icon }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: label })
-          ] }, label)),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("a", { className: `nav-item${isActiveNavigation("./index.html") ? " active" : ""}`, href: "./index.html", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "nav-icon", "aria-hidden": "true", children: "\u{1F6E1}" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Admin" })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "sidebar-bottom", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "sidebar-quote", children: [
-            "People.",
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
-            "Planes.",
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
-            "A Brighter",
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
-            "Tomorrow."
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "sidebar-copyright", children: [
-            "\xA9 2026 Alaska Airlines",
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
-            "All rights reserved."
-          ] })
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "sidebar-label", children: "COMMAND CENTER" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("nav", { children: navItems.map(([label, href, icon]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("a", { href, className: isActiveNavigation(href) ? "active" : "", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: icon }),
+          label,
+          label === "Admin" && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("b", { children: "LIVE" })
+        ] }, label)) }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "sidebar-quote", children: [
+          "People.",
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
+          "Planes.",
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
+          "A Brighter",
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
+          "Tomorrow."
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "top", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            "  ",
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "ITS Production Operations" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { className: "dashboard", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "command-header", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "header-copy", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "ITS PRODUCTION OPERATIONS" }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h1", { children: "Admin Control Center" }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "Manage applications, vendors and operational information." })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "top-right", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "admin-profile-card", title: email, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "admin-profile-avatar", children: profileInitials }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "admin-profile-info", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: "Welcome," }),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: profileName }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "header-actions", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "profile", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: profileInitials }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("strong", { children: [
+                  "Welcome, ",
+                  profileName
+                ] }),
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "Production Operations" })
               ] })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "top-actions", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { className: "secondary", onClick: () => setChangingPassword(true), children: "Change Password" }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { className: "secondary", onClick: () => {
-                localStorage.removeItem(STORAGE.authenticated);
-                localStorage.removeItem(STORAGE.email);
-                setEmail(null);
-              }, children: "Logout" })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { className: "header-button", onClick: () => setChangingPassword(true), children: "Change Password" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { className: "header-button logout", onClick: () => {
+              localStorage.removeItem(STORAGE.authenticated);
+              localStorage.removeItem(STORAGE.email);
+              setEmail(null);
+            }, children: "Logout" })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "command-line", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("i", { className: "online-dot" }),
+            " SYSTEM STATUS: OPERATIONAL"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "LAST SYNC \xB7 LIVE" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { className: "metrics", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Metric, { value: applications.length, label: "APPLICATIONS", detail: "Active operational applications", icon: "\u2708", tone: "blue" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Metric, { value: vendors.length, label: "VENDOR RECORDS", detail: "Configured vendor contacts", icon: "\u265F", tone: "green" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Metric, { value: history.length, label: "CHANGES", detail: "Changes pending review", icon: "\u21BB", tone: "purple" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { className: "section-block operations-block", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "section-heading", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "CONTROL ROOM" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Operations Overview" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "ADMINISTRATION" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "module-grid", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(OperationModule, { icon: "\u25A3", title: "Application Management", description: "Configure operational systems", href: "#applications" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(OperationModule, { icon: "\u265F", title: "Vendor Management", description: "Maintain vendor contacts", href: "#vendors" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(OperationModule, { icon: "\u2301", title: "Operational Information", description: "Review support workflows", href: "#activity" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(OperationModule, { icon: "\u21BB", title: "Recent Changes", description: "Track administrative activity", href: "#activity" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(OperationModule, { icon: "\u25C9", title: "System Status", description: "All services operational", href: "#applications" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(OperationModule, { icon: "\u2699", title: "Administrative Tools", description: "Security and access controls", href: "#admin-tools" })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { className: "section-block", id: "applications", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "section-heading", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "LIVE SERVICE REGISTER" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Application Status" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { children: [
+              applications.length,
+              " SYSTEMS"
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "status-table", children: applications.map((app) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("article", { className: "status-row", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "status-app-icon", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("img", { src: `../${app.icon}`, alt: "" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "status-app-name", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: app.name }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: app.function || app.description })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "status-pill operational", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("i", {}),
+              app.status || "Operational"
+            ] }),
+            app.severity && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: `severity-tag ${app.severity.toLowerCase()}`, children: app.severity }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "sla-value", children: [
+              "\u25F7 SLA: ",
+              app.response || "TBD"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { className: "text-action", onClick: () => setEditingApplication(app), children: "Edit \u2192" })
+          ] }, app.id)) })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { className: "section-block", id: "vendors", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "section-heading vendor-heading", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "PARTNER DIRECTORY" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Vendor Management" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("input", { "aria-label": "Search vendors", placeholder: "Search vendors...", value: query, onChange: (e) => setQuery(e.target.value) }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { children: [
+              results.length,
+              " RECORDS"
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "vendor-console-grid", children: results.map((v) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("article", { className: "vendor-console-card", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "vendor-console-top", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "vendor-console-icon", children: "\u265F" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: v.systemName || "Vendor" }),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: v.category || "Vendor information" })
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "vendor-console-company", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "VENDOR COMPANY" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: v.vendorCompanyName || "Not provided" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "vendor-console-contact", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { children: [
+                "\u260E ",
+                v.contactNumbers || "Not provided"
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { children: [
+                "\u2709 ",
+                v.emailAddress || "Not provided"
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("footer", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: v.aagItsTeam || "ITS Operations" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { className: "text-action", onClick: () => setEditing(v), children: "Edit \u2192" })
+            ] })
+          ] }, v.id)) })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { className: "section-block activity-block", id: "activity", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "section-heading", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "AUDIT TRAIL" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Recent Activity" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: history.length ? `${history.length} EVENTS` : "NO EVENTS" })
+          ] }),
+          history.length ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "activity-list", children: history.slice(0, 5).map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "activity-item", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("i", {}),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: item.action }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: item.details })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("time", { children: item.timestamp })
+          ] }, `${item.timestamp}-${index}`)) }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "empty-activity", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "\u2713" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: "No recent administrative activity." }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("small", { children: "Vendor and application updates will appear here." })
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "stats", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("article", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: applications.length }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Applications" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("i", { className: "stat-icon", "aria-hidden": "true", children: "\u2708" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("article", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: vendors.length }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Vendor records" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("i", { className: "stat-icon", "aria-hidden": "true", children: "\u265F" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("article", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: history.length }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Changes" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("i", { className: "stat-icon", "aria-hidden": "true", children: "\u21BB" })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("article", { className: "panel", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("header", { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Application Management" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "Edit all application information." })
-          ] }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "list", children: applications.map((app) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "row", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: app.name }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: app.description })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => setEditingApplication(app), children: "Edit" })
-          ] }, app.id)) })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("article", { className: "panel", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Vendor Management" }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "Update vendor information. Changes sync to the Vendor Directory." })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("input", { placeholder: "Search vendors...", value: query, onChange: (e) => setQuery(e.target.value) })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "list", children: results.map((v) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "row", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: v.vendorCompanyName || v.systemName || "Vendor" }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: v.systemName || v.category || "Vendor information" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => setEditing(v), children: "Edit" })
-          ] }, v.id)) })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("article", { className: "panel", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h2", { children: "Recent Changes" }),
-          history.length ? history.slice(0, 5).map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("p", { children: [
-            item.action,
-            ": ",
-            item.details
-          ] }, index)) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "No changes yet." })
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { id: "admin-tools", className: "dashboard-footer", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "ALASKA AIRLINES \xB7 PRODUCTION OPERATIONS" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "SECURE ADMINISTRATIVE ACCESS" })
         ] })
       ] }),
-      editing && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(VendorEditor, { vendor: editing, onClose: () => setEditing(null), onSave: saveVendor }),
+      editing && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Editor, { vendor: editing, onClose: () => setEditing(null), onSave: saveVendor }),
       editingApplication && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ApplicationEditor, { application: editingApplication, onClose: () => setEditingApplication(null), onSave: saveApplication }),
       changingPassword && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(PasswordEditor, { onClose: () => setChangingPassword(false) })
     ] });
   }
+  var App_default = App;
 
   // src/main.jsx
   var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_react4.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(App, {}) }));
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_react4.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(App_default, {}) }));
 })();
 /*! Bundled license information:
 

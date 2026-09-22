@@ -416,6 +416,124 @@
     font-weight: 700;
 }
 
+.vendor-filter-custom {
+    position: relative;
+    min-width: 145px;
+}
+
+.vendor-filter-custom > .vendor-filter {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.vendor-filter-trigger {
+    position: relative;
+    width: 100%;
+    height: 39px;
+
+    padding: 0 30px 0 10px;
+
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 10px;
+    outline: 0;
+
+    background:
+        rgba(9, 50, 98, .88);
+
+    color: #eaf6ff;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.vendor-filter-trigger::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid #b9dcf5;
+    border-bottom: 1.5px solid #b9dcf5;
+    transform: translateY(-65%) rotate(45deg);
+    transition: transform .18s ease;
+}
+
+.vendor-filter-custom.open .vendor-filter-trigger::after {
+    transform: translateY(-20%) rotate(225deg);
+}
+
+.vendor-filter-trigger:hover,
+.vendor-filter-custom.open .vendor-filter-trigger {
+    background: rgba(18,88,151,.95);
+    border-color: rgba(255,255,255,.38);
+}
+
+.vendor-filter-menu {
+    position: absolute;
+    z-index: 100;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100%;
+    max-height: 240px;
+    padding: 6px;
+    display: none;
+    overflow-y: auto;
+
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 12px;
+    background: rgba(8,43,82,.97);
+    box-shadow: 0 14px 30px rgba(2,24,51,.28);
+}
+
+.vendor-filter-custom.open .vendor-filter-menu {
+    display: block;
+}
+
+.vendor-filter-option {
+    display: block;
+    width: 100%;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #dcefff;
+    font: inherit;
+    font-size: 10px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.vendor-filter-option:hover {
+    background: rgba(30,125,220,.30);
+}
+
+.vendor-filter-option.selected {
+    background: #0878e8;
+    color: #fff;
+}
+
+.vendor-filter-menu::-webkit-scrollbar {
+    width: 7px;
+}
+
+.vendor-filter-menu::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(145,203,244,.45);
+}
+
+.vendor-filter-menu {
+    scrollbar-color: rgba(145,203,244,.45) transparent;
+    scrollbar-width: thin;
+}
+
 
 /* ============================================================
    RESULTS BAR
