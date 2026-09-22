@@ -27,6 +27,7 @@ await writeFile(resolve(output, "index.html"), `<!doctype html>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Production Operations | Admin</title>
+    <link rel="icon" type="image/png" href="../public/favicon.png" />
     <link rel="stylesheet" href="./assets/admin.css" />
   </head>
   <body>
