@@ -38,7 +38,7 @@
                 {
                     name: "JCTE",
                     description:
-                        "Joint Carrier Technical Engineering"
+                        "Jeppesen Crew Tracking Enterprise"
                 },
                 {
                     name: "S4A",
@@ -49,11 +49,6 @@
                     name: "Aircraft Performance",
                     description:
                         "Aircraft performance data"
-                },
-                {
-                    name: "Boeing Toolbox",
-                    description:
-                        "Boeing operational data and support"
                 }
             ]
         },
@@ -74,18 +69,14 @@
                 {
                     name: "JCTE",
                     description:
-                        "Jeppesen Crew Tracking"
+                        "Jeppesen Crew Tracking Enterprise"
                 },
                 {
                     name: "Pilot Briefing",
                     description:
-                        "Electronic Flight Bag briefing system"
+                        "JetPack (Pilot Mobile) / Pilot Briefing application used by AS and QX pilots for pre-flight procedures and while en-route."
                 },
-                {
-                    name: "CSA Mobile",
-                    description:
-                        "Mobile boarding and lobby applications"
-                }
+                
             ]
         },
 
@@ -118,9 +109,18 @@
                         "Baggage tracking"
                 },
                 {
+                    name: "BrockSmartsuite",
+                    description: "Scan and Track checked-in baggage"
+                },
+                {
                     name: "Baggage",
                     description:
                         "Airport baggage operations"
+                },
+                {
+                    name: "CSA Mobile",
+                    description:
+                        "Mobile boarding and lobby applications"
                 }
             ]
         },
@@ -204,6 +204,11 @@
                     name: "Aircraft Performance",
                     description:
                         "Aircraft performance data"
+                },
+                {
+                    name: "Boeing Toolbox",
+                    description:
+                        "Boeing operational data and support"
                 }
             ]
         },
@@ -250,7 +255,7 @@
                 {
                     name: "Weather Feed",
                     description:
-                        "IBM / WSI / Weather Company"
+                        "TWC / WSI / The Weather Company"
                 },
                 {
                     name: "WSI Fusion",
@@ -271,7 +276,7 @@
                 {
                     name: "ACARS",
                     description:
-                        "Aircraft communications"
+                        "Aircraft communication Addressing and Reporting System"
                 },
                 {
                     name: "ARINC",
