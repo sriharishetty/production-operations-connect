@@ -1174,6 +1174,36 @@ body::after {
     overflow: hidden;
 }
 
+.favorite-icon.color-0 {
+    color: #fff;
+    background: linear-gradient(145deg,#168cf4,#075dbb);
+}
+
+.favorite-icon.color-1 {
+    color: #fff;
+    background: linear-gradient(145deg,#e85a83,#a81f51);
+}
+
+.favorite-icon.color-2 {
+    color: #fff;
+    background: linear-gradient(145deg,#8c6bff,#5b3fca);
+}
+
+.favorite-icon.color-3 {
+    color: #fff;
+    background: linear-gradient(145deg,#ff9b3e,#dc5c0a);
+}
+
+.favorite-icon.color-4 {
+    color: #fff;
+    background: linear-gradient(145deg,#21c98b,#07865c);
+}
+
+.favorite-icon.color-5 {
+    color: #fff;
+    background: linear-gradient(145deg,#16b9c9,#087b91);
+}
+
 .favorite-icon img {
     width: 100%;
     height: 100%;
@@ -1183,6 +1213,26 @@ body::after {
     object-fit: contain;
 
     padding: 6px;
+}
+
+.favorite-icon svg {
+    width: 25px;
+    height: 25px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    filter:
+        drop-shadow(0 0 5px rgba(255,255,255,.42));
+}
+
+.favorite-icon .vendor-icon-accent {
+    fill: currentColor;
+    stroke: none;
+    opacity: .85;
 }
 
 

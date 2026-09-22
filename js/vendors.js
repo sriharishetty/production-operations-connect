@@ -1035,11 +1035,37 @@
 
         try {
 
-            return JSON.parse(
+            const saved =
+                JSON.parse(
                 localStorage.getItem(
                     "productionOpsVendorFavorites"
                 )
-            ) || [];
+                ) || [];
+
+            return saved.map(function (item) {
+
+                const value =
+                    typeof item === "object" && item !== null
+                        ? item.id || item.sourceRow || item.name
+                        : item;
+
+                const vendor =
+                    vendors.find(function (candidate) {
+
+                        return (
+                            String(candidate.id) === String(value) ||
+                            String(candidate.sourceRow) === String(value) ||
+                            String(candidate.displayName).toLowerCase() ===
+                                String(value).toLowerCase()
+                        );
+
+                    });
+
+                return vendor
+                    ? vendor.id
+                    : String(value);
+
+            });
 
         } catch (error) {
 
@@ -1076,6 +1102,7 @@
 
 
         const key =
+            currentVendor.id ||
             String(
                 currentVendor.sourceRow
             );
@@ -1113,6 +1140,7 @@
 
 
             const key =
+                currentVendor.id ||
                 String(
                     currentVendor.sourceRow
                 );

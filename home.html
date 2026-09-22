@@ -2878,6 +2878,16 @@
             modal.dataset.currentApp =
                 app.id;
 
+            favoriteButton.classList.toggle(
+                "active",
+                isFavorite(app.id)
+            );
+
+            favoriteButton.textContent =
+                isFavorite(app.id)
+                    ? "★ Added to Favorites"
+                    : "☆ Add to Favorites";
+
 
             /* Open */
 
@@ -3158,10 +3168,6 @@
             );
 
 
-        const favorites =
-            new Set();
-
-
         favoriteButton.addEventListener(
             "click",
             function() {
@@ -3174,37 +3180,27 @@
                 }
 
 
-                if (
-                    favorites.has(
-                        currentApp
-                    )
-                ) {
+                const application =
+                    getApplication(currentApp);
 
-                    favorites.delete(
-                        currentApp
-                    );
-
-                    favoriteButton
-                        .classList
-                        .remove("active");
-
-                    favoriteButton.textContent =
-                        "☆ Add to Favorites";
-
-                } else {
-
-                    favorites.add(
-                        currentApp
-                    );
-
-                    favoriteButton
-                        .classList
-                        .add("active");
-
-                    favoriteButton.textContent =
-                        "★ Added to Favorites";
-
+                if (!application) {
+                    return;
                 }
+
+                toggleFavorite(application);
+
+                const active =
+                    isFavorite(application.id);
+
+                favoriteButton.classList.toggle(
+                    "active",
+                    active
+                );
+
+                favoriteButton.textContent =
+                    active
+                        ? "★ Added to Favorites"
+                        : "☆ Add to Favorites";
 
             }
         );
