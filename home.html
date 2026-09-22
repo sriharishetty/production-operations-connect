@@ -149,7 +149,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         .app-modal-title {
@@ -172,6 +172,7 @@
         .modal-close {
             width: 42px;
             height: 42px;
+            flex: 0 0 auto;
 
             border: 0;
             border-radius: 50%;
@@ -203,8 +204,9 @@
         .modal-badges {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             margin-left: auto;
+            flex-wrap: nowrap;
         }
 
         .modal-status,
@@ -768,7 +770,6 @@
             }
 
             .modal-badges {
-                width: 100%;
                 margin-left: 0;
             }
 
@@ -1662,6 +1663,15 @@
                                 Operational
                             </span>
 
+                            <button
+                                class="modal-close"
+                                id="modalClose"
+                                type="button"
+                                aria-label="Close"
+                            >
+                                ×
+                            </button>
+
                         </div>
 
                     </div>
@@ -1674,15 +1684,6 @@
                     </p>
 
                 </div>
-
-                <button
-                    class="modal-close"
-                    id="modalClose"
-                    type="button"
-                    aria-label="Close"
-                >
-                    ×
-                </button>
 
             </header>
 
