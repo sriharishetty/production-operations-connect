@@ -127,7 +127,7 @@
     "brockSmartsuite": {
     "id": "brockSmartsuite",
     "name": "Brock SmartSuite",
-    "icon": "public/applications/brock-smartsuite.png",
+    "icon": "public/applications/aircraft-maintenance.png",
     "function": "Brock SmartSuite",
     "category": "Brock SmartSuite",
     "vendor": "Brock Solutions",
@@ -327,7 +327,7 @@
       "approvedDate": "",
       "approvedBy": "",
       "displayName": "S4A - Smart4Aviation/Weight and Balance",
-      "displaySubtitle": "Production Operations system",
+      "displaySubtitle": "S4A - Smart4Aviation/Weight and Balance",
       "id": "smart4aviation",
       "company": "Smart4Aviation",
       "poc": "NA"
@@ -495,7 +495,7 @@
       "approvedDate": "",
       "approvedBy": "",
       "displayName": "JCTE",
-      "displaySubtitle": "Production Operations system",
+      "displaySubtitle": "JCTE",
       "id": "jcte",
       "company": "Jeppesen",
       "poc": ""
@@ -516,7 +516,7 @@
       "approvedDate": "",
       "approvedBy": "",
       "displayName": "Sabre",
-      "displaySubtitle": "Production Operations system",
+      "displaySubtitle": "Sabre",
       "id": "sabre",
       "company": "SABRE",
       "poc": "Escalation will be handled by the Business Focal, but for Sev1 make sure CCIM* is engaged. \nCustomer Care Incident Manager (CCIM)* Email: customercareim@sabre.com \nCustomer Care Incident Manager Phone: +1 682 605 3570  \n*For a SABRE Sev1, and Sev2:  They will assign a Customer Care Incident Manager (CCIM) automatically to us when a high severity ticket is assigned."
@@ -537,7 +537,7 @@
       "approvedDate": "",
       "approvedBy": "",
       "displayName": "Image Reservations",
-      "displaySubtitle": "Production Operations system",
+      "displaySubtitle": "Image Reservations",
       "id": "image-reservations",
       "company": "SABRE",
       "poc": "Escalation will be handled by the Business Focal, but for Sev1 make sure CCIM* is engaged. \nCustomer Care Incident Manager (CCIM)* Email: customercareim@sabre.com \nCustomer Care Incident Manager Phone: +1 682 605 3570  \n*For a SABRE Sev1, and Sev2:  They will assign a Customer Care Incident Manager (CCIM) automatically to us when a high severity ticket is assigned."
@@ -558,7 +558,7 @@
       "approvedDate": "",
       "approvedBy": "",
       "displayName": "Boeing Toolbox",
-      "displaySubtitle": "Production Operations system",
+      "displaySubtitle": "Boeing Toolbox",
       "id": "boeing",
       "company": "Boeing",
       "poc": "Rob Lowy."
@@ -579,7 +579,7 @@
       "approvedDate": "",
       "approvedBy": "",
       "displayName": "Web / Kiosk Check-In",
-      "displaySubtitle": "Production Operations system",
+      "displaySubtitle": "Web / Kiosk Check-In",
       "id": "ncr",
       "company": "NCR Corporation",
       "poc": "GS2 Support Team 24x7 \nTim.Reisner@ncr.com\nTrudy.Reiser@ncr.com\nJoel.Uriodain@ncr.com"
@@ -600,7 +600,7 @@
       "approvedDate": "",
       "approvedBy": "",
       "displayName": "TIBCO",
-      "displaySubtitle": "Production Operations system",
+      "displaySubtitle": "TIBCO",
       "id": "tibco",
       "company": "Tibco",
       "poc": ""
@@ -621,7 +621,7 @@
       "approvedDate": "",
       "approvedBy": "",
       "displayName": "Baggage",
-      "displaySubtitle": "Production Operations system",
+      "displaySubtitle": "Baggage",
       "id": "baggage",
       "company": "Port of ANC Facilities Desk\nPOS Service Desk",
       "poc": ""
@@ -1062,7 +1062,7 @@
       "approvedDate": "",
       "approvedBy": "",
       "displayName": "Intelligent Cloud Contact Center",
-      "displaySubtitle": "Production Operations system",
+      "displaySubtitle": "Intelligent Cloud Contact Center",
       "id": "five9",
       "company": "Five9",
       "poc": ""

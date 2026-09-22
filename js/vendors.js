@@ -744,7 +744,7 @@
                             type="button"
                             data-index="${originalIndex}"
                         >
-                            Edit →
+                            View Details →
                         </button>
 
                     </div>

@@ -112,7 +112,7 @@ const navItems = [
   ["Home", "../home.html", "⌂"],
   ["Vendors", "../vendors.html", "▦"],
   ["Categories", "../categories.html", "▦"],
-  ["Ground Stop Apps", "../home.html#ground-stop-apps", "✈"],
+  ["Ground Stop Apps", "../home.html#applications", "✈"],
   ["Favorites", "../favorites.html", "☆"],
   ["Reports", "../reports.html", "▤"],
   ["Admin", "./index.html", "◈"]

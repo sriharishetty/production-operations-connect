@@ -1281,7 +1281,7 @@ body::after {
     align-items: center;
     justify-content: center;
 
-    border-radius: 11px;
+    border-radius: 16px;
 
     background:
         linear-gradient(
@@ -1308,6 +1308,7 @@ body::after {
     padding: 6px;
 
     display: block;
+    border-radius: 14px;
 }
 
 
@@ -1478,20 +1479,26 @@ body::after {
 .application-grid.list-view .application-card {
     min-height: 86px;
 
-    flex-direction: row;
-
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) minmax(180px, .7fr) 240px;
     align-items: center;
-
     gap: 15px;
 }
 
 .application-grid.list-view
 .application-card-top {
-    flex: 1;
+    min-width: 0;
+}
+
+.application-grid.list-view
+.application-contact {
+    min-width: 0;
+    margin-top: 0;
 }
 
 .application-grid.list-view
 .application-card-bottom {
+    min-width: 0;
     width: 240px;
 
     margin-top: 0;
@@ -2732,8 +2739,13 @@ body::after {
 
     .application-grid.list-view
     .application-card {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         align-items: stretch;
+    }
+
+    .application-grid.list-view
+    .application-contact {
+        margin-top: 9px;
     }
 
     .application-grid.list-view

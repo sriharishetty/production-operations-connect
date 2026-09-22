@@ -24057,7 +24057,7 @@
     ["Home", "../home.html", "\u2302"],
     ["Vendors", "../vendors.html", "\u25A6"],
     ["Categories", "../categories.html", "\u25A6"],
-    ["Ground Stop Apps", "../home.html#ground-stop-apps", "\u2708"],
+    ["Ground Stop Apps","../home.html#applications","\u2708"],
     ["Favorites", "../favorites.html", "\u2606"],
     ["Reports", "../reports.html", "\u25A4"],
     ["Admin", "./index.html", "\u25C8"]
