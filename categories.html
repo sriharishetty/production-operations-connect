@@ -38,16 +38,7 @@
     <aside class="sidebar">
 
         <div class="sidebar-brand">
-            <img class="sidebar-brand-icon" src="public/sidebar-logo.png" alt="">
-            <div class="sidebar-brand-text">
-            <div class="alaska-logo">
-                Alaska.
-            </div>
-
-            <div class="airlines-text">
-                AIRLINES
-            </div>
-            </div>
+            <span class="sidebar-logo-container"><img class="sidebar-combined-logo" src="public/alaska-oneworld-lockup.svg" alt="Alaska Airlines and oneworld"></span>
         </div>
 
 
@@ -81,7 +72,7 @@
 
 
             <a
-                href="home.html#applications"
+                href="ground-stops.html"
                 class="nav-item"
             >
                 <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 13 7-2 3-8 2 1-1 7 7 2v2l-7 1 1 6-2 1-3-7-7-1z"/></svg></span>
@@ -135,47 +126,23 @@
          MAIN CONTENT
          ===================================================== -->
 
-    <main class="categories-main">
+    <main class="categories-main ias-main-content">
 
 
         <!-- =================================================
              HERO
              ================================================= -->
 
-        <section class="categories-hero">
-
-            <div class="hero-content">
-
-                <div class="hero-eyebrow">
-                    PRODUCTION OPERATIONS
-                </div>
-
-                <h1>
-                    Categories
-                </h1>
-
-                <h2>
-                    Explore the systems behind our operations.
-                </h2>
-
-                <p>
-                    Browse Production Operations systems by
-                    functional area, application family and
-                    operational responsibility.
-                </p>
-
+        <section class="ias-page-hero" aria-labelledby="categories-page-title">
+            <div class="ias-page-hero-copy">
+                <p class="ias-page-hero-eyebrow">PRODUCTION OPERATIONS</p>
+                <h1 id="categories-page-title">Categories</h1>
+                <p class="ias-page-hero-subtitle">Explore the systems behind our operations.</p>
+                <p class="ias-page-hero-description">Browse Production Operations systems by functional area, application family and operational responsibility.</p>
             </div>
-
-
-            <div class="hero-side-text">
-
-                <span>PEOPLE.</span>
-                <span>PLANES.</span>
-                <span>A BRIGHTER</span>
-                <span>TOMORROW.</span>
-
+            <div class="ias-page-hero-slogan" aria-label="People. Planes. A brighter tomorrow.">
+                <span>PEOPLE.</span><span>PLANES.</span><span>A BRIGHTER</span><span>TOMORROW.</span>
             </div>
-
         </section>
 
 
@@ -490,6 +457,7 @@
 
 
     <script src="js/data/master-data.js"></script>
+    <script src="js/ground-stop-app-keys.js"></script>
     <script src="js/categories.js"></script>
 
 </body>

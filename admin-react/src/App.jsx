@@ -112,7 +112,7 @@ const navItems = [
   ["Home", "../home.html", "⌂"],
   ["Vendors", "../vendors.html", "▦"],
   ["Categories", "../categories.html", "▦"],
-  ["Ground Stop Apps", "../home.html#applications", "✈"],
+  ["Ground Stop Apps", "../ground-stops.html", "✈"],
   ["Favorites", "../favorites.html", "☆"],
   ["Reports", "../reports.html", "▤"],
   ["Admin", "./index.html", "◈"]
@@ -183,10 +183,11 @@ function App() {
 
   return <main className="app">
     <aside className="sidebar">
-      <div className="sidebar-brand"><img src="../public/sidebar-logo.png" alt="Alaska Airlines logo" /><div><strong>Alaska.</strong><span>AIRLINES</span></div></div>
+      <div className="sidebar-brand"><span className="sidebar-logo-container"><img className="sidebar-combined-logo" src="../public/alaska-oneworld-lockup.svg" alt="Alaska Airlines and oneworld" /></span></div>
       <div className="sidebar-label">COMMAND CENTER</div>
       <nav>{navItems.map(([label, href, icon]) => <a key={label} href={href} className={isActiveNavigation(href) ? "active" : ""}><span>{icon}</span>{label}{label === "Admin" && <b>LIVE</b>}</a>)}</nav>
       <div className="sidebar-quote">People.<br />Planes.<br />A Brighter<br />Tomorrow.</div>
+        <small className="sidebar-copyright">© 2026 Alaska Airlines<br />All rights reserved.</small>
     </aside>
     <section className="dashboard">
       <header className="command-header">

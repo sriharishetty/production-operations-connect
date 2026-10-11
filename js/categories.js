@@ -358,25 +358,6 @@
     });
 
     /* =====================================================
-       GROUND STOP APPLICATIONS
-       ===================================================== */
-
-    const groundStopApplications = [
-
-        "ACARS",
-        "WAM",
-        "JetPlan",
-        "S4A",
-        "JCTE",
-        "AirTrack",
-        "Pilot Briefing",
-        "Aircraft Maintenance",
-        "AIMS"
-
-    ];
-
-
-    /* =====================================================
        DOM ELEMENTS
        ===================================================== */
 
@@ -548,7 +529,7 @@
 
 
         applicationCount.textContent =
-            masterApplications.length;
+            window.groundStopApplicationKeys.length;
 
     }
 

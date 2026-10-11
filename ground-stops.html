@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Operations | Ground Stop Apps</title>
+    <link rel="icon" type="image/png" href="public/favicon.png">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/airline-theme.css">
+    <link rel="stylesheet" href="css/ground-stops.css">
+    <link rel="stylesheet" href="css/motion.css">
+    <script defer src="js/motion.js"></script>
+    <script defer src="js/sidebar-active.js"></script>
+</head>
+<body class="scroll-shell ground-stops-page">
+    <aside class="sidebar" aria-label="Main navigation">
+        <a class="sidebar-brand" href="home.html" aria-label="Alaska Airlines home">
+            <span class="sidebar-logo-container"><img class="sidebar-combined-logo" src="public/alaska-oneworld-lockup.svg" alt="Alaska Airlines and oneworld"></span>
+        </a>
+        <nav class="sidebar-nav">
+            <a href="home.html" class="nav-item"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><span>Home</span></a>
+            <a href="vendors.html" class="nav-item"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 21h16M6 21V5h12v16M9 8h2m2 0h2M9 12h2m2 0h2M9 16h2m2 0h2M4 5l8-3 8 3"/></svg></span><span>Vendors</span></a>
+            <a href="categories.html" class="nav-item"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16M15 4v16"/></svg></span><span>Categories</span></a>
+            <a href="ground-stops.html" class="nav-item active" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 13 7-2 3-8 2 1-1 7 7 2v2l-7 1 1 6-2 1-3-7-7-1z"/></svg></span><span>Ground Stop Apps</span></a>
+            <a href="favorites.html" class="nav-item"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9z"/></svg></span><span>Favorites</span></a>
+            <a href="reports.html" class="nav-item"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 7h6M9 11h6M9 15h4"/></svg></span><span>Reports</span></a>
+            <a href="admin-react-dist/index.html" class="nav-item"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6zM9 12l2 2 4-4"/></svg></span><span>Admin</span></a>
+        </nav>
+        <div class="sidebar-bottom">
+            <p class="sidebar-quote">People.<br>Planes.<br>A Brighter<br>Tomorrow.</p>
+            <p class="sidebar-copyright">© 2026 Alaska Airlines<br>All rights reserved.</p>
+        </div>
+    </aside>
+
+    <main class="main-content ias-main-content ground-stops-main">
+        <header class="ias-page-hero" aria-labelledby="ground-stops-page-title">
+            <div class="ias-page-hero-copy">
+                <p class="ias-page-hero-eyebrow">PRODUCTION OPERATIONS</p>
+                <h1 id="ground-stops-page-title">Ground Stop Applications</h1>
+                <p class="ias-page-hero-subtitle">Critical systems keeping Alaska Airlines moving.</p>
+                <p class="ias-page-hero-description">Quick access to operational applications, support contacts, response targets, and escalation information.</p>
+            </div>
+            <div class="ias-page-hero-slogan" aria-label="People. Planes. A brighter tomorrow.">
+                <span>PEOPLE.</span><span>PLANES.</span><span>A BRIGHTER</span><span>TOMORROW.</span>
+            </div>
+        </header>
+
+        <section class="ground-stop-stats" aria-label="Ground Stop application summary">
+            <article class="ground-stop-stat-card">
+                <span class="ground-stop-stat-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg></span>
+                <span class="ground-stop-stat-copy"><strong id="groundStopTotalStat">0</strong><span>Ground Stop Applications</span><small>Critical operational systems</small></span>
+            </article>
+            <article class="ground-stop-stat-card">
+                <span class="ground-stop-stat-icon green" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span>
+                <span class="ground-stop-stat-copy"><strong id="groundStopActiveStat">0</strong><span>Active Applications</span><small>All systems operational</small></span>
+            </article>
+            <article class="ground-stop-stat-card">
+                <span class="ground-stop-stat-icon orange" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg></span>
+                <span class="ground-stop-stat-copy"><strong id="groundStopHighSeverityStat">0</strong><span>High Severity</span><small>Requires attention</small></span>
+            </article>
+            <article class="ground-stop-stat-card">
+                <span class="ground-stop-stat-icon sky" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg></span>
+                <span class="ground-stop-stat-copy"><strong id="groundStopAverageSlaStat">Not specified</strong><span>Average Response SLA</span><small>For critical systems</small></span>
+            </article>
+        </section>
+
+        <section class="ground-stop-directory" aria-labelledby="groundStopDirectoryTitle">
+            <header class="ground-stop-directory-header">
+                <div class="ground-stop-directory-heading">
+                    <h2 id="groundStopDirectoryTitle">Ground Stop Applications <span id="groundStopResultCount">(9)</span></h2>
+                    <p>Critical systems for flight operations</p>
+                </div>
+                <div class="ground-stop-directory-toolbar">
+                    <label class="ground-stop-search">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+                        <input id="groundStopSearch" type="search" placeholder="Search application by name or function..." autocomplete="off">
+                    </label>
+                    <div class="ground-stop-view-toggle" role="group" aria-label="Application view">
+                        <button id="groundStopGridButton" type="button" class="active" aria-label="Grid view" aria-pressed="true" title="Grid view"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></button>
+                        <button id="groundStopListButton" type="button" aria-label="List view" aria-pressed="false" title="List view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h12M9 12h12M9 19h12"/><circle cx="4" cy="5" r=".7"/><circle cx="4" cy="12" r=".7"/><circle cx="4" cy="19" r=".7"/></svg></button>
+                    </div>
+                </div>
+            </header>
+            <section class="ground-stop-grid" id="groundStopGrid" aria-label="Ground Stop applications"></section>
+            <div class="ground-stop-empty" id="groundStopEmpty" hidden>
+                <strong>No applications found</strong>
+                <span>Try another name or function.</span>
+            </div>
+        </section>
+    </main>
+
+    <dialog class="ground-stop-dialog" id="groundStopDialog" aria-labelledby="groundStopDialogTitle">
+        <div class="ground-stop-dialog-shell">
+            <header class="ground-stop-dialog-header">
+                <div class="ground-stop-dialog-icon"><img id="groundStopDialogIcon" alt=""></div>
+                <div class="ground-stop-dialog-heading">
+                    <p>APPLICATION DETAILS</p>
+                    <h2 id="groundStopDialogTitle">Application</h2>
+                    <p class="ground-stop-dialog-description" id="groundStopDialogDescription"></p>
+                </div>
+                <div class="ground-stop-dialog-status">
+                    <span class="ground-stop-severity" id="groundStopSeverity"></span>
+                    <span class="ground-stop-operational-status" id="groundStopStatus"></span>
+                    <button class="ground-stop-dialog-close" id="groundStopDialogClose" type="button" aria-label="Close details">×</button>
+                </div>
+            </header>
+            <div class="ground-stop-dialog-tabs" role="tablist" aria-label="Application details">
+                <button type="button" role="tab" id="groundStopTabOverview" aria-controls="groundStopDialogBody" aria-selected="true" tabindex="0" data-detail-tab="overview">Overview</button>
+                <button type="button" role="tab" id="groundStopTabContacts" aria-controls="groundStopDialogBody" aria-selected="false" tabindex="-1" data-detail-tab="contacts">Contacts</button>
+                <button type="button" role="tab" id="groundStopTabSupport" aria-controls="groundStopDialogBody" aria-selected="false" tabindex="-1" data-detail-tab="support">SLA &amp; Support</button>
+                <button type="button" role="tab" id="groundStopTabEscalation" aria-controls="groundStopDialogBody" aria-selected="false" tabindex="-1" data-detail-tab="escalation">Escalation</button>
+                <button type="button" role="tab" id="groundStopTabDocuments" aria-controls="groundStopDialogBody" aria-selected="false" tabindex="-1" data-detail-tab="documents">Documents</button>
+            </div>
+            <main class="ground-stop-dialog-body" id="groundStopDialogBody" role="tabpanel" aria-labelledby="groundStopTabOverview" tabindex="0"></main>
+            <footer class="ground-stop-dialog-footer">
+                <div class="ground-stop-dialog-actions">
+                    <a class="ground-stop-email-action" id="groundStopEmailAction">Send Email</a>
+                    <a class="ground-stop-call-action" id="groundStopCallAction">Call Support</a>
+                    <span class="ground-stop-data-source">DATA SOURCE <strong>Application master data</strong></span>
+                </div>
+                <button class="ground-stop-favorite-action" id="groundStopFavoriteAction" type="button"><span aria-hidden="true">☆</span><span>Add to Favorites</span></button>
+            </footer>
+        </div>
+    </dialog>
+
+    <script src="js/data/master-data.js"></script>
+    <script src="js/ground-stop-app-keys.js"></script>
+    <script src="js/ground-stops.js"></script>
+</body>
+</html>

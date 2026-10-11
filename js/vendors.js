@@ -53,6 +53,9 @@
     const detailSystem =
         document.getElementById("detailSystem");
 
+    const detailSupportedSystems =
+        document.getElementById("detailSupportedSystems");
+
     const detailCategory =
         document.getElementById("detailCategory");
 
@@ -61,6 +64,9 @@
 
     const detailTeam =
         document.getElementById("detailTeam");
+
+    const detailStatusSupport =
+        document.getElementById("detailStatusSupport");
 
     const detailVendorPoc =
         document.getElementById("detailVendorPoc");
@@ -272,18 +278,80 @@
 
     function usableCardValue(value) {
         const text = String(value || "").trim();
-        return text && !/^(?:n\/?a|tbd|none)$/i.test(text)
+        return text && !/^(?:n\/?a|tbd|none|no)$/i.test(text)
             ? text
             : "";
     }
 
 
     function cardContactSummary(value) {
-        return String(value || "")
+        return (Array.isArray(value) ? value.join("\n") : String(value || ""))
             .split(/\r?\n/)
             .map(line => line.trim())
             .filter(usableCardValue)
             .join(" · ");
+    }
+
+
+    const verifiedVendorLogos = Object.freeze({});
+
+
+    function vendorLogo(vendor, company) {
+        const verifiedLogo = verifiedVendorLogos[String(vendor.id || "")];
+
+        if (verifiedLogo) {
+            return {
+                src: verifiedLogo,
+                alt: `${company} logo`
+            };
+        }
+
+        let hash = 0;
+        const identity = company.toLocaleLowerCase();
+
+        for (let index = 0; index < identity.length; index += 1) {
+            hash = (hash * 31 + identity.charCodeAt(index)) >>> 0;
+        }
+
+        const palettes = [
+            { background: "#e8f4fb", foreground: "#155f8c", accent: "#74c5e7" },
+            { background: "#e8f5f1", foreground: "#176a58", accent: "#69c6a6" },
+            { background: "#eef0fb", foreground: "#3d4f93", accent: "#9daaf0" },
+            { background: "#fff3e8", foreground: "#9a5426", accent: "#f0aa70" },
+            { background: "#f1edf8", foreground: "#674b88", accent: "#b7a0d7" }
+        ];
+        const palette = palettes[hash % palettes.length];
+        const mark = initials(company);
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><rect width="96" height="96" rx="20" fill="${palette.background}"/><path d="M12 68c18-22 42-30 72-22v38H12Z" fill="${palette.accent}" opacity=".36"/><circle cx="72" cy="25" r="12" fill="${palette.accent}" opacity=".55"/><text x="48" y="57" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="${palette.foreground}">${mark}</text></svg>`;
+
+        return {
+            src: `data:image/svg+xml,${encodeURIComponent(svg)}`,
+            alt: `${company} monogram placeholder, not an official logo`
+        };
+    }
+
+
+    function contactTarget(value, type) {
+        const text = Array.isArray(value) ? value.join("\n") : String(value || "");
+
+        if (type === "email") {
+            const addresses = [...new Set(
+                text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || []
+            )];
+
+            return addresses.length
+                ? `mailto:${addresses.join(",")}`
+                : "";
+        }
+
+        const numbers = text.match(/\+?\d[\d\s().-]{5,}\d/g) || [];
+        const phone = numbers
+            .map(number => number.trim())
+            .find(number => number.replace(/\D/g, "").length >= 7);
+
+        return phone
+            ? `tel:${phone.replace(/[^\d+]/g, "")}`
+            : "";
     }
 
 
@@ -295,9 +363,9 @@
     }
 
 
-    function supportedSystemCount(vendor) {
+    function supportedSystems(vendor) {
         const company = companyName(vendor).toLocaleLowerCase();
-        const systems = new Set();
+        const systems = new Map();
 
         vendors.forEach(record => {
             if (companyName(record).toLocaleLowerCase() !== company) {
@@ -309,22 +377,16 @@
             );
 
             if (system) {
-                systems.add(system.toLocaleLowerCase());
+                systems.set(system.toLocaleLowerCase(), system);
             }
         });
 
-        return Math.max(systems.size, 1);
+        return [...systems.values()];
     }
 
 
-    function has24x7Support(vendor) {
-        return [
-            vendor.phone,
-            vendor.email,
-            vendor.vendorPoc,
-            vendor.aagItsPoc,
-            vendor.escalation
-        ].some(value => /24\s*(?:x|\/)\s*7/i.test(String(value || "")));
+    function supportedSystemCount(vendor) {
+        return Math.max(supportedSystems(vendor).length, 1);
     }
 
 
@@ -713,6 +775,7 @@
 
                 const company = companyName(vendor);
                 const systemCount = supportedSystemCount(vendor);
+                const logo = vendorLogo(vendor, company);
                 const systemName = usableCardValue(
                     vendor.systemName || vendor.displayName
                 );
@@ -723,47 +786,48 @@
                 );
                 const phone = cardContactSummary(vendor.phone);
                 const email = cardContactSummary(vendor.email);
-                const availability = has24x7Support(vendor)
-                    ? '<span class="vendor-status-badge vendor-status-badge-availability">24x7</span>'
-                    : "";
-                const status = usableCardValue(vendor.status);
-                const statusBadge = status
-                    ? `<span class="vendor-status-badge vendor-status-badge-status">${escapeHtml(status)}</span>`
-                    : "";
+                const phoneTarget = contactTarget(vendor.phone, "phone");
+                const emailTarget = contactTarget(vendor.email, "email");
+                const team = usableCardValue(vendor.aagItsTeam) ||
+                    usableCardValue(vendor.category) ||
+                    "Department not listed";
                 card.innerHTML = `
-                    <header class="vendor-card-heading">
-                        <div class="vendor-card-heading-top">
+                    <header class="vendor-card-header">
+                        <div class="vendor-logo-frame">
+                            <img class="vendor-logo" src="${logo.src}" alt="${escapeHtml(logo.alt)}" loading="lazy">
+                        </div>
+                        <div class="vendor-card-heading">
                             <h3 class="vendor-company-name" title="${escapeHtml(company)}">
                                 ${escapeHtml(company)}
                             </h3>
-                            <div class="vendor-card-badges" aria-label="Support details">
-                                ${availability}${statusBadge}
+                            <div class="vendor-system-count" aria-label="${systemCount} supported ${systemCount === 1 ? "system" : "systems"}">
+                                <span class="vendor-system-count-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="7" height="6.5" rx="1"/><rect x="13.5" y="4" width="7" height="6.5" rx="1"/><rect x="3.5" y="13.5" width="7" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="7" height="6.5" rx="1"/></svg></span>
+                                <strong>${systemCount}</strong>
+                                <span>${systemCount === 1 ? "Supported System" : "Supported Systems"}</span>
                             </div>
+                            <p class="vendor-system-summary">
+                                ${escapeHtml(systemName)}${systemSubtitle && systemSubtitle !== systemName ? ` · ${escapeHtml(systemSubtitle)}` : ""}
+                            </p>
                         </div>
-                        <div class="vendor-system-count" aria-label="${systemCount} supported ${systemCount === 1 ? "system" : "systems"}">
-                            <span class="vendor-system-count-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="7" height="6.5" rx="1"/><rect x="13.5" y="4" width="7" height="6.5" rx="1"/><rect x="3.5" y="13.5" width="7" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="7" height="6.5" rx="1"/></svg></span>
-                            <strong>${systemCount}</strong>
-                            <span>${systemCount === 1 ? "supported system" : "supported systems"}</span>
+                        <div class="vendor-card-badges" aria-label="Vendor status and support availability">
+                            <span class="vendor-status-badge vendor-status-badge-status active"><i aria-hidden="true"></i>Active</span>
+                            <span class="vendor-status-badge vendor-status-badge-availability"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg>24x7</span>
                         </div>
-                        <p class="vendor-system-summary">
-                            ${escapeHtml(systemName)}${systemSubtitle && systemSubtitle !== systemName ? ` · ${escapeHtml(systemSubtitle)}` : ""}
-                        </p>
                     </header>
 
                     <section class="vendor-primary-contact" aria-label="Primary contact">
-                        <span class="vendor-card-label">Primary contact</span>
-                        <p>${primaryContact ? escapeHtml(primaryContact) : '<span class="vendor-contact-missing">No primary contact listed</span>'}</p>
+                        <span class="vendor-card-label"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.4-4 2.7-6 7-6s6.6 2 7 6"/></svg>Primary Contact</span>
+                        <p class="vendor-primary-contact-text">${primaryContact ? escapeHtml(primaryContact) : '<span class="vendor-contact-missing">No primary contact listed</span>'}</p>
                     </section>
 
                     <div class="vendor-card-contacts">
-                        ${phone ? `<div class="vendor-contact-line"><span class="vendor-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 16.4v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.7 2 2 0 0 1 3.1 1.5h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L7 9.2a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7a2 2 0 0 1 2 2.3Z"/></svg></span><span title="${escapeHtml(vendor.phone)}">${escapeHtml(phone)}</span></div>` : ""}
-                        ${email ? `<div class="vendor-contact-line"><span class="vendor-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></span><span title="${escapeHtml(vendor.email)}">${escapeHtml(email)}</span></div>` : ""}
-                    </div>
+                        <div class="vendor-contact-line"><span class="vendor-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 16.4v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.7 2 2 0 0 1 3.1 1.5h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L7 9.2a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7a2 2 0 0 1 2 2.3Z"/></svg></span>${phoneTarget ? `<a href="${escapeHtml(phoneTarget)}">${phone ? escapeHtml(phone) : "Call vendor"}</a>` : `<span>${phone || "Phone not listed"}</span>`}</div>
+                        <div class="vendor-contact-line"><span class="vendor-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></span>${emailTarget ? `<a href="${escapeHtml(emailTarget)}">${email ? escapeHtml(email) : "Email vendor"}</a>` : `<span>${email || "Email not listed"}</span>`}</div>
 
                     <footer class="vendor-card-footer">
-                        <span class="vendor-team" title="${escapeHtml(vendor.aagItsTeam || "")}">${escapeHtml(vendor.aagItsTeam || "")}</span>
+                        <span class="vendor-team" title="${escapeHtml(team)}"><span class="vendor-team-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V7h14v13M9 10h2m2 0h2m-6 4h2m2 0h2M9 20v-3h6v3M8 7V4h8v3"/></svg></span><span>${escapeHtml(team)}</span></span>
                         <button class="vendor-view" type="button" data-index="${originalIndex}">
-                            View Details <span aria-hidden="true">→</span>
+                            View Details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>
                         </button>
                     </footer>
                 `;
@@ -818,6 +882,19 @@
                 vendor.systemName ||
                 vendor.displayName
             );
+
+
+        detailSupportedSystems.innerHTML =
+            displayValue(
+                supportedSystems(vendor).join("\n")
+            );
+
+
+        detailStatusSupport.innerHTML =
+            displayValue([
+                vendor.status,
+                vendor.supportAvailability || vendor.supportSchedule || vendor.supportHours
+            ].filter(Boolean).join("\n") || "No status or support schedule recorded.");
 
 
         detailCategory.innerHTML =

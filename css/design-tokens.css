@@ -20,6 +20,14 @@
     --aag-success: #18794e;
     --aag-warning: #a15c00;
     --aag-danger: #b42335;
+    --aag-sidebar-blue-start: #003B71;
+    --aag-sidebar-blue-mid: #004F88;
+    --aag-sidebar-blue-end: #0067A8;
+    --aag-sidebar-active: #087CE5;
+    --aag-sidebar-active-rail: #57D5FF;
+    --aag-sidebar-text: #FFFFFF;
+    --aag-sidebar-muted: #C3DEEF;
+    --aag-sidebar-hover: rgba(255, 255, 255, .13);
     --aag-radius-sm: 6px;
     --aag-radius-md: 10px;
     --aag-radius-lg: 14px;

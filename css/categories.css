@@ -40,16 +40,7 @@ body {
 
     color: var(--category-text);
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(3, 36, 69, 0.78),
-            rgba(3, 57, 103, 0.35)
-        ),
-        url("../public/images/dashboard-bg.png")
-        center center /
-        cover fixed
-        no-repeat;
+    background: var(--aag-canvas);
 
 }
 
@@ -656,7 +647,6 @@ body {
         blur(18px);
 
 }
-
 
 .directory-header {
 
@@ -1688,7 +1678,7 @@ body {
     .category-grid {
 
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2, minmax(0, 1fr));
 
     }
 

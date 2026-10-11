@@ -23,11 +23,7 @@
     <aside class="sidebar">
 
         <div class="sidebar-brand">
-            <img class="sidebar-brand-icon" src="public/sidebar-logo.png" alt="">
-            <div class="sidebar-brand-text">
-            <div class="alaska-logo">Alaska.</div>
-            <div class="airlines-text">AIRLINES</div>
-            </div>
+            <span class="sidebar-logo-container"><img class="sidebar-combined-logo" src="public/alaska-oneworld-lockup.svg" alt="Alaska Airlines and oneworld"></span>
         </div>
 
         <nav class="sidebar-nav">
@@ -47,7 +43,7 @@
                 <span>Categories</span>
             </a>
 
-            <a href="home.html#applications" class="nav-item">
+            <a href="ground-stops.html" class="nav-item">
                 <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 13 7-2 3-8 2 1-1 7 7 2v2l-7 1 1 6-2 1-3-7-7-1z"/></svg></span>
                 <span>Ground Stop Apps</span>
             </a>
@@ -89,37 +85,19 @@
     <!-- ======================================================
          MAIN CONTENT
          ====================================================== -->
-    <main class="main-content vendors-main">
+    <main class="main-content ias-main-content vendors-main">
 
         <!-- HERO -->
-        <section class="vendors-hero">
-
-            <div class="vendors-hero-content">
-
-                <div class="hero-eyebrow">
-                    PRODUCTION OPERATIONS
-                </div>
-
-                <h1>Vendor Network</h1>
-
-                <h2>
-                    The people and partners behind our operational systems.
-                </h2>
-
-                <p>
-                    Search vendor contacts, escalation paths, support ownership,
-                    and application relationships from the Production Operations
-                    source list.
-                </p>
-
+        <section class="ias-page-hero" aria-labelledby="vendors-page-title">
+            <div class="ias-page-hero-copy">
+                <p class="ias-page-hero-eyebrow">PRODUCTION OPERATIONS</p>
+                <h1 id="vendors-page-title">Vendor Directory</h1>
+                <p class="ias-page-hero-subtitle">Connecting our operations with trusted partners.</p>
+                <p class="ias-page-hero-description">Find vendor profiles, supported systems, primary contacts, and support information in one place.</p>
             </div>
-
-            <div class="vendors-hero-badge">
-                <span>ITS</span>
-                <strong>VENDOR DIRECTORY</strong>
-                <small>Source of truth: 2026 vendor workbook</small>
+            <div class="ias-page-hero-slogan" aria-label="People. Planes. A brighter tomorrow.">
+                <span>PEOPLE.</span><span>PLANES.</span><span>A BRIGHTER</span><span>TOMORROW.</span>
             </div>
-
         </section>
 
 
@@ -335,6 +313,11 @@
                         </div>
 
                         <div class="vendor-detail-card">
+                            <h3>All Supported Systems</h3>
+                            <div id="detailSupportedSystems"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
                             <h3>Category</h3>
                             <div id="detailCategory"></div>
                         </div>
@@ -347,6 +330,11 @@
                         <div class="vendor-detail-card">
                             <h3>AAG ITS Team</h3>
                             <div id="detailTeam"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Status / Support Schedule</h3>
+                            <div id="detailStatusSupport"></div>
                         </div>
 
                     </div>

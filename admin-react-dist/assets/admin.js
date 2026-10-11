@@ -24057,7 +24057,7 @@
     ["Home", "../home.html", "\u2302"],
     ["Vendors", "../vendors.html", "\u25A6"],
     ["Categories", "../categories.html", "\u25A6"],
-    ["Ground Stop Apps", "../home.html#applications", "\u2708"],
+    ["Ground Stop Apps", "../ground-stops.html", "\u2708"],
     ["Favorites", "../favorites.html", "\u2606"],
     ["Reports", "../reports.html", "\u25A4"],
     ["Admin", "./index.html", "\u25C8"]
@@ -24136,13 +24136,7 @@
     if (!email || localStorage.getItem(STORAGE.authenticated) !== "true") return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Login, { onLogin: setEmail });
     return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("main", { className: "app", children: [
       /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("aside", { className: "sidebar", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "sidebar-brand", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("img", { src: "../public/sidebar-logo.png", alt: "Alaska Airlines logo" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: "Alaska." }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "AIRLINES" })
-          ] })
-        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "sidebar-brand", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "sidebar-logo-container", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("img", { className: "sidebar-combined-logo", src: "../public/alaska-oneworld-lockup.svg", alt: "Alaska Airlines and oneworld" }) }) }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "sidebar-label", children: "COMMAND CENTER" }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("nav", { children: navItems.map(([label, href, icon]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("a", { href, className: isActiveNavigation(href) ? "active" : "", children: [
           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: icon }),
@@ -24157,6 +24151,11 @@
           "A Brighter",
           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
           "Tomorrow."
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("small", { className: "sidebar-copyright", children: [
+          "\xA9 2026 Alaska Airlines",
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}),
+          "All rights reserved."
         ] })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("section", { className: "dashboard", children: [

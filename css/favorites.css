@@ -66,15 +66,7 @@ body::before {
 
     z-index: -3;
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(2, 34, 68, .42),
-            rgba(4, 71, 124, .08) 42%,
-            rgba(7, 69, 120, .03)
-        ),
-        url("../public/images/dashboard-bg.png")
-        center center / cover no-repeat;
+    background: none;
 
     transform: scale(1.015);
 }
@@ -2062,28 +2054,7 @@ body::after {
     }
 }
 
-.main-content {
-    margin-left: 230px !important;
-}
-
-@media (max-width: 1250px) {
-    .main-content {
-        margin-left: 205px !important;
-    }
-}
-
-@media (max-width: 1050px) {
-    .main-content {
-        margin-left: 185px !important;
-    }
-}
-
 @media (max-width: 850px) {
-    .main-content {
-        margin-left: 94px !important;
-        padding: 27px 0 25px 0 !important;
-    }
-
     .sidebar-bottom {
         position: absolute !important;
         left: 0 !important;

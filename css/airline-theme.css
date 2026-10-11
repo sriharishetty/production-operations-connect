@@ -7,6 +7,135 @@ body:not(.welcome-page) {
     font-family: var(--aag-font);
 }
 
+.ias-page-hero {
+    position: relative;
+    display: flex;
+    min-height: 220px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    padding: 28px 34px;
+    border: 1px solid rgba(255, 255, 255, .34);
+    border-radius: 24px;
+    background: linear-gradient(105deg, #03325e 0%, #07518f 100%);
+    box-shadow: 0 16px 42px rgba(0, 33, 65, .22);
+    color: #fff;
+}
+
+.ias-page-hero-copy {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    max-width: 850px;
+}
+
+.ias-page-hero-eyebrow {
+    margin: 0 0 8px;
+    color: #c8e8fb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.ias-page-hero h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.08;
+    overflow-wrap: anywhere;
+}
+
+.ias-page-hero-subtitle {
+    margin: 10px 0 0;
+    color: #fff;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.ias-page-hero-description {
+    max-width: 780px;
+    margin: 8px 0 0;
+    color: rgba(255, 255, 255, .88);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.ias-page-hero-slogan {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 0 0 190px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    line-height: 1.2;
+    text-align: right;
+}
+
+@media (max-width: 1050px) {
+    .ias-page-hero {
+        gap: 20px;
+        padding-right: 26px;
+        padding-left: 26px;
+    }
+
+    .ias-page-hero h1 {
+        font-size: 38px;
+    }
+
+    .ias-page-hero-subtitle {
+        font-size: 19px;
+    }
+
+    .ias-page-hero-slogan {
+        flex-basis: 155px;
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+}
+
+@media (max-width: 700px) {
+    .ias-page-hero {
+        min-height: 0;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+        padding: 24px 22px;
+    }
+
+    .ias-page-hero h1 {
+        font-size: 34px;
+    }
+
+    .ias-page-hero-subtitle {
+        font-size: 18px;
+    }
+
+    .ias-page-hero-description {
+        font-size: 13px;
+    }
+
+    .ias-page-hero-slogan {
+        flex-basis: auto;
+        align-items: flex-start;
+        gap: 3px;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-align: left;
+    }
+}
+
 body:not(.welcome-page)::before,
 body:not(.welcome-page)::after {
     display: none;
@@ -26,10 +155,10 @@ body:not(.welcome-page) :focus-visible {
 
 /* Shared navigation */
 body:not(.welcome-page) .sidebar {
-    border: 1px solid var(--aag-border);
+    border: 1px solid rgba(255, 255, 255, .2);
     border-radius: var(--aag-radius-md);
-    background: var(--aag-surface);
-    box-shadow: var(--aag-shadow-sm);
+    background: linear-gradient(180deg, var(--aag-sidebar-blue-start) 0%, var(--aag-sidebar-blue-mid) 55%, var(--aag-sidebar-blue-end) 100%);
+    box-shadow: 0 12px 32px rgba(0, 28, 54, .28), inset 0 1px 0 rgba(255, 255, 255, .12);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
@@ -37,52 +166,61 @@ body:not(.welcome-page) .sidebar {
 body:not(.welcome-page) .sidebar-brand {
     min-height: 116px;
     height: 116px;
-    border-bottom-color: var(--aag-border);
+    border-bottom-color: rgba(255, 255, 255, .18);
 }
 
-body:not(.welcome-page) .sidebar-brand-icon {
-    border-radius: 8px;
+body:not(.welcome-page) .sidebar-logo-container {
+    display: flex;
+    width: 100%;
+    max-width: 190px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 9px 10px;
+    border: 1px solid rgba(255, 255, 255, .82);
+    border-radius: 12px;
+    background: #f4f9fc;
 }
 
-body:not(.welcome-page) .alaska-logo {
-    color: var(--aag-navy);
-    text-shadow: none;
-}
-
-body:not(.welcome-page) .airlines-text {
-    color: var(--aag-navy);
+body:not(.welcome-page) .sidebar-combined-logo {
+    display: block;
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    object-fit: contain;
 }
 
 body:not(.welcome-page) .nav-item {
     min-height: 52px;
-    border-radius: 7px;
-    color: var(--aag-ink);
+    border-radius: 12px;
+    color: var(--aag-sidebar-text);
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 650;
     transition: color .16s ease, background .16s ease, border-color .16s ease;
 }
 
 body:not(.welcome-page) .nav-item:hover {
     transform: none;
-    border-color: transparent;
-    color: var(--aag-navy);
-    background: var(--aag-surface-alt);
+    border-color: rgba(255, 255, 255, .12);
+    color: #fff;
+    background: var(--aag-sidebar-hover);
 }
 
 body:not(.welcome-page) .nav-item.active {
-    border-color: #c4e5f2;
-    color: var(--aag-navy);
-    background: var(--aag-blue-soft);
-    box-shadow: inset 3px 0 var(--aag-sky);
+    border-color: rgba(141, 216, 255, .3);
+    color: #fff;
+    background: var(--aag-sidebar-active);
+    box-shadow: inset 4px 0 var(--aag-sidebar-active-rail), 0 5px 14px rgba(0, 35, 74, .2);
+    font-weight: 750;
 }
 
 body:not(.welcome-page) .nav-item.active .nav-icon {
-    color: var(--aag-blue);
+    color: #fff;
     filter: none;
 }
 
 body:not(.welcome-page) .nav-icon {
-    color: var(--aag-blue);
+    color: #d6efff;
 }
 
 body:not(.welcome-page) .nav-icon svg {
@@ -91,23 +229,38 @@ body:not(.welcome-page) .nav-icon svg {
 }
 
 body:not(.welcome-page) .sidebar-bottom {
-    color: var(--aag-ink);
+    border-top: 1px solid rgba(255, 255, 255, .18);
+    color: #fff;
 }
 
 body:not(.welcome-page) .sidebar-quote,
 body:not(.welcome-page) .sidebar-slogan {
-    color: var(--aag-navy);
+    color: #fff;
     font-family: var(--aag-font);
     font-size: 12px;
-    font-weight: 650;
+    font-weight: 750;
     line-height: 1.45;
     text-shadow: none;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
 }
 
 body:not(.welcome-page) .sidebar-copyright,
 body:not(.welcome-page) .sidebar-line {
-    border-color: var(--aag-border);
-    color: var(--aag-subtle);
+    border-color: rgba(255, 255, 255, .16);
+    color: var(--aag-sidebar-muted);
+}
+
+body:not(.welcome-page) .sidebar-line {
+    display: none;
+}
+
+body:not(.welcome-page) .sidebar :focus-visible {
+    outline-color: var(--aag-sidebar-active-rail);
+}
+
+body:not(.welcome-page) .sidebar-copyright {
+    color: rgba(220, 239, 250, .76);
 }
 
 /* Content canvas and user header */
@@ -117,70 +270,22 @@ body:not(.welcome-page) .categories-main {
     background: transparent;
 }
 
-body:not(.home-page) .main-content,
-body:not(.home-page) .categories-main {
-    padding-top: 14px;
+body:not(.welcome-page) .ias-main-content {
+    box-sizing: border-box;
+    width: auto;
+    max-width: none;
+    min-height: 100vh;
+    margin-left: 214px;
+    padding: 14px 24px 38px;
+}
+
+body:not(.welcome-page) .ias-main-content > :first-child {
+    margin-top: 0;
 }
 
 body:not(.welcome-page) .top-header,
 body:not(.welcome-page) .categories-topbar {
     min-height: 72px;
-}
-
-.home-page .site-welcome-panel {
-    display: flex;
-    width: min(340px, 100%);
-    min-height: 54px;
-    flex: 0 1 340px;
-    align-items: center;
-    gap: 12px;
-    margin-left: auto;
-    padding: 6px 16px 6px 7px;
-    border: 1px solid #c4e5f2;
-    border-radius: var(--aag-radius-sm);
-    color: var(--aag-ink);
-    background: var(--aag-surface);
-    box-shadow: var(--aag-shadow-sm);
-}
-
-.home-page .site-welcome-icon {
-    display: grid;
-    width: 48px;
-    height: 48px;
-    flex: 0 0 48px;
-    place-items: center;
-    border-radius: 50%;
-    color: #fff;
-    background: var(--aag-navy);
-}
-
-.home-page .site-welcome-icon svg {
-    width: 28px;
-    height: 28px;
-    fill: none;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 1.6;
-}
-
-.home-page .site-welcome-copy {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.home-page .site-welcome-copy strong {
-    color: var(--aag-navy);
-    font-size: 15px;
-    font-weight: 800;
-}
-
-.home-page .site-welcome-copy span {
-    color: var(--aag-muted);
-    font-size: 12px;
-    line-height: 1.3;
 }
 
 body:not(.welcome-page) .notification-button {
@@ -583,8 +688,31 @@ body:not(.welcome-page) .reports-footer {
     color: var(--aag-muted);
 }
 
+@media (max-width: 1250px) and (min-width: 1051px) {
+    body:not(.welcome-page) .ias-main-content {
+        margin-left: 190px;
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+}
+
+@media (max-width: 1050px) and (min-width: 851px) {
+    body:not(.welcome-page) .ias-main-content {
+        margin-left: 170px;
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+}
+
 /* Preserve the fixed rail and contained page scrolling on narrower screens. */
 @media (max-width: 850px) {
+    body:not(.welcome-page) .ias-main-content {
+        width: auto;
+        max-width: none;
+        margin-left: 94px;
+        padding: 14px 12px 25px 0;
+    }
+
     body:not(.welcome-page) .sidebar-brand {
         min-height: 80px;
         height: 80px;
@@ -599,44 +727,9 @@ body:not(.welcome-page) .reports-footer {
 }
 
 @media (max-width: 600px) {
-    .home-page .site-welcome-panel {
-        width: min(100%, 340px);
-        min-height: 43px;
-        flex-basis: min(100%, 340px);
-        gap: 8px;
-        padding: 3px 8px 3px 4px;
-    }
-
-    .home-page .site-welcome-icon {
-        width: 36px;
-        height: 36px;
-        flex-basis: 36px;
-    }
-
-    .home-page .site-welcome-icon svg {
-        width: 22px;
-        height: 22px;
-    }
-
-    .home-page .site-welcome-copy strong {
-        font-size: 12px;
-    }
-
-    .home-page .site-welcome-copy span {
-        max-width: 100%;
-        font-size: 10px;
-    }
-
-    body:not(.welcome-page) .main-content,
-    body:not(.welcome-page) .categories-main {
+    body:not(.welcome-page) .ias-main-content {
+        margin-left: 94px;
         padding-right: 10px;
-    }
-
-    body:not(.welcome-page) .vendors-hero-content h1,
-    body:not(.welcome-page) .categories-hero .hero-content h1,
-    body:not(.welcome-page) .favorites-hero .hero-content h1,
-    body:not(.welcome-page) .reports-hero .hero-content h1 {
-        font-size: 29px;
     }
 
     body:not(.welcome-page) .vendor-stats,
