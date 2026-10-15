@@ -14,6 +14,10 @@
 
     <link
         rel="stylesheet"
+        href="css/dashboard.css"
+    >
+    <link
+        rel="stylesheet"
         href="css/favorites.css"
     >
     <link
@@ -380,13 +384,253 @@
         </section>
 
 
+    <!-- ======================================================
+         VENDOR DETAIL MODAL
+         ====================================================== -->
+    <div
+        id="vendorModal"
+        class="vendor-modal"
+        aria-hidden="true"
+    >
+
+        <div class="vendor-modal-window">
+
+            <header class="vendor-modal-header">
+
+                <div
+                    id="vendorModalIcon"
+                    class="vendor-modal-icon"
+                >
+                    V
+                </div>
+
+                <div class="vendor-modal-heading">
+
+                    <div class="vendor-modal-eyebrow">
+                        VENDOR DETAILS
+                    </div>
+
+                    <div class="vendor-modal-title-row">
+
+                        <h2 id="vendorModalTitle">
+                            Vendor
+                        </h2>
+
+                        <span
+                            id="vendorModalCompany"
+                            class="vendor-company-pill"
+                        >
+                            Company
+                        </span>
+
+                    </div>
+
+                    <p id="vendorModalSubtitle">
+                        Production Operations vendor information
+                    </p>
+
+                </div>
+
+                <button
+                    id="vendorModalClose"
+                    class="vendor-modal-close"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </header>
+
+            <div class="vendor-modal-tabs">
+
+                <button class="vendor-modal-tab active" data-tab="overview">
+                    Overview
+                </button>
+
+                <button class="vendor-modal-tab" data-tab="contacts">
+                    Contacts
+                </button>
+
+                <button class="vendor-modal-tab" data-tab="escalation">
+                    Escalation
+                </button>
+
+                <button class="vendor-modal-tab" data-tab="records">
+                    Source Record
+                </button>
+
+            </div>
+
+            <div class="vendor-modal-body">
+
+                <section
+                    class="vendor-tab-panel active"
+                    data-panel="overview"
+                >
+
+                    <div class="vendor-detail-grid">
+
+                        <div class="vendor-detail-card">
+                            <h3>System / Application</h3>
+                            <div id="detailSystem"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>All Supported Systems</h3>
+                            <div id="detailSupportedSystems"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Category</h3>
+                            <div id="detailCategory"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Vendor Company</h3>
+                            <div id="detailCompany"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>AAG ITS Team</h3>
+                            <div id="detailTeam"></div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Status / Support Schedule</h3>
+                            <div id="detailStatusSupport"></div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section
+                    class="vendor-tab-panel"
+                    data-panel="contacts"
+                >
+
+                    <div class="vendor-contact-grid">
+
+                        <div class="vendor-contact-card">
+                            <span>VENDOR POC</span>
+                            <strong id="detailVendorPoc">—</strong>
+                        </div>
+
+                        <div class="vendor-contact-card">
+                            <span>AAG ITS POC</span>
+                            <strong id="detailAagPoc">—</strong>
+                        </div>
+
+                        <div class="vendor-contact-card">
+                            <span>PHONE</span>
+                            <strong id="detailPhone">—</strong>
+                        </div>
+
+                        <div class="vendor-contact-card">
+                            <span>EMAIL</span>
+                            <strong id="detailEmail">—</strong>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section
+                    class="vendor-tab-panel"
+                    data-panel="escalation"
+                >
+
+                    <div class="vendor-detail-card vendor-escalation-card">
+
+                        <h3>
+                            ProdOps Escalation Process
+                        </h3>
+
+                        <pre id="detailEscalation">—</pre>
+
+                    </div>
+
+                </section>
+
+                <section
+                    class="vendor-tab-panel"
+                    data-panel="records"
+                >
+
+                    <div class="vendor-detail-grid">
+
+                        <div class="vendor-detail-card">
+                            <h3>Source Excel Row</h3>
+                            <div id="detailSourceRow">—</div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Info Updated Date</h3>
+                            <div id="detailUpdatedDate">—</div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Info Updated By</h3>
+                            <div id="detailUpdatedBy">—</div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Info Approved Date</h3>
+                            <div id="detailApprovedDate">—</div>
+                        </div>
+
+                        <div class="vendor-detail-card">
+                            <h3>Info Approved By</h3>
+                            <div id="detailApprovedBy">—</div>
+                        </div>
+
+                    </div>
+
+                    <div class="source-note">
+                        This vendor directory is generated from the
+                        <strong>ITS Application Vendors</strong> worksheet
+                        supplied for Production Operations.
+                    </div>
+
+                </section>
+
+            </div>
+
+            <footer class="vendor-modal-footer">
+
+                <button
+                    id="vendorEmailButton"
+                    class="vendor-action primary"
+                    type="button"
+                >
+                    ✉ Send Email
+                </button>
+
+                <button
+                    id="vendorCallButton"
+                    class="vendor-action secondary"
+                    type="button"
+                >
+                    ☎ Call Vendor
+                </button>
+
+                <button
+                    id="vendorFavoriteButton"
+                    class="vendor-action favorite"
+                    type="button"
+                >
+                    ☆ Add to Favorites
+                </button>
+
+            </footer>
+
+        </div>
+
+    </div>
+
     </main>
 
-
-
-    <!-- =========================================================
-         JAVASCRIPT
-         ========================================================= -->
 
     <script src="js/data/master-data.js"></script>
     <script src="js/favorites.js"></script>

@@ -15,7 +15,7 @@
     <script defer src="js/sidebar-active.js"></script>
     <script defer src="js/favorites.js"></script>
 </head>
-<body class="scroll-shell home-page">
+<body class="scroll-shell">
     <aside class="sidebar" aria-label="Main navigation">
         <a class="sidebar-brand" href="home.html" aria-label="Alaska Airlines home">
             <span class="sidebar-logo-container"><img class="sidebar-combined-logo" src="public/alaska-oneworld-lockup.svg" alt="Alaska Airlines and oneworld"></span>
@@ -59,16 +59,19 @@
     </aside>
 
     <main class="main-content ias-main-content">
-        <section class="hero-section" aria-labelledby="home-heading">
-            <div class="hero-copy">
-                <p class="hero-eyebrow">PRODUCTION OPERATIONS CONNECT</p>
-                <h1 id="home-heading">Stronger Together.</h1>
-                <p class="hero-subtitle">Everything your operations team needs, connected.</p>
-                <p class="hero-intro">Production Operations Connect brings operational applications, vendor contacts, support information, and essential resources together in one place.</p>
+        <section class="ias-page-hero" aria-labelledby="home-page-title">
+            <div class="ias-page-hero-copy">
+                <p class="ias-page-hero-eyebrow">PRODUCTION OPERATIONS CONNECT</p>
+                <h1 id="home-page-title">Stronger Together.</h1>
+                <p class="ias-page-hero-subtitle">Everything your operations team needs, connected.</p>
+                <p class="ias-page-hero-description">Production Operations Connect brings operational applications, vendor contacts, support information, and essential resources together in one place.</p>
                 <div class="hero-actions">
                     <a class="button button-primary" href="vendors.html">Explore Vendors <span aria-hidden="true">→</span></a>
                     <a class="button button-secondary" href="ground-stops.html">Ground Stop Apps <span aria-hidden="true">↗</span></a>
                 </div>
+            </div>
+            <div class="ias-page-hero-slogan" aria-label="People. Planes. A brighter tomorrow.">
+                <span>PEOPLE.</span><span>PLANES.</span><span>A BRIGHTER</span><span>TOMORROW.</span>
             </div>
         </section>
 
@@ -86,25 +89,25 @@
                     <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg></span>
                     <h3>Connected Systems</h3>
                     <p>Find operational applications and supporting platforms in one directory.</p>
-                    <span class="feature-index">01</span>
+                    <span class="feature-badge" id="count-connected-systems" aria-hidden="true"></span>
                 </article>
                 <article class="feature-card">
                     <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 21h16M6 21V5h12v16M9 8h2m2 0h2M9 12h2m2 0h2M9 16h2m2 0h2M4 5l8-3 8 3"/></svg></span>
                     <h3>Vendor Directory</h3>
                     <p>Locate vendor profiles, contacts, and support information.</p>
-                    <span class="feature-index">02</span>
+                    <span class="feature-badge" id="count-vendor-directory" aria-hidden="true"></span>
                 </article>
                 <article class="feature-card">
-                    <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9z"/></svg></span>
-                    <h3>Your Favorites</h3>
-                    <p>Keep saved applications and vendors close at hand.</p>
-                    <span class="feature-index">03</span>
+                    <span class="feature-badge" id="count-categories" aria-hidden="true"></span>
+                    <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16M15 4v16"/></svg></span>
+                    <h3>Categories</h3>
+                    <p>Browse systems grouped by operational area.</p>
                 </article>
                 <article class="feature-card">
                     <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 14h17M8 15l4-4 3 2 5-6"/><path d="M16 7h4v4"/></svg></span>
                     <h3>Operational Insights</h3>
                     <p>Explore available reports and operational views.</p>
-                    <span class="feature-index">04</span>
+                    
                 </article>
             </div>
         </section>
@@ -128,5 +131,7 @@
 
         <footer class="page-footer">Production Operations Connect <span>·</span> Alaska Airlines</footer>
     </main>
+    <script src="js/data/master-data.js"></script>
+    <script src="js/home.js"></script>
 </body>
 </html>
